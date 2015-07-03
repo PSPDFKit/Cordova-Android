@@ -13,10 +13,26 @@
 
 var exec = require('cordova/exec');
 
+/**
+ * Opens the PSPDFKitActivity to show a document from the local device file system.
+ *
+ * @param uri     The local filesystem URI of the document to show.
+ * @param success Success callback function.
+ * @param error   Error callback function.
+ */
 exports.showDocument = function (uri, success, error) {
     exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [uri]);
 };
 
+/**
+ * Opens the PSPDFKitActivity to show a document from the app's assets folder. This
+ * method copies the file to the internal app directory on the device before showing
+ * it.
+ *
+ * @param assetFile Relative path within the app's assets folder.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
 exports.showDocumentFromAssets = function (assetFile, success, error) {
     exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [assetFile]);
 };
