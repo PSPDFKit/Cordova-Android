@@ -1,6 +1,6 @@
 /*
  * ExtractAssetTask.java
- * 
+ *
  *   PSPDFKit
  *
  *   Copyright (c) 2015 PSPDFKit GmbH. All rights reserved.
@@ -11,7 +11,7 @@
  *   This notice may not be removed from this file.
  */
 
-package com.pspdfkit.pspdfcatalog.tasks;
+package com.pspdfkit.cordova;
 
 import android.content.Context;
 import android.os.AsyncTask;

@@ -38,6 +38,12 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPlugin.java"
                      target-dir="src/com/pspdfkit/cordova"/>
 
+        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPluginException.java"
+                     target-dir="src/com/pspdfkit/cordova"/>
+
+        <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java"
+                     target-dir="src/com/pspdfkit/cordova"/>
+        
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
 
         <config-file parent="/*" target="res/xml/config.xml">
