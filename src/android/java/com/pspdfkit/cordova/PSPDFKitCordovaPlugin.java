@@ -41,7 +41,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         licenseKey = cordova.getActivity().getApplicationInfo().metaData.getString(METADATA_LICENSE_KEY, null);
 
         if (TextUtils.isEmpty(licenseKey)) {
-            throw new PSPDFKitCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data name=\"PSPDFKIT_LICENSE_KEY\" value=\"...\"> to your AndroidManifest.xml.");
+            throw new PSPDFKitCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"PSPDFKIT_LICENSE_KEY\" android:value=\"...\"> to your AndroidManifest.xml.");
         }
 
         try {
