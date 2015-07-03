@@ -1,0 +1,33 @@
+/*
+ * pspdfkit.gradle
+ *
+ *   PSPDFKit
+ *
+ *   Copyright (c) 2015 PSPDFKit GmbH. All rights reserved.
+ *
+ *   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
+ *   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
+ *   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
+ *   This notice may not be removed from this file.
+ */
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+def pspdfkitAarFiles = new FileNameFinder().getFileNames(new File(project.projectDir, 'libs').absolutePath, '*.aar')
+
+if(pspdfkitAarFiles.isEmpty()) {
+    throw new MissingResourceException("The PSPDFKit aar file required by the PSPDFKit-Android Cordova plugin is missing. Please place this file into 'platforms/android/libs/' before building your app.");
+}
+
+if(new File(project.projectDir, 'libs'))
+dependencies {
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'io.reactivex:rxjava:1.0.8'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    compile 'com.pspdfkit:pspdfkit:+@aar'
+}
