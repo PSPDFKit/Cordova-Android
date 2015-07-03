@@ -16,8 +16,7 @@ This plugin defines a global `PSPDFKit` object, which provides an API for viewin
 
 ## Installation
 
-	cordova plugin add pspdfkit-cordova-android
-	
+	cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git	
 ## Example
 
 	function showMyDocument() {
