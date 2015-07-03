@@ -76,6 +76,12 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         callbackContext.success();
     }
 
+    /**
+     * Starts the {@link PSPDFKitActivity} to show a single document stored within the app's assets.
+     *
+     * @param assetPath       Relative path inside the app's assets folder.
+     * @param callbackContext Cordova callback.
+     */
     private void showDocumentFromAssets(@NonNull String assetPath, final CallbackContext callbackContext) {
         ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
             @Override
