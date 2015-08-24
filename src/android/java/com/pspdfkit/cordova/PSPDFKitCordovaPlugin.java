@@ -82,12 +82,16 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
      * @param assetPath       Relative path inside the app's assets folder.
      * @param callbackContext Cordova callback.
      */
-    private void showDocumentFromAssets(@NonNull String assetPath, final CallbackContext callbackContext) {
+    private void showDocumentFromAssets(@NonNull final String assetPath, final CallbackContext callbackContext) {
         ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
             @Override
             public void onDocumentExtracted(File documentFile) {
-                showDocumentForUri(Uri.fromFile(documentFile));
-                callbackContext.success();
+                if(documentFile != null) {
+                    showDocumentForUri(Uri.fromFile(documentFile));
+                    callbackContext.success();
+                } else {
+                    callbackContext.error("Could not load '" + assetPath + "' from the assets.");
+                }
             }
         });
     }
