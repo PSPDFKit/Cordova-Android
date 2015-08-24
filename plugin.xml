@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!--
-  ~ PSPDFKitCordovaPluginException.java
+  ~ plugin.xml
   ~
   ~   PSPDFKit
   ~
@@ -35,10 +35,10 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
     </js-module>
 
     <platform name="android">
-        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPlugin.java"
+        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFCordovaPlugin.java"
                      target-dir="src/com/pspdfkit/cordova"/>
 
-        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPluginException.java"
+        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFCordovaPluginException.java"
                      target-dir="src/com/pspdfkit/cordova"/>
 
         <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java"
@@ -47,14 +47,14 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
 
         <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="PSPDFKitCordovaPlugin">
-                <param name="android-package" value="com.pspdfkit.cordova.PSPDFKitCordovaPlugin"/>
+            <feature name="PSPDFCordovaPlugin">
+                <param name="android-package" value="com.pspdfkit.cordova.PSPDFCordovaPlugin"/>
             </feature>
         </config-file>
 
         <config-file parent="/*/application" target="AndroidManifest.xml" after="activity">
-            <activity android:name="com.pspdfkit.ui.PSPDFKitActivity" android:windowSoftInputMode="adjustNothing"/>
-            <activity android:name="com.pspdfkit.ui.PSPDFKitAppCompatActivity"
+            <activity android:name="com.pspdfkit.ui.PSPDFActivity" android:windowSoftInputMode="adjustNothing"/>
+            <activity android:name="com.pspdfkit.ui.PSPDFAppCompatActivity"
                       android:windowSoftInputMode="adjustNothing"/>
         </config-file>
     </platform>

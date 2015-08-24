@@ -1,4 +1,4 @@
-<!-- 
+<!--
  # README.md
  #
  #   PSPDFKit
@@ -16,19 +16,19 @@ This plugin defines a global `PSPDFKit` object, which provides an API for viewin
 
 ## Installation
 
-	cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git	
+	cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
 ## Example
 
 	function showMyDocument() {
 		PSPDFKit.showDocumentFromAssets('www/documents/myFile.pdf');
 	}
-	
+
 ## PSPDFKit.showDocument
 
 Opens a document from the local device storage.
 
 	PSPDFKit.showDocument(uri, success, fail)
-	
+
 ## PSPDFKit.showDocumentFromAssets
 
 Opens a document from the app's asset directory. To package a file within your app's assets, put it into the `www/` directory of your project.
@@ -55,11 +55,11 @@ Add Android platform support to your project:
 Install the PSPDFKit plugin:
 
 	$ cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
-	
-Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`) into your project. This example uses version `1.2.2` of the PSPDFKit library. The current working directory has to be your project directory:
 
-	$ cp /path/to/pspdfkit-1.2.2.aar platforms/android/libs/
-	
+Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`) into your project. This example uses version `1.3.0` of the PSPDFKit library. The current working directory has to be your project directory:
+
+	$ cp /path/to/pspdfkit-1.3.0.aar platforms/android/libs/
+
 Set the minimum SDK version of your Android application to 15. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
 
 	<platform name="android">
@@ -74,7 +74,7 @@ Configure your PSPDFKit license key inside the `platforms/android/AndroidManifes
 			<meta-data android:name="PSPDFKIT_LICENSE_KEY" android:value="..." />
 		</application>
 	</manifest>
-		
+
 You are now ready to build your app!
 
 	$ cordova build

@@ -1,5 +1,5 @@
 /*
- * PSPDFKitCordovaPlugin.java
+ * PSPDFCordovaPlugin.java
  *
  *   PSPDFKit
  *
@@ -13,12 +13,13 @@
 
 package com.pspdfkit.cordova;
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import com.pspdfkit.PSPDFKit;
-import com.pspdfkit.configuration.activity.PSPDFKitActivityConfiguration;
-import com.pspdfkit.ui.PSPDFKitActivity;
+import com.pspdfkit.configuration.activity.PSPDFActivityConfiguration;
+import com.pspdfkit.ui.PSPDFActivity;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -28,7 +29,7 @@ import org.json.JSONException;
 
 import java.io.File;
 
-public class PSPDFKitCordovaPlugin extends CordovaPlugin {
+public class PSPDFCordovaPlugin extends CordovaPlugin {
 
     private static final String METADATA_LICENSE_KEY = "PSPDFKIT_LICENSE_KEY";
 
@@ -46,13 +47,13 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         }
 
         if (TextUtils.isEmpty(licenseKey)) {
-            throw new PSPDFKitCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"PSPDFKIT_LICENSE_KEY\" android:value=\"...\"> to your AndroidManifest.xml.");
+            throw new PSPDFCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"PSPDFKIT_LICENSE_KEY\" android:value=\"...\"> to your AndroidManifest.xml.");
         }
 
         try {
             PSPDFKit.initialize(cordova.getActivity(), licenseKey);
         } catch (Exception ex) {
-            throw new PSPDFKitCordovaPluginException("Error while initializing PSPDFKit", ex);
+            throw new PSPDFCordovaPluginException("Error while initializing PSPDFKit", ex);
         }
     }
 
@@ -71,7 +72,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     }
 
     /**
-     * Starts the {@link PSPDFKitActivity} to show a single document.
+     * Starts the {@link PSPDFActivity} to show a single document.
      *
      * @param documentUri     Local filesystem Uri pointing to a document.
      * @param callbackContext Cordova callback.
@@ -82,7 +83,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     }
 
     /**
-     * Starts the {@link PSPDFKitActivity} to show a single document stored within the app's assets.
+     * Starts the {@link PSPDFActivity} to show a single document stored within the app's assets.
      *
      * @param assetPath       Relative path inside the app's assets folder.
      * @param callbackContext Cordova callback.
@@ -102,6 +103,6 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     }
 
     private void showDocumentForUri(Uri uri) {
-        PSPDFKitActivity.showDocument(cordova.getActivity(), uri, new PSPDFKitActivityConfiguration.Builder(cordova.getActivity(), licenseKey).build());
+        PSPDFActivity.showDocument(cordova.getActivity(), uri, new PSPDFActivityConfiguration.Builder(cordova.getActivity(), licenseKey).build());
     }
 }

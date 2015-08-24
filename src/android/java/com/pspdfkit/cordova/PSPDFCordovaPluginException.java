@@ -1,5 +1,5 @@
 /*
- * PSPDFKitCordovaPluginException.java
+ * PSPDFCordovaPluginException.java
  *
  *   PSPDFKit
  *
@@ -13,20 +13,20 @@
 
 package com.pspdfkit.cordova;
 
-public class PSPDFKitCordovaPluginException extends RuntimeException {
+public class PSPDFCordovaPluginException extends RuntimeException {
 
-    public PSPDFKitCordovaPluginException() {
+    public PSPDFCordovaPluginException() {
     }
 
-    public PSPDFKitCordovaPluginException(String detailMessage) {
+    public PSPDFCordovaPluginException(String detailMessage) {
         super(detailMessage);
     }
 
-    public PSPDFKitCordovaPluginException(String detailMessage, Throwable throwable) {
+    public PSPDFCordovaPluginException(String detailMessage, Throwable throwable) {
         super(detailMessage, throwable);
     }
 
-    public PSPDFKitCordovaPluginException(Throwable throwable) {
+    public PSPDFCordovaPluginException(Throwable throwable) {
         super(throwable);
     }
 }
