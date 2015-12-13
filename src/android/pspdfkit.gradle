@@ -23,7 +23,6 @@ if(pspdfkitAarFiles.isEmpty()) {
     throw new MissingResourceException("The PSPDFKit aar file required by the PSPDFKit-Android Cordova plugin is missing. Please place this file into 'platforms/android/libs/' before building your app.");
 }
 
-if(new File(project.projectDir, 'libs'))
 dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'io.reactivex:rxjava:1.0.8'
