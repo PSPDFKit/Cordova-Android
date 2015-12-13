@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ plugin.xml
+  ~
+  ~   PSPDFKit
+  ~
+  ~   Copyright (c) 2015 PSPDFKit GmbH. All rights reserved.
+  ~
+  ~   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
+  ~   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
+  ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
+  ~   This notice may not be removed from this file.
+-->
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="pspdfkit-cordova-android-tests"
+        version="1.0.2-dev">
+    <name>PSPDFKit-Android Tests</name>
+    <license>MIT</license>
+
+    <js-module src="tests.js" name="tests">
+    </js-module>
+</plugin>
