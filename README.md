@@ -10,7 +10,8 @@
  #   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
  #   This notice may not be removed from this file.
  # -->
-# Cordova Wrapper for PSPDFKit for Android 2
+# Cordova Wrapper for PSPDFKit 2 for Android
+============================================
 
 This plugin defines a global `PSPDFKit` object, which provides an API for viewing PDF documents with PSPDFKit for Android.
 
