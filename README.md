@@ -54,7 +54,7 @@ PSPDFKit.showDocumentFromAssets(assetPath, options, success, fail)
 
 ## Options
 
-You can use the `options` parameter to configure PSPDFKit. Here is a list of valid configuration options.
+You can use the `options` parameter to configure PSPDFKit. Here is a list of valid configuration options. You can omit option entries to use their default value, or pass in an empty options object `{}` to keep all default settings.
 
 ```javascript
 var options {
