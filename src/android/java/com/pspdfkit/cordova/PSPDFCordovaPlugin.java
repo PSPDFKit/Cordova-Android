@@ -27,7 +27,6 @@ import com.pspdfkit.configuration.annotations.AnnotationEditingConfiguration;
 import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
 import com.pspdfkit.ui.PSPDFActivity;
-import com.pspdfkit.ui.PSPDFAppCompatActivity;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -54,7 +53,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
 
         try {
             licenseKey = cordova.getActivity().getPackageManager().getApplicationInfo(cordova.getActivity().getPackageName(),
-                PackageManager.GET_ACTIVITIES | PackageManager.GET_META_DATA).metaData.getString(METADATA_LICENSE_KEY, null);
+                PackageManager.GET_META_DATA).metaData.getString(METADATA_LICENSE_KEY, null);
         } catch (PackageManager.NameNotFoundException e) {
             throw new PSPDFCordovaPluginException("Error while reading PSPDFKit license from AndroidManifest.xml", e);
         }
@@ -219,8 +218,6 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
     }
 
     private void showDocumentForUri(@NonNull Uri uri, @NonNull final PSPDFActivityConfiguration configuration) {
-        PSPDFAppCompatActivity.showDocument(cordova.getActivity(), uri, configuration);
+        PSPDFActivity.showDocument(cordova.getActivity(), uri, configuration);
     }
-
-
 }
