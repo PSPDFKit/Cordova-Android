@@ -4,7 +4,7 @@
   ~
   ~   PSPDFKit
   ~
-  ~   Copyright (c) 2015 PSPDFKit GmbH. All rights reserved.
+  ~   Copyright (c) 2015-2016 PSPDFKit GmbH. All rights reserved.
   ~
   ~   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
   ~   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
@@ -53,7 +53,7 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         </config-file>
 
         <config-file parent="/*/application" target="AndroidManifest.xml" after="activity">
-            <activity android:name="com.pspdfkit.ui.PSPDFActivity" 
+            <activity android:name="com.pspdfkit.ui.PSPDFActivity"
                       android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
                       android:windowSoftInputMode="adjustNothing"/>
         </config-file>
