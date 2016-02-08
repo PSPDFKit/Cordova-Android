@@ -25,15 +25,20 @@ exports.defineAutoTests = function () {
             it('should exist', function () {
                 expect(window.PSPDFKit.showDocumentFromAssets).toBeDefined();
             });
-
-            it('should open a document from assets', function(done) {
-                window.PSPDFKit.showDocumentFromAssets("www/Guide.pdf", function() {
-                    done();
-                }, function(error) {
-                    done(error);
-                });
-            })
         });
+    });
+};
 
+exports.defineManualTests = function(contentEl, createActionButton) {
+
+    createActionButton('Open Document', function() {
+        var asset = 'www/Guide.pdf';
+
+        console.log('Opening document ' + asset);
+        window.PSPDFKit.showDocumentFromAssets(asset, {}, function() {
+            console.log("Document was successfully loaded.");
+        }, function(error) {
+            console.log('Error while loading the document:' + error)
+        });
     });
 };
