@@ -24,11 +24,11 @@ This plugin defines a global `PSPDFKit` object, which provides an API for viewin
 ```javascript
 function showMyDocument() {
 	PSPDFKit.showDocumentFromAssets('www/documents/myFile.pdf', {
-			title: 'My PDF Document',
-			page: 4,
-			scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
-			scrollMode: PSPDFKit.PageScrollMode.CONTINUOUS,
-			useImmersiveMode: true
+		title: 'My PDF Document',
+		page: 4,
+		scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+		scrollMode: PSPDFKit.PageScrollMode.CONTINUOUS,
+		useImmersiveMode: true
 	});
 }
 ```
