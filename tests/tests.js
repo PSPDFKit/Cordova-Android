@@ -18,13 +18,36 @@ exports.defineAutoTests = function () {
             it('should exist', function () {
                 expect(window.PSPDFKit.showDocument).toBeDefined();
             });
-
         });
 
         describe('showDocumentFromAssets', function() {
             it('should exist', function () {
                 expect(window.PSPDFKit.showDocumentFromAssets).toBeDefined();
             });
+        });
+
+        describe('ScrollMode', function() {
+          it('should exist', function () {
+              expect(window.PSPDFKit.ScrollMode).toBeDefined();
+          });
+        });
+
+        describe('PageFitMode', function() {
+          it('should exist', function () {
+              expect(window.PSPDFKit.PageFitMode).toBeDefined();
+          });
+        });
+
+        describe('PageScrollDirection', function() {
+          it('should exist', function () {
+              expect(window.PSPDFKit.PageScrollDirection).toBeDefined();
+          });
+        });
+
+        describe('SearchType', function() {
+          it('should exist', function () {
+              expect(window.PSPDFKit.SearchType).toBeDefined();
+          });
         });
     });
 };
