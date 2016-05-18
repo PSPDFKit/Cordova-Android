@@ -26,6 +26,7 @@ import com.pspdfkit.configuration.activity.PSPDFActivityConfiguration;
 import com.pspdfkit.configuration.annotations.AnnotationEditingConfiguration;
 import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
+import com.pspdfkit.configuration.page.PageScrollMode;
 import com.pspdfkit.ui.PSPDFActivity;
 
 import org.apache.cordova.CallbackContext;
@@ -117,6 +118,8 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
                     builder.fitMode(PageFitMode.valueOf((String) value));
                 } else if ("scrollDirection".equals(option)) {
                     builder.scrollDirection(PageScrollDirection.valueOf((String) value));
+                } else if ("scrollMode".equals(option)) {
+                    builder.scrollMode(PageScrollMode.valueOf((String) value));
                 } else if ("invertColors".equals(option)) {
                     builder.invertColors((Boolean) value);
                 } else if ("toGrayscale".equals(option)) {

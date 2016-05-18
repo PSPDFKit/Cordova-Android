@@ -42,6 +42,21 @@ exports.showDocumentFromAssets = function (assetFile, options, success, error) {
 };
 
 /**
+ * Constant values used for setting the `scrollMode` option.
+ */
+exports.ScrollMode = {
+  /**
+   * Paginated scrolling, will always snap to a page when user stops dragging or flinging.
+   */
+  PER_PAGE: "PER_PAGE",
+
+  /**
+   * Continuous/smooth scrolling, will stop in whatever position the user stopped dragging.
+   */
+  CONTINUOUS: "CONTINUOUS"
+};
+
+/**
  * Constant values used for setting the 'pageFitMode' option.
  */
 exports.PageFitMode = {
