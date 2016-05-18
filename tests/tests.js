@@ -64,4 +64,23 @@ exports.defineManualTests = function(contentEl, createActionButton) {
             console.log('Error while loading the document:' + error)
         });
     });
+
+    createActionButton('Vertical continuous scrolling', function() {
+        var asset = 'www/Guide.pdf';
+        var options = {
+        	scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+        	scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
+        	title: "Custom Title",
+        	page: 2,
+        	useImmersiveMode: true
+        };
+
+        console.log('Opening document ' + asset);
+
+        window.PSPDFKit.showDocumentFromAssets(asset, options, function() {
+            console.log("Document was successfully loaded.");
+        }, function(error) {
+            console.log('Error while loading the document:' + error)
+        });
+    });
 };
