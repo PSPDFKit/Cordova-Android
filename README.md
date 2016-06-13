@@ -27,7 +27,7 @@ function showMyDocument() {
 		title: 'My PDF Document',
 		page: 4,
 		scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
-		scrollMode: PSPDFKit.PageScrollMode.CONTINUOUS,
+		scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
 		useImmersiveMode: true
 	});
 }
@@ -67,7 +67,7 @@ var options {
 	hideThumbnailGrid: false, // hide the thumbnail grid menu (default: false)
 	pageFitMode: PSPDFKit.PageFitMode.FIT_TO_WIDTH, // also valid: PSPDFKit.PageFitMode.FIT_TO_SCREEN
 	scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL, // also valid: PSPDFKit.PageScrollDirection.HORIZONTAL
-	scrollMode: PSPDFKit.PageScrollMode.CONTINUOUS, // also valid: PSPDFKit.PageScrollMode.PER_PAGE
+	scrollMode: PSPDFKit.ScrollMode.CONTINUOUS, // also valid: PSPDFKit.ScrollMode.PER_PAGE
 	invertColors: false, // invert rendered colors (default: false)
 	toGrayscale: true, // render document in grayscale only (default: false)
 	loggingEnabled: false, // let PSPDFKit generate warning or debugging logs (default: true)
@@ -110,7 +110,7 @@ Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`) into your proj
 
 	$ cp /path/to/pspdfkit-2.x.x.aar platforms/android/libs/
 
-Set the minimum SDK version of your Android application to 15. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
+Set the minimum SDK version of your Android application to 16. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
 
 	<platform name="android">
         <preference name="android-minSdkVersion" value="16" />
