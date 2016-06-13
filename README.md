@@ -27,7 +27,7 @@ function showMyDocument() {
 		title: 'My PDF Document',
 		page: 4,
 		scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
-		scrollMode: PSPDFKit.PageScrollMode.CONTINUOUS,
+		scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
 		useImmersiveMode: true
 	});
 }
@@ -67,7 +67,7 @@ var options {
 	hideThumbnailGrid: false, // hide the thumbnail grid menu (default: false)
 	pageFitMode: PSPDFKit.PageFitMode.FIT_TO_WIDTH, // also valid: PSPDFKit.PageFitMode.FIT_TO_SCREEN
 	scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL, // also valid: PSPDFKit.PageScrollDirection.HORIZONTAL
-	scrollMode: PSPDFKit.PageScrollMode.CONTINUOUS, // also valid: PSPDFKit.PageScrollMode.PER_PAGE
+	scrollMode: PSPDFKit.ScrollMode.CONTINUOUS, // also valid: PSPDFKit.ScrollMode.PER_PAGE
 	invertColors: false, // invert rendered colors (default: false)
 	toGrayscale: true, // render document in grayscale only (default: false)
 	loggingEnabled: false, // let PSPDFKit generate warning or debugging logs (default: true)
