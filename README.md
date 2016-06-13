@@ -110,7 +110,7 @@ Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`) into your proj
 
 	$ cp /path/to/pspdfkit-2.x.x.aar platforms/android/libs/
 
-Set the minimum SDK version of your Android application to 15. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
+Set the minimum SDK version of your Android application to 16. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
 
 	<platform name="android">
         <preference name="android-minSdkVersion" value="16" />
