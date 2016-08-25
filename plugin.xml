@@ -11,7 +11,7 @@
   ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
   ~   This notice may not be removed from this file.
 -->
-<plugin id="pspdfkit-cordova-android" version="2.3.3" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin id="pspdfkit-cordova-android" version="2.5.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>PSPDFKit-Android</name>
     <description>Integration of the PSPDFKit for Android library.</description>
@@ -44,6 +44,8 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java"
                      target-dir="src/com/pspdfkit/cordova"/>
 
+        <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml" />
+
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
 
         <config-file parent="/*" target="res/xml/config.xml">
@@ -54,7 +56,7 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
 
         <config-file parent="/*/application" target="AndroidManifest.xml" after="activity">
             <activity android:name="com.pspdfkit.ui.PSPDFActivity"
-                      android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+                      android:theme="@style/PSPDFKit.Theme"
                       android:windowSoftInputMode="adjustNothing"/>
         </config-file>
     </platform>

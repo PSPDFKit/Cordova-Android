@@ -15,12 +15,16 @@ package com.pspdfkit.cordova;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.ComponentName;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.ContextThemeWrapper;
 
+import com.pspdfkit.R;
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.configuration.activity.PSPDFActivityConfiguration;
 import com.pspdfkit.configuration.annotations.AnnotationEditingConfiguration;
@@ -88,7 +92,17 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
     @SuppressWarnings("ConstantConditions")
     @NonNull private PSPDFActivityConfiguration parseOptionsToConfiguration(@NonNull final JSONObject options) throws JSONException {
         final Activity activity = cordova.getActivity();
-        final PSPDFActivityConfiguration.Builder builder = new PSPDFActivityConfiguration.Builder(activity, licenseKey);
+        int theme;
+
+        try {
+            ActivityInfo info = activity.getPackageManager().getActivityInfo(new ComponentName(activity, PSPDFActivity.class), 0);
+            theme = info.theme;
+        } catch (PackageManager.NameNotFoundException e) {
+            theme = R.style.Theme_AppCompat_NoActionBar;
+        }
+
+        final ContextThemeWrapper themedContext = new ContextThemeWrapper(activity, theme);
+        final PSPDFActivityConfiguration.Builder builder = new PSPDFActivityConfiguration.Builder(themedContext, licenseKey);
         final Iterator<String> optionIterator = options.keys();
 
         while (optionIterator.hasNext()) {
@@ -146,7 +160,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
                 } else if ("autosaveEnabled".equals(option)) {
                     builder.autosaveEnabled(options.getBoolean("autosaveEnabled"));
                 } else if ("annotationEditing".equals(option)) {
-                    final AnnotationEditingConfiguration.Builder annotationBuilder = new AnnotationEditingConfiguration.Builder(activity);
+                    final AnnotationEditingConfiguration.Builder annotationBuilder = new AnnotationEditingConfiguration.Builder(themedContext);
                     final JSONObject annotationEditing = options.getJSONObject("annotationEditing");
                     final Iterator<String> annotationOptionIterator = annotationEditing.keys();
 
