@@ -70,7 +70,6 @@ var options {
 	scrollMode: PSPDFKit.ScrollMode.CONTINUOUS, // also valid: PSPDFKit.ScrollMode.PER_PAGE
 	invertColors: false, // invert rendered colors (default: false)
 	toGrayscale: true, // render document in grayscale only (default: false)
-	loggingEnabled: false, // let PSPDFKit generate warning or debugging logs (default: true)
 	title: "My PSPDFKit app", // title displayed in the viewer action bar
 	startZoomScale: 2.0, // initial zoom value (default: 1.0)
 	maxZoomScale: 10.0, // maximum zoom factor when zooming into a page (default: 15.0)

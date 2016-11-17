@@ -138,8 +138,6 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
                     builder.invertColors((Boolean) value);
                 } else if ("toGrayscale".equals(option)) {
                     builder.toGrayscale((Boolean) value);
-                } else if ("loggingEnabled".equals(option)) {
-                    builder.loggingEnabled((Boolean) value);
                 } else if ("title".equals(option)) {
                     builder.title(fromJsonString(options.getString("title")));
                 } else if ("startZoomScale".equals(option)) {
