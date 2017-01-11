@@ -22,7 +22,7 @@ var exec = require('cordova/exec');
  * @param error   Error callback function.
  */
 exports.showDocument = function (uri, options, success, error) {
-    options = options || {};
+    options = options || {};
     exec(success, error, "PSPDFCordovaPlugin", "showDocument", [uri, options]);
 };
 
@@ -37,7 +37,7 @@ exports.showDocument = function (uri, options, success, error) {
  * @param error     Error callback function.
  */
 exports.showDocumentFromAssets = function (assetFile, options, success, error) {
-    options = options || {};
+    options = options || {};
     exec(success, error, "PSPDFCordovaPlugin", "showDocumentFromAssets", [assetFile, options]);
 };
 
