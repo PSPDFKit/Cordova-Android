@@ -105,7 +105,7 @@ Install the PSPDFKit plugin:
 
 	$ cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
 
-Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`) into your project. This example uses version `2.x.x` of the PSPDFKit library. The current working directory has to be your project directory:
+Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`, demo version also works) into your project. This example uses version `2.x.x` of the PSPDFKit library. The current working directory has to be your project directory:
 
 	$ cp /path/to/pspdfkit-2.x.x.aar platforms/android/libs/
 
@@ -116,7 +116,7 @@ Set the minimum SDK version of your Android application to 16. To do so, add the
         <!-- more Android platform settings -->
     </platform>
 
-Configure your PSPDFKit license key inside the `platforms/android/AndroidManifest`:
+Configure your PSPDFKit license key inside the `platforms/android/AndroidManifest` (demo license key also works):
 
 	<manifest>
 		<application>
