@@ -3,7 +3,7 @@
  *
  *   PSPDFKit
  *
- *   Copyright (c) 2015-2016 PSPDFKit GmbH. All rights reserved.
+ *   Copyright (c) 2015-2017 PSPDFKit GmbH. All rights reserved.
  *
  *   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
  *   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
@@ -14,9 +14,9 @@
 package com.pspdfkit.cordova;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.content.ComponentName;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -24,14 +24,15 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 
-import com.pspdfkit.R;
 import com.pspdfkit.PSPDFKit;
-import com.pspdfkit.configuration.activity.PSPDFActivityConfiguration;
+import com.pspdfkit.R;
+import com.pspdfkit.configuration.activity.PdfActivityConfiguration;
 import com.pspdfkit.configuration.annotations.AnnotationEditingConfiguration;
 import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
 import com.pspdfkit.configuration.page.PageScrollMode;
-import com.pspdfkit.ui.PSPDFActivity;
+import com.pspdfkit.preferences.PSPDFKitPreferences;
+import com.pspdfkit.ui.PdfActivity;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -46,15 +47,15 @@ import java.util.Iterator;
 
 public class PSPDFCordovaPlugin extends CordovaPlugin {
 
-    private static final String METADATA_LICENSE_KEY = "PSPDFKIT_LICENSE_KEY";
+    private static final String METADATA_LICENSE_KEY = "pspdfkit_license_key";
 
     private static final int ARG_DOCUMENT_URI = 0;
     private static final int ARG_OPTIONS = 1;
 
-    private String licenseKey;
-
     @Override public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
+
+        String licenseKey;
 
         try {
             licenseKey = cordova.getActivity().getPackageManager().getApplicationInfo(cordova.getActivity().getPackageName(),
@@ -64,7 +65,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
         }
 
         if (TextUtils.isEmpty(licenseKey)) {
-            throw new PSPDFCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"PSPDFKIT_LICENSE_KEY\" android:value=\"...\"> to your AndroidManifest.xml.");
+            throw new PSPDFCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"pspdfkit_license_key\" android:value=\"...\"> to your AndroidManifest.xml.");
         }
 
         try {
@@ -75,7 +76,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
     }
 
     @Override public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        final PSPDFActivityConfiguration configuration = parseOptionsToConfiguration(args.getJSONObject(ARG_OPTIONS));
+        final PdfActivityConfiguration configuration = parseOptionsToConfiguration(args.getJSONObject(ARG_OPTIONS));
 
         if (action.equals("showDocument")) {
             final Uri documentUri = Uri.parse(args.getString(ARG_DOCUMENT_URI));
@@ -90,19 +91,19 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
     }
 
     @SuppressWarnings("ConstantConditions")
-    @NonNull private PSPDFActivityConfiguration parseOptionsToConfiguration(@NonNull final JSONObject options) throws JSONException {
+    @NonNull private PdfActivityConfiguration parseOptionsToConfiguration(@NonNull final JSONObject options) throws JSONException {
         final Activity activity = cordova.getActivity();
         int theme;
 
         try {
-            ActivityInfo info = activity.getPackageManager().getActivityInfo(new ComponentName(activity, PSPDFActivity.class), 0);
+            ActivityInfo info = activity.getPackageManager().getActivityInfo(new ComponentName(activity, PdfActivity.class), 0);
             theme = info.theme;
         } catch (PackageManager.NameNotFoundException e) {
             theme = R.style.Theme_AppCompat_NoActionBar;
         }
 
         final ContextThemeWrapper themedContext = new ContextThemeWrapper(activity, theme);
-        final PSPDFActivityConfiguration.Builder builder = new PSPDFActivityConfiguration.Builder(themedContext, licenseKey);
+        final PdfActivityConfiguration.Builder builder = new PdfActivityConfiguration.Builder(themedContext);
         final Iterator<String> optionIterator = options.keys();
 
         while (optionIterator.hasNext()) {
@@ -152,8 +153,8 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
                     builder.useImmersiveMode(options.getBoolean("useImmersiveMode"));
                 } else if ("searchType".equals(option)) {
                     final String searchType = options.getString("searchType");
-                    if ("SEARCH_INLINE".equals(searchType)) builder.setSearchType(PSPDFActivityConfiguration.SEARCH_INLINE);
-                    else if ("SEARCH_MODULAR".equals(searchType)) builder.setSearchType(PSPDFActivityConfiguration.SEARCH_MODULAR);
+                    if ("SEARCH_INLINE".equals(searchType)) builder.setSearchType(PdfActivityConfiguration.SEARCH_INLINE);
+                    else if ("SEARCH_MODULAR".equals(searchType)) builder.setSearchType(PdfActivityConfiguration.SEARCH_MODULAR);
                     else throw new IllegalArgumentException(String.format("Invalid search type: %s", value));
                 } else if ("autosaveEnabled".equals(option)) {
                     builder.autosaveEnabled(options.getBoolean("autosaveEnabled"));
@@ -170,7 +171,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
                             if ((Boolean) annotationEditingValue) annotationBuilder.enableAnnotationEditing();
                             else annotationBuilder.disableAnnotationEditing();
                         } else if ("creatorName".equals(annotationEditingOption)) {
-                            annotationBuilder.defaultAnnotationCreator(fromJsonString(annotationEditing.getString("creatorName")));
+                            PSPDFKitPreferences.get(activity).setAnnotationCreator(fromJsonString(annotationEditing.getString("creatorName")));
                         } else {
                             throw new IllegalArgumentException(String.format("Invalid annotation editing option '%s'", annotationEditingOption));
                         }
@@ -197,27 +198,25 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
     }
 
     /**
-     * Starts the {@link PSPDFActivity} to show a single document.
-     *
+     * Starts the {@link PdfActivity} to show a single document.
      * @param documentUri     Local filesystem Uri pointing to a document.
      * @param configuration   PSPDFKit configuration.
      * @param callbackContext Cordova callback.
      */
 
-    private void showDocument(@NonNull Uri documentUri, @NonNull final PSPDFActivityConfiguration configuration,
+    private void showDocument(@NonNull Uri documentUri, @NonNull final PdfActivityConfiguration configuration,
                               @NonNull final CallbackContext callbackContext) {
         showDocumentForUri(documentUri, configuration);
         callbackContext.success();
     }
 
     /**
-     * Starts the {@link PSPDFActivity} to show a single document stored within the app's assets.
-     *
+     * Starts the {@link PdfActivity} to show a single document stored within the app's assets.
      * @param assetPath       Relative path inside the app's assets folder.
      * @param configuration   PSPDFKit configuration.
      * @param callbackContext Cordova callback.
      */
-    private void showDocumentFromAssets(@NonNull final String assetPath, @NonNull final PSPDFActivityConfiguration configuration,
+    private void showDocumentFromAssets(@NonNull final String assetPath, @NonNull final PdfActivityConfiguration configuration,
                                         @NonNull final CallbackContext callbackContext) {
         ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
             @Override
@@ -232,7 +231,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
         });
     }
 
-    private void showDocumentForUri(@NonNull Uri uri, @NonNull final PSPDFActivityConfiguration configuration) {
-        PSPDFActivity.showDocument(cordova.getActivity(), uri, configuration);
+    private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
+        PdfActivity.showDocument(cordova.getActivity(), uri, configuration);
     }
 }

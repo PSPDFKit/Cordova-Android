@@ -4,14 +4,14 @@
   ~
   ~   PSPDFKit
   ~
-  ~   Copyright (c) 2015-2016 PSPDFKit GmbH. All rights reserved.
+  ~   Copyright (c) 2015-2017 PSPDFKit GmbH. All rights reserved.
   ~
   ~   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
   ~   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
   ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
   ~   This notice may not be removed from this file.
 -->
-<plugin id="pspdfkit-cordova-android" version="2.7.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin id="pspdfkit-cordova-android" version="3.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>PSPDFKit-Android</name>
     <description>Integration of the PSPDFKit for Android library.</description>
@@ -23,7 +23,7 @@
 You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more steps:
 
   1) Place your PSPDFKit library aar file into the `platforms/android/libs/` directory of your project.
-  2) Add your PSPDFKit license key to the <meta-data name="PSPDFKIT_LICENSE_KEY"> tag of your AndroidManifest.xml.
+  2) Add your PSPDFKit license key to the <meta-data name="pspdfkit_license_key"> tag of your AndroidManifest.xml.
 ]]></info>
 
     <engines>
@@ -55,7 +55,7 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         </config-file>
 
         <config-file parent="/*/application" target="AndroidManifest.xml" after="activity">
-            <activity android:name="com.pspdfkit.ui.PSPDFActivity"
+            <activity android:name="com.pspdfkit.ui.PdfActivity"
                       android:theme="@style/PSPDFKit.Theme"
                       android:windowSoftInputMode="adjustNothing"/>
         </config-file>
