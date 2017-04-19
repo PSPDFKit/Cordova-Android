@@ -1,9 +1,9 @@
 /*
- * PSPDFCordovaPluginException.java
+ * PSPDFKitCordovaPluginException.java
  *
  *   PSPDFKit
  *
- *   Copyright (c) 2015-2016 PSPDFKit GmbH. All rights reserved.
+ *   Copyright (c) 2015-2017 PSPDFKit GmbH. All rights reserved.
  *
  *   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
  *   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
@@ -13,20 +13,20 @@
 
 package com.pspdfkit.cordova;
 
-public class PSPDFCordovaPluginException extends RuntimeException {
+public class PSPDFKitCordovaPluginException extends RuntimeException {
 
-    public PSPDFCordovaPluginException() {
+    public PSPDFKitCordovaPluginException() {
     }
 
-    public PSPDFCordovaPluginException(String detailMessage) {
+    public PSPDFKitCordovaPluginException(String detailMessage) {
         super(detailMessage);
     }
 
-    public PSPDFCordovaPluginException(String detailMessage, Throwable throwable) {
+    public PSPDFKitCordovaPluginException(String detailMessage, Throwable throwable) {
         super(detailMessage, throwable);
     }
 
-    public PSPDFCordovaPluginException(Throwable throwable) {
+    public PSPDFKitCordovaPluginException(Throwable throwable) {
         super(throwable);
     }
 }
