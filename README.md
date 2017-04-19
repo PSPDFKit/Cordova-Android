@@ -61,6 +61,12 @@ You can use the `options` parameter to configure PSPDFKit. Here is a list of val
 var options {
 	backgroundColor: '#EFEFEF', // hex-color of the page background
 	disableOutline: true, // hide the outline menu (default: false)
+	disableShare: true, // hide share button (default: false)
+	disablePrinting: true, // hide option to print (default: false)
+	disableBookmarkList: true, // hide bookmark list (default: false)
+	disableAnnotationList: true, // hide annotation list (default: false)
+	disableDocumentEditor: true, // hide document editor (default: false)
+	disableBookmarkEditing: true, // hide bookmark editing (default: false)
 	hidePageLabels: true, // hide page labels (if available in PDF) in page overlay and thumbnail grid (default: false)  
 	hidePageNumberOverlay: false, // hide the overlay showing the current page (default: false)
 	hideThumbnailBar: true, // hide the thumbnail bar (default: false)
