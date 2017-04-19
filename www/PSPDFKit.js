@@ -23,7 +23,7 @@ var exec = require('cordova/exec');
  */
 exports.showDocument = function (uri, options, success, error) {
     options = options || {};
-    exec(success, error, "PSPDFCordovaPlugin", "showDocument", [uri, options]);
+    exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [uri, options]);
 };
 
 /**
@@ -38,7 +38,7 @@ exports.showDocument = function (uri, options, success, error) {
  */
 exports.showDocumentFromAssets = function (assetFile, options, success, error) {
     options = options || {};
-    exec(success, error, "PSPDFCordovaPlugin", "showDocumentFromAssets", [assetFile, options]);
+    exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [assetFile, options]);
 };
 
 /**

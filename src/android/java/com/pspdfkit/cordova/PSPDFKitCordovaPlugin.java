@@ -1,5 +1,5 @@
 /*
- * PSPDFCordovaPlugin.java
+ * PSPDFKitCordovaPlugin.java
  *
  *   PSPDFKit
  *
@@ -45,7 +45,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.Iterator;
 
-public class PSPDFCordovaPlugin extends CordovaPlugin {
+public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     private static final String METADATA_LICENSE_KEY = "pspdfkit_license_key";
 
@@ -61,17 +61,17 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
             licenseKey = cordova.getActivity().getPackageManager().getApplicationInfo(cordova.getActivity().getPackageName(),
                 PackageManager.GET_META_DATA).metaData.getString(METADATA_LICENSE_KEY, null);
         } catch (PackageManager.NameNotFoundException e) {
-            throw new PSPDFCordovaPluginException("Error while reading PSPDFKit license from AndroidManifest.xml", e);
+            throw new PSPDFKitCordovaPluginException("Error while reading PSPDFKit license from AndroidManifest.xml", e);
         }
 
         if (TextUtils.isEmpty(licenseKey)) {
-            throw new PSPDFCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"pspdfkit_license_key\" android:value=\"...\"> to your AndroidManifest.xml.");
+            throw new PSPDFKitCordovaPluginException("PSPDFKit license key is missing! Please add a <meta-data android:name=\"pspdfkit_license_key\" android:value=\"...\"> to your AndroidManifest.xml.");
         }
 
         try {
             PSPDFKit.initialize(cordova.getActivity(), licenseKey);
         } catch (Exception ex) {
-            throw new PSPDFCordovaPluginException("Error while initializing PSPDFKit", ex);
+            throw new PSPDFKitCordovaPluginException("Error while initializing PSPDFKit", ex);
         }
     }
 
@@ -182,7 +182,7 @@ public class PSPDFCordovaPlugin extends CordovaPlugin {
                     throw new IllegalArgumentException(String.format("Invalid plugin option '%s'", option));
                 }
             } catch (Exception ex) {
-                throw new PSPDFCordovaPluginException(String.format("Error while parsing option '%s'", option), ex);
+                throw new PSPDFKitCordovaPluginException(String.format("Error while parsing option '%s'", option), ex);
             }
         }
 
