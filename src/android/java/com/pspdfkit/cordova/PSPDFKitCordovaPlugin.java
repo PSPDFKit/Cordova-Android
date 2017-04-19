@@ -117,6 +117,18 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     builder.disableOutline();
                 } else if ("disableSearch".equals(option) && ((Boolean) value)) {
                     builder.disableSearch();
+                } else if ("disableShare".equals(option) && ((Boolean) value)) {
+                    builder.disableShare();
+                } else if ("disablePrinting".equals(option) && ((Boolean) value)) {
+                    builder.disablePrinting();
+                } else if ("disableBookmarkList".equals(option) && ((Boolean) value)) {
+                    builder.disableBookmarkList();
+                } else if ("disableAnnotationList".equals(option) && ((Boolean) value)) {
+                    builder.disableAnnotationList();
+                } else if ("disableDocumentEditor".equals(option) && ((Boolean) value)) {
+                    builder.disableDocumentEditor();
+                } else if ("disableBookmarkEditing".equals(option) && ((Boolean) value)) {
+                    builder.disableBookmarkEditing();
                 } else if ("hidePageLabels".equals(option) && ((Boolean) value)) {
                     builder.hidePageLabels();
                 } else if ("hidePageNumberOverlay".equals(option) && ((Boolean) value)) {
