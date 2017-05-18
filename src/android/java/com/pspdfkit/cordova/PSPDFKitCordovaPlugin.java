@@ -27,7 +27,6 @@ import android.view.ContextThemeWrapper;
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.R;
 import com.pspdfkit.configuration.activity.PdfActivityConfiguration;
-import com.pspdfkit.configuration.annotations.AnnotationEditingConfiguration;
 import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
 import com.pspdfkit.configuration.page.PageScrollMode;
@@ -171,7 +170,6 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                 } else if ("autosaveEnabled".equals(option)) {
                     builder.autosaveEnabled(options.getBoolean("autosaveEnabled"));
                 } else if ("annotationEditing".equals(option)) {
-                    final AnnotationEditingConfiguration.Builder annotationBuilder = new AnnotationEditingConfiguration.Builder(themedContext);
                     final JSONObject annotationEditing = options.getJSONObject("annotationEditing");
                     final Iterator<String> annotationOptionIterator = annotationEditing.keys();
 
@@ -180,16 +178,14 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                         final Object annotationEditingValue = annotationEditing.get(annotationEditingOption);
 
                         if ("enabled".equals(annotationEditingOption)) {
-                            if ((Boolean) annotationEditingValue) annotationBuilder.enableAnnotationEditing();
-                            else annotationBuilder.disableAnnotationEditing();
+                            if ((Boolean) annotationEditingValue) builder.enableAnnotationEditing();
+                            else builder.disableAnnotationEditing();
                         } else if ("creatorName".equals(annotationEditingOption)) {
                             PSPDFKitPreferences.get(activity).setAnnotationCreator(fromJsonString(annotationEditing.getString("creatorName")));
                         } else {
                             throw new IllegalArgumentException(String.format("Invalid annotation editing option '%s'", annotationEditingOption));
                         }
                     }
-
-                    builder.annotationEditingConfiguration(annotationBuilder.build());
                 } else {
                     throw new IllegalArgumentException(String.format("Invalid plugin option '%s'", option));
                 }
