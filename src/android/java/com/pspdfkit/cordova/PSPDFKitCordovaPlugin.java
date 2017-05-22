@@ -27,6 +27,7 @@ import android.view.ContextThemeWrapper;
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.R;
 import com.pspdfkit.configuration.activity.PdfActivityConfiguration;
+import com.pspdfkit.configuration.activity.ThumbnailBarMode;
 import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
 import com.pspdfkit.configuration.page.PageScrollMode;
@@ -132,8 +133,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     builder.hidePageLabels();
                 } else if ("hidePageNumberOverlay".equals(option) && ((Boolean) value)) {
                     builder.hidePageNumberOverlay();
-                } else if ("hideThumbnailBar".equals(option) && ((Boolean) value)) {
-                    builder.hideThumbnailBar();
+                } else if ("thumbnailBarMode".equals(option)) {
+                    builder.setThumbnailBarMode(ThumbnailBarMode.valueOf((String) value));
                 } else if ("hideThumbnailGrid".equals(option) && ((Boolean) value)) {
                     builder.hideThumbnailGrid();
                 } else if ("diskCacheSize".equals(option)) {

@@ -49,6 +49,12 @@ exports.defineAutoTests = function () {
               expect(window.PSPDFKit.SearchType).toBeDefined();
           });
         });
+
+        describe('ThumbnailBarMode', function() {
+          it('should exist', function () {
+              expect(window.PSPDFKit.ThumbnailBarMode).toBeDefined();
+          });
+        })
     });
 };
 
@@ -68,11 +74,12 @@ exports.defineManualTests = function(contentEl, createActionButton) {
     createActionButton('Vertical continuous scrolling', function() {
         var asset = 'www/Guide.pdf';
         var options = {
-        	scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
-        	scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
-        	title: "Custom Title",
-        	page: 2,
-        	useImmersiveMode: true
+          scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+          scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
+          title: "Custom Title",
+          page: 2,
+          useImmersiveMode: true,
+          thumbnailBarMode: PSPDFKit.ThumbnailBarMode.THUMBNAIL_BAR_MODE_SCROLLABLE
         };
 
         console.log('Opening document ' + asset);

@@ -100,3 +100,21 @@ exports.SearchType = {
    */
   SEARCH_INLINE: "SEARCH_INLINE"
 };
+
+/**
+ * Constant values used for setting the 'thumbnailBarMode' option.
+ */
+exports.ThumbnailBarMode = {
+  /**
+   * Default (static) thumbnail bar.
+   */
+  THUMBNAIL_BAR_MODE_DEFAULT: "THUMBNAIL_BAR_MODE_DEFAULT",
+  /**
+   * Scrollable thumbnail bar.
+   */
+  THUMBNAIL_BAR_MODE_SCROLLABLE: "THUMBNAIL_BAR_MODE_SCROLLABLE",
+  /**
+   * No thumbnail bar.
+   */
+  THUMBNAIL_BAR_MODE_NONE: "THUMBNAIL_BAR_MODE_NONE"
+};
