@@ -13,7 +13,7 @@
 -->
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="pspdfkit-cordova-android-tests"
-        version="1.0.2-dev">
+        version="3.1.0">
     <name>PSPDFKit-Android Tests</name>
     <license>MIT</license>
 
