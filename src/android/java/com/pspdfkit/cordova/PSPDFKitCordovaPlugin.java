@@ -52,6 +52,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     private static final int ARG_DOCUMENT_URI = 0;
     private static final int ARG_OPTIONS = 1;
 
+
     private String secret;
 
     @Override public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -219,8 +220,14 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     private void showDocument(@NonNull Uri documentUri, @NonNull final PdfActivityConfiguration configuration,
                               @NonNull final CallbackContext callbackContext) {
-        showDocumentForUri(documentUri, configuration);
-        callbackContext.success();
+        if(secret == null){
+            showDocumentForUri(documentUri, configuration);
+            callbackContext.success();
+        }else{
+            showDocumentForUriWithSecret(documentUri, configuration);
+            callbackContext.success();
+        }
+
     }
 
     /**
@@ -245,6 +252,10 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     }
 
     private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
+        PdfActivity.showDocument(cordova.getActivity(), uri, configuration);
+    }
+
+    private void showDocumentForUriWithSecret(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
         PdfActivity.showDocument(cordova.getActivity(), uri, secret,configuration);
     }
 }
