@@ -52,6 +52,9 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     private static final int ARG_DOCUMENT_URI = 0;
     private static final int ARG_OPTIONS = 1;
 
+
+    private String secret;
+
     @Override public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
 
@@ -170,6 +173,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     else throw new IllegalArgumentException(String.format("Invalid search type: %s", value));
                 } else if ("autosaveEnabled".equals(option)) {
                     builder.autosaveEnabled(options.getBoolean("autosaveEnabled"));
+                } else if ("secret".equals(option)) {
+                    secret =  options.getString("secret");
                 } else if ("annotationEditing".equals(option)) {
                     final JSONObject annotationEditing = options.getJSONObject("annotationEditing");
                     final Iterator<String> annotationOptionIterator = annotationEditing.keys();
@@ -215,8 +220,14 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     private void showDocument(@NonNull Uri documentUri, @NonNull final PdfActivityConfiguration configuration,
                               @NonNull final CallbackContext callbackContext) {
-        showDocumentForUri(documentUri, configuration);
-        callbackContext.success();
+        if(secret == null){
+            showDocumentForUri(documentUri, configuration);
+            callbackContext.success();
+        }else{
+            showDocumentForUriWithSecret(documentUri, configuration);
+            callbackContext.success();
+        }
+
     }
 
     /**
@@ -242,5 +253,9 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
         PdfActivity.showDocument(cordova.getActivity(), uri, configuration);
+    }
+
+    private void showDocumentForUriWithSecret(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
+        PdfActivity.showDocument(cordova.getActivity(), uri, secret,configuration);
     }
 }
