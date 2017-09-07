@@ -82,10 +82,10 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
         if (action.equals("showDocument")) {
             final Uri documentUri = Uri.parse(args.getString(ARG_DOCUMENT_URI));
-            this.showDocument(documentUri, configuration, password, callbackContext);
+            this.showDocument(documentUri, password, configuration, callbackContext);
             return true;
         } else if (action.equals("showDocumentFromAssets")) {
-            this.showDocumentFromAssets(args.getString(ARG_DOCUMENT_URI), configuration, password, callbackContext);
+            this.showDocumentFromAssets(args.getString(ARG_DOCUMENT_URI), password, configuration, callbackContext);
             return true;
         }
 
@@ -216,9 +216,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
      * @param callbackContext Cordova callback.
      */
 
-    private void showDocument(@NonNull Uri documentUri, @NonNull final PdfActivityConfiguration configuration,
-                              @Nullable final String password, @NonNull final CallbackContext callbackContext) {
-        showDocumentForUri(documentUri, configuration, password);
+    private void showDocument(@NonNull Uri documentUri, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration, @NonNull final CallbackContext callbackContext) {
+        showDocumentForUri(documentUri, password, configuration);
         callbackContext.success();
     }
 
@@ -229,13 +228,12 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
      * @param password        PDF password
      * @param callbackContext Cordova callback.
      */
-    private void showDocumentFromAssets(@NonNull final String assetPath, @NonNull final PdfActivityConfiguration configuration,
-                                        @Nullable final String password, @NonNull final CallbackContext callbackContext) {
+    private void showDocumentFromAssets(@NonNull final String assetPath, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration, @NonNull final CallbackContext callbackContext) {
         ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
             @Override
             public void onDocumentExtracted(File documentFile) {
                 if (documentFile != null) {
-                    showDocumentForUri(Uri.fromFile(documentFile), configuration, password);
+                    showDocumentForUri(Uri.fromFile(documentFile), password, configuration);
                     callbackContext.success();
                 } else {
                     callbackContext.error("Could not load '" + assetPath + "' from the assets.");
@@ -244,7 +242,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         });
     }
 
-    private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration, @Nullable final String password) {
-        PdfActivity.showDocument(cordova.getActivity(), uri, configuration, password);
+    private void showDocumentForUri(@NonNull Uri uri, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration) {
+        PdfActivity.showDocument(cordova.getActivity(), uri, password, configuration);
     }
 }
