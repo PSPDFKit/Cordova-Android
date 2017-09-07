@@ -51,6 +51,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     private static final int ARG_DOCUMENT_URI = 0;
     private static final int ARG_OPTIONS = 1;
+    private static final int ARG_DOCUMENT_PASSWORD = 2;
 
     @Override public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -77,13 +78,14 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     @Override public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         final PdfActivityConfiguration configuration = parseOptionsToConfiguration(args.getJSONObject(ARG_OPTIONS));
+        final String documentUri = args.getString(ARG_DOCUMENT_PASSWORD);
 
         if (action.equals("showDocument")) {
             final Uri documentUri = Uri.parse(args.getString(ARG_DOCUMENT_URI));
-            this.showDocument(documentUri, configuration, callbackContext);
+            this.showDocument(documentUri, configuration, password, callbackContext);
             return true;
         } else if (action.equals("showDocumentFromAssets")) {
-            this.showDocumentFromAssets(args.getString(ARG_DOCUMENT_URI), configuration, callbackContext);
+            this.showDocumentFromAssets(args.getString(ARG_DOCUMENT_URI), configuration, password, callbackContext);
             return true;
         }
 
@@ -209,13 +211,14 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     /**
      * Starts the {@link PdfActivity} to show a single document.
      * @param documentUri     Local filesystem Uri pointing to a document.
-     * @param configuration   PSPDFKit configuration.
+     * @param configuration   PSPDFKit configuration
+     * @param password        PDF password
      * @param callbackContext Cordova callback.
      */
 
     private void showDocument(@NonNull Uri documentUri, @NonNull final PdfActivityConfiguration configuration,
-                              @NonNull final CallbackContext callbackContext) {
-        showDocumentForUri(documentUri, configuration);
+                              @Nullable final String password, @NonNull final CallbackContext callbackContext) {
+        showDocumentForUri(documentUri, configuration, password);
         callbackContext.success();
     }
 
@@ -223,15 +226,16 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
      * Starts the {@link PdfActivity} to show a single document stored within the app's assets.
      * @param assetPath       Relative path inside the app's assets folder.
      * @param configuration   PSPDFKit configuration.
+     * @param password        PDF password
      * @param callbackContext Cordova callback.
      */
     private void showDocumentFromAssets(@NonNull final String assetPath, @NonNull final PdfActivityConfiguration configuration,
-                                        @NonNull final CallbackContext callbackContext) {
+                                        @Nullable final String password, @NonNull final CallbackContext callbackContext) {
         ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
             @Override
             public void onDocumentExtracted(File documentFile) {
                 if (documentFile != null) {
-                    showDocumentForUri(Uri.fromFile(documentFile), configuration);
+                    showDocumentForUri(Uri.fromFile(documentFile), configuration, password);
                     callbackContext.success();
                 } else {
                     callbackContext.error("Could not load '" + assetPath + "' from the assets.");
@@ -240,7 +244,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         });
     }
 
-    private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
-        PdfActivity.showDocument(cordova.getActivity(), uri, configuration);
+    private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration, @Nullable final String password) {
+        PdfActivity.showDocument(cordova.getActivity(), uri, configuration, password);
     }
 }
