@@ -78,7 +78,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     @Override public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         final PdfActivityConfiguration configuration = parseOptionsToConfiguration(args.getJSONObject(ARG_OPTIONS));
-        final String documentUri = args.getString(ARG_DOCUMENT_PASSWORD);
+        final String password = args.getString(ARG_DOCUMENT_PASSWORD);
 
         if (action.equals("showDocument")) {
             final Uri documentUri = Uri.parse(args.getString(ARG_DOCUMENT_URI));
