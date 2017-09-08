@@ -78,7 +78,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     @Override public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         final PdfActivityConfiguration configuration = parseOptionsToConfiguration(args.getJSONObject(ARG_OPTIONS));
-        final String password = args.getString(ARG_DOCUMENT_PASSWORD);
+        final String password = convertJsonNullToJavaNull(args.getString(ARG_DOCUMENT_PASSWORD));
 
         if (action.equals("showDocument")) {
             final Uri documentUri = Uri.parse(args.getString(ARG_DOCUMENT_URI));
@@ -154,7 +154,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                 } else if ("toGrayscale".equals(option)) {
                     builder.toGrayscale((Boolean) value);
                 } else if ("title".equals(option)) {
-                    builder.title(fromJsonString(options.getString("title")));
+                    builder.title(convertJsonNullToJavaNull(options.getString("title")));
                 } else if ("startZoomScale".equals(option)) {
                     builder.startZoomScale((float) options.getDouble("startZoomScale"));
                 } else if ("maxZoomScale".equals(option)) {
@@ -184,7 +184,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                             if ((Boolean) annotationEditingValue) builder.enableAnnotationEditing();
                             else builder.disableAnnotationEditing();
                         } else if ("creatorName".equals(annotationEditingOption)) {
-                            PSPDFKitPreferences.get(activity).setAnnotationCreator(fromJsonString(annotationEditing.getString("creatorName")));
+                            PSPDFKitPreferences.get(activity).setAnnotationCreator(convertJsonNullToJavaNull(annotationEditing.getString("creatorName")));
                         } else {
                             throw new IllegalArgumentException(String.format("Invalid annotation editing option '%s'", annotationEditingOption));
                         }
@@ -203,9 +203,9 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     /**
      * Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>.
      */
-    @Nullable private String fromJsonString(@Nullable String creatorName) {
-        if (creatorName == null || creatorName.equals("null")) return null;
-        return creatorName;
+    @Nullable private static String convertJsonNullToJavaNull(@Nullable String value) {
+        if (value == null || value.equals("null")) return null;
+        return value;
     }
 
     /**
