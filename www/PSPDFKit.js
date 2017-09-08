@@ -17,9 +17,9 @@ var exec = require('cordova/exec');
  * Retrieves a named property from the given target object while removing the property from the object.
  */
 function getPropertyAndUnset(target, name) {
-  var value = target.hasOwnProperty(name) ? target[name] : null;
-  delete target[name];
-  return value;
+    var value = target.hasOwnProperty(name) ? target[name] : null;
+    delete target[name];
+    return value;
 };
 
 /**
