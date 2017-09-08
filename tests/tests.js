@@ -90,4 +90,20 @@ exports.defineManualTests = function(contentEl, createActionButton) {
             console.log('Error while loading the document:' + error)
         });
     });
+
+    createActionButton('Password protected document', function() {
+        var asset = 'www/password.pdf';
+        var options = {
+          title: "Password protected document",
+          password: "test123"
+        };
+
+        console.log('Opening encrypted document ' + asset);
+
+        window.PSPDFKit.showDocumentFromAssets(asset, options, function() {
+            console.log("Document was successfully loaded.");
+        }, function(error) {
+            console.log('Error while loading the document:' + error)
+        });
+    });
 };
