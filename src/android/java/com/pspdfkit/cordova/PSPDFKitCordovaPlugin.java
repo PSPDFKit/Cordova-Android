@@ -51,6 +51,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     private static final int ARG_DOCUMENT_URI = 0;
     private static final int ARG_OPTIONS = 1;
+    private static final int ARG_DOCUMENT_PASSWORD = 2;
 
     @Override public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -77,13 +78,14 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     @Override public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         final PdfActivityConfiguration configuration = parseOptionsToConfiguration(args.getJSONObject(ARG_OPTIONS));
+        final String password = convertJsonNullToJavaNull(args.getString(ARG_DOCUMENT_PASSWORD));
 
         if (action.equals("showDocument")) {
             final Uri documentUri = Uri.parse(args.getString(ARG_DOCUMENT_URI));
-            this.showDocument(documentUri, configuration, callbackContext);
+            this.showDocument(documentUri, password, configuration, callbackContext);
             return true;
         } else if (action.equals("showDocumentFromAssets")) {
-            this.showDocumentFromAssets(args.getString(ARG_DOCUMENT_URI), configuration, callbackContext);
+            this.showDocumentFromAssets(args.getString(ARG_DOCUMENT_URI), password, configuration, callbackContext);
             return true;
         }
 
@@ -152,7 +154,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                 } else if ("toGrayscale".equals(option)) {
                     builder.toGrayscale((Boolean) value);
                 } else if ("title".equals(option)) {
-                    builder.title(fromJsonString(options.getString("title")));
+                    builder.title(convertJsonNullToJavaNull(options.getString("title")));
                 } else if ("startZoomScale".equals(option)) {
                     builder.startZoomScale((float) options.getDouble("startZoomScale"));
                 } else if ("maxZoomScale".equals(option)) {
@@ -182,7 +184,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                             if ((Boolean) annotationEditingValue) builder.enableAnnotationEditing();
                             else builder.disableAnnotationEditing();
                         } else if ("creatorName".equals(annotationEditingOption)) {
-                            PSPDFKitPreferences.get(activity).setAnnotationCreator(fromJsonString(annotationEditing.getString("creatorName")));
+                            PSPDFKitPreferences.get(activity).setAnnotationCreator(convertJsonNullToJavaNull(annotationEditing.getString("creatorName")));
                         } else {
                             throw new IllegalArgumentException(String.format("Invalid annotation editing option '%s'", annotationEditingOption));
                         }
@@ -201,21 +203,21 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     /**
      * Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>.
      */
-    @Nullable private String fromJsonString(@Nullable String creatorName) {
-        if (creatorName == null || creatorName.equals("null")) return null;
-        return creatorName;
+    @Nullable private static String convertJsonNullToJavaNull(@Nullable String value) {
+        if (value == null || value.equals("null")) return null;
+        return value;
     }
 
     /**
      * Starts the {@link PdfActivity} to show a single document.
      * @param documentUri     Local filesystem Uri pointing to a document.
-     * @param configuration   PSPDFKit configuration.
+     * @param configuration   PSPDFKit configuration
+     * @param password        PDF password
      * @param callbackContext Cordova callback.
      */
 
-    private void showDocument(@NonNull Uri documentUri, @NonNull final PdfActivityConfiguration configuration,
-                              @NonNull final CallbackContext callbackContext) {
-        showDocumentForUri(documentUri, configuration);
+    private void showDocument(@NonNull Uri documentUri, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration, @NonNull final CallbackContext callbackContext) {
+        showDocumentForUri(documentUri, password, configuration);
         callbackContext.success();
     }
 
@@ -223,15 +225,15 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
      * Starts the {@link PdfActivity} to show a single document stored within the app's assets.
      * @param assetPath       Relative path inside the app's assets folder.
      * @param configuration   PSPDFKit configuration.
+     * @param password        PDF password
      * @param callbackContext Cordova callback.
      */
-    private void showDocumentFromAssets(@NonNull final String assetPath, @NonNull final PdfActivityConfiguration configuration,
-                                        @NonNull final CallbackContext callbackContext) {
+    private void showDocumentFromAssets(@NonNull final String assetPath, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration, @NonNull final CallbackContext callbackContext) {
         ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
             @Override
             public void onDocumentExtracted(File documentFile) {
                 if (documentFile != null) {
-                    showDocumentForUri(Uri.fromFile(documentFile), configuration);
+                    showDocumentForUri(Uri.fromFile(documentFile), password, configuration);
                     callbackContext.success();
                 } else {
                     callbackContext.error("Could not load '" + assetPath + "' from the assets.");
@@ -240,7 +242,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         });
     }
 
-    private void showDocumentForUri(@NonNull Uri uri, @NonNull final PdfActivityConfiguration configuration) {
-        PdfActivity.showDocument(cordova.getActivity(), uri, configuration);
+    private void showDocumentForUri(@NonNull Uri uri, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration) {
+        PdfActivity.showDocument(cordova.getActivity(), uri, password, configuration);
     }
 }

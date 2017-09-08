@@ -28,7 +28,8 @@ function showMyDocument() {
 		page: 4,
 		scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
 		scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
-		useImmersiveMode: true
+		useImmersiveMode: true,
+		password: "my-document-password"
 	});
 }
 ```
@@ -88,7 +89,8 @@ var options {
 	annotationEditing: {
 		enabled: true, // activate annotation editing (default: true)
 		creatorName: 'John Doe' // author name written into new annotations (default: null)
-	}
+	},
+	password: "my-document-password" // use this to open encrypted PDF files
 };
 
 PSPDFKit.showDocumentFromAssets('www/documents/myFile.pdf', options);

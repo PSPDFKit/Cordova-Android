@@ -14,6 +14,15 @@
 var exec = require('cordova/exec');
 
 /**
+ * Retrieves a named property from the given target object while removing the property from the object.
+ */
+function getPropertyAndUnset(target, name) {
+    var value = target.hasOwnProperty(name) ? target[name] : null;
+    delete target[name];
+    return value;
+};
+
+/**
  * Opens the PSPDFActivity to show a document from the local device file system.
  *
  * @param uri     The local filesystem URI of the document to show.
@@ -23,7 +32,8 @@ var exec = require('cordova/exec');
  */
 exports.showDocument = function (uri, options, success, error) {
     options = options || {};
-    exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [uri, options]);
+    var password = getPropertyAndUnset(options, "password");
+    exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [uri, options, password]);
 };
 
 /**
@@ -38,7 +48,8 @@ exports.showDocument = function (uri, options, success, error) {
  */
 exports.showDocumentFromAssets = function (assetFile, options, success, error) {
     options = options || {};
-    exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [assetFile, options]);
+    var password = getPropertyAndUnset(options, "password");
+    exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [assetFile, options, password]);
 };
 
 /**
