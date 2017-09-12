@@ -135,3 +135,8 @@ Configure your PSPDFKit license key inside the `platforms/android/AndroidManifes
 You are now ready to build your app!
 
 	$ cordova build
+
+ ## Contributing
+  
+ Please ensure [you signed our CLA](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your contributions.
+ 
