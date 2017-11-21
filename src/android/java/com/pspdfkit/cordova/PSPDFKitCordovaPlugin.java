@@ -139,8 +139,6 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     builder.setThumbnailBarMode(ThumbnailBarMode.valueOf((String) value));
                 } else if ("hideThumbnailGrid".equals(option) && ((Boolean) value)) {
                     builder.hideThumbnailGrid();
-                } else if ("diskCacheSize".equals(option)) {
-                    builder.diskCacheSize((Integer) value);
                 } else if ("memoryCacheSize".equals(option)) {
                     builder.memoryCacheSize((Integer) value);
                 } else if ("pageFitMode".equals(option)) {

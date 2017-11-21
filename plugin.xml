@@ -11,7 +11,7 @@
   ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
   ~   This notice may not be removed from this file.
 -->
-<plugin id="pspdfkit-cordova-android" version="3.3.3" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin id="pspdfkit-cordova-android" version="4.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>PSPDFKit-Android</name>
     <description>Integration of the PSPDFKit for Android library.</description>
@@ -27,7 +27,7 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
 ]]></info>
 
     <engines>
-        <engine name="cordova-android" version=">=5.0.0"/>
+        <engine name="cordova-android" version=">=6.3.0"/>
     </engines>
 
     <js-module name="PSPDFKit" src="www/PSPDFKit.js">
@@ -55,6 +55,7 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         </config-file>
 
         <config-file parent="/*/application" target="AndroidManifest.xml" after="activity">
+            <meta-data android:name="pspdfkit_license_key" android:value="LICENSE_KEY_GOES_HERE" />
             <activity android:name="com.pspdfkit.ui.PdfActivity"
                       android:theme="@style/PSPDFKit.Theme"
                       android:windowSoftInputMode="adjustNothing"/>

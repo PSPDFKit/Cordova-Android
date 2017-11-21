@@ -10,7 +10,7 @@
  #   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
  #   This notice may not be removed from this file.
  # -->
-# Cordova Wrapper for PSPDFKit 3 for Android
+# Cordova Wrapper for PSPDFKit 4 for Android
 ============================================
 
 This plugin defines a global `PSPDFKit` object, which provides an API for viewing PDF documents with PSPDFKit for Android.
@@ -52,7 +52,7 @@ PSPDFKit.showDocumentFromAssets(assetPath, options, success, fail)
 
 ## Supported Platforms
 
-* Android SDK API level 16+ / Android 4.1+ (Jelly Bean)
+* Android SDK API level 19+ / Android 4.4+ (KitKat)
 
 ## Options
 
@@ -113,14 +113,14 @@ Install the PSPDFKit plugin:
 
 	$ cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
 
-Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`, demo version also works) into your project. This example uses version `3.x.x` of the PSPDFKit library. The current working directory has to be your project directory:
+Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`, demo version also works) into your project. This example uses version `4.x.x` of the PSPDFKit library. The current working directory has to be your project directory:
 
-	$ cp /path/to/pspdfkit-3.x.x.aar platforms/android/libs/
+	$ cp /path/to/pspdfkit-4.x.x.aar platforms/android/libs/
 
-Set the minimum SDK version of your Android application to 16. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
+Set the minimum SDK version of your Android application to 19. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
 
 	<platform name="android">
-        <preference name="android-minSdkVersion" value="16" />
+        <preference name="android-minSdkVersion" value="19" />
         <!-- more Android platform settings -->
     </platform>
 
