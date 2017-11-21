@@ -22,7 +22,7 @@
   "engines": [
     {
       "name": "cordova-android",
-      "version": ">=5.0.0"
+      "version": ">=6.3.0"
     }
   ],
   "author": "PSPDFKit",
