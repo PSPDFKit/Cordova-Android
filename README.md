@@ -1,17 +1,4 @@
-<!--
- # README.md
- #
- #   PSPDFKit
- #
- #   Copyright (c) 2015-2017 PSPDFKit GmbH. All rights reserved.
- #
- #   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
- #   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
- #   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
- #   This notice may not be removed from this file.
- # -->
 # Cordova Wrapper for PSPDFKit 4 for Android
-============================================
 
 This plugin defines a global `PSPDFKit` object, which provides an API for viewing PDF documents with PSPDFKit for Android.
 
