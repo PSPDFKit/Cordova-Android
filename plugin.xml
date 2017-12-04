@@ -55,7 +55,6 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         </config-file>
 
         <config-file parent="/*/application" target="AndroidManifest.xml" after="activity">
-            <meta-data android:name="pspdfkit_license_key" android:value="LICENSE_KEY_GOES_HERE" />
             <activity android:name="com.pspdfkit.ui.PdfActivity"
                       android:theme="@style/PSPDFKit.Theme"
                       android:windowSoftInputMode="adjustNothing"/>
