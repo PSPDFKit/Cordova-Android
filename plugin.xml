@@ -11,7 +11,7 @@
   ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
   ~   This notice may not be removed from this file.
 -->
-<plugin id="pspdfkit-cordova-android" version="4.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin id="pspdfkit-cordova-android" version="4.2.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>PSPDFKit-Android</name>
     <description>Integration of the PSPDFKit for Android library.</description>
