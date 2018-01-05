@@ -19,12 +19,11 @@
     "ecosystem:cordova",
     "cordova-android"
   ],
-  "engines": [
-    {
-      "name": "cordova-android",
-      "version": ">=6.3.0"
-    }
-  ],
+  "engines": {
+      "cordovaDependencies": {
+        "4.2.1": { "cordova-android": ">=7.0.0" }
+      }
+  },
   "author": "PSPDFKit",
   "license": "MIT",
   "bugs": {

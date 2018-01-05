@@ -26,10 +26,6 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
   2) Add your PSPDFKit license key to the <meta-data name="pspdfkit_license_key"> tag of your AndroidManifest.xml.
 ]]></info>
 
-    <engines>
-        <engine name="cordova-android" version=">=6.3.0"/>
-    </engines>
-
     <js-module name="PSPDFKit" src="www/PSPDFKit.js">
         <clobbers target="PSPDFKit"/>
     </js-module>
