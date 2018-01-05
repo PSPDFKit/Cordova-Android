@@ -111,7 +111,7 @@ Set the minimum SDK version of your Android application to 19. To do so, add the
         <!-- more Android platform settings -->
     </platform>
 
-Configure your PSPDFKit license key inside the `platforms/android/AndroidManifest` (demo license key also works):
+Configure your PSPDFKit license key inside the `platforms/android/app/src/main/AndroidManifest.xml` (demo license key also works):
 
 	<manifest>
 		<application>
@@ -124,6 +124,5 @@ You are now ready to build your app!
 	$ cordova build
 
  ## Contributing
-  
+
  Please ensure [you signed our CLA](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your contributions.
- 
