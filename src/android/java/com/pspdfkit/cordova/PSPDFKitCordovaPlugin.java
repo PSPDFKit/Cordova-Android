@@ -113,24 +113,33 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
             final Object value = options.get(option);
 
             try {
-                if ("backgroundColor".equals(option)) {
+                if ("autosaveEnabled".equals(option)) {
+                    builder.autosaveEnabled((Boolean) value);
+                } else if ("backgroundColor".equals(option)) {
                     builder.backgroundColor(Color.parseColor((String) value));
+                } else if ("disableAnnotationList".equals(option) && ((Boolean) value)) {
+                    builder.disableAnnotationList();
+                } else if ("disableAnnotationNoteHinting".equals(option)) {
+                    builder.setAnnotationNoteHintingEnabled(!(Boolean) value);
+                } else if ("disableBookmarkEditing".equals(option) && ((Boolean) value)) {
+                    builder.disableBookmarkEditing();
+                } else if ("disableBookmarkList".equals(option) && ((Boolean) value)) {
+                    builder.disableBookmarkList();
+                } else if("disableCopyPaste".equals(option)) {
+                    if((Boolean) value) builder.disableCopyPaste();
+                    else builder.enableCopyPaste();
+                } else if ("disableDocumentEditor".equals(option) && ((Boolean) value)) {
+                    builder.disableDocumentEditor();
                 } else if ("disableOutline".equals(option) && ((Boolean) value)) {
                     builder.disableOutline();
+                } else if ("disablePrinting".equals(option) && ((Boolean) value)) {
+                    builder.disablePrinting();
                 } else if ("disableSearch".equals(option) && ((Boolean) value)) {
                     builder.disableSearch();
                 } else if ("disableShare".equals(option) && ((Boolean) value)) {
                     builder.disableShare();
-                } else if ("disablePrinting".equals(option) && ((Boolean) value)) {
-                    builder.disablePrinting();
-                } else if ("disableBookmarkList".equals(option) && ((Boolean) value)) {
-                    builder.disableBookmarkList();
-                } else if ("disableAnnotationList".equals(option) && ((Boolean) value)) {
-                    builder.disableAnnotationList();
-                } else if ("disableDocumentEditor".equals(option) && ((Boolean) value)) {
-                    builder.disableDocumentEditor();
-                } else if ("disableBookmarkEditing".equals(option) && ((Boolean) value)) {
-                    builder.disableBookmarkEditing();
+                } else if ("disableUndoRedo".equals(option)) {
+                    builder.undoEnabled(!(Boolean) value);
                 } else if ("hidePageLabels".equals(option) && ((Boolean) value)) {
                     builder.hidePageLabels();
                 } else if ("hidePageNumberOverlay".equals(option) && ((Boolean) value)) {
@@ -168,8 +177,6 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     if ("SEARCH_INLINE".equals(searchType)) builder.setSearchType(PdfActivityConfiguration.SEARCH_INLINE);
                     else if ("SEARCH_MODULAR".equals(searchType)) builder.setSearchType(PdfActivityConfiguration.SEARCH_MODULAR);
                     else throw new IllegalArgumentException(String.format("Invalid search type: %s", value));
-                } else if ("autosaveEnabled".equals(option)) {
-                    builder.autosaveEnabled(options.getBoolean("autosaveEnabled"));
                 } else if ("annotationEditing".equals(option)) {
                     final JSONObject annotationEditing = options.getJSONObject("annotationEditing");
                     final Iterator<String> annotationOptionIterator = annotationEditing.keys();
