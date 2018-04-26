@@ -144,6 +144,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     builder.hidePageLabels();
                 } else if ("hidePageNumberOverlay".equals(option) && ((Boolean) value)) {
                     builder.hidePageNumberOverlay();
+                } else if("hideSettingsMenu".equals(option) && ((Boolean) value)) {
+                    builder.hideSettingsMenu();
                 } else if ("thumbnailBarMode".equals(option)) {
                     builder.setThumbnailBarMode(ThumbnailBarMode.valueOf((String) value));
                 } else if ("hideThumbnailGrid".equals(option) && ((Boolean) value)) {
