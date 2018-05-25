@@ -130,6 +130,52 @@ You are now ready to build your app!
 
 	$ cordova build
 
+## Troubleshooting
+
+### PdfActivity missing in AndroidManifest.xml
+
+In some cases, it might occure that Cordova fails adding the required `<activity/>` entry to your app's `AndroidManifest.xml`. If this is the case, you will see an error message like this when trying to show a PDF document:
+
+```
+05-23 21:55:40.214 20912-20982/com.example.app E/PluginManager: Uncaught exception from plugin 
+android.content.ActivityNotFoundException: Unable to find explicit activity class {com.example.app/com.pspdfkit.ui.PdfActivity}; have you declared this activity in your AndroidManifest.xml? 
+at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1854) 
+at android.app.Instrumentation.execStartActivity(Instrumentation.java:1545) 
+at android.app.Activity.startActivityForResult(Activity.java:4283) 
+at org.apache.cordova.CordovaActivity.startActivityForResult(CordovaActivity.java:342) 
+at android.app.Activity.startActivityForResult(Activity.java:4230) 
+at android.app.Activity.startActivity(Activity.java:4567) 
+at android.app.Activity.startActivity(Activity.java:4535) 
+at com.pspdfkit.ui.PdfActivity.showDocument(SourceFile:113) 
+at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.showDocumentForUri(PSPDFKitCordovaPlugin.java:253) 
+at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.showDocument(PSPDFKitCordovaPlugin.java:227) 
+at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.execute(PSPDFKitCordovaPlugin.java:85) 
+at org.apache.cordova.CordovaPlugin.execute(CordovaPlugin.java:98) 
+at org.apache.cordova.PluginManager.exec(PluginManager.java:132) 
+at org.apache.cordova.CordovaBridge.jsExec(CordovaBridge.java:57) 
+at org.apache.cordova.engine.SystemExposedJsApi.exec(SystemExposedJsApi.java:41) 
+at org.chromium.base.SystemMessageHandler.nativeDoRunLoopOnce(Native Method) 
+at org.chromium.base.SystemMessageHandler.handleMessage(SystemMessageHandler.java:9) 
+at android.os.Handler.dispatchMessage(Handler.java:102) 
+at android.os.Looper.loop(Looper.java:158) 
+at android.os.HandlerThread.run(HandlerThread.java:61)
+```
+
+To fix the issue, you need to manually add following entry to your `AndroidManifest.xml`, usually located at `<your-project>/platforms/android/app/src/main/AndroidManifest.xml`: 
+
+```AndroidManifest.xml
+<manifest ...>
+    <application ...>
+        ...
+	
+	<!-- Add this entry if is is missing inside the manifest file. -->
+        <activity android:name="com.pspdfkit.ui.PdfActivity" android:theme="@style/PSPDFKit.Theme" android:windowSoftInputMode="adjustNothing" />
+    </application>
+</manifest>
+```
+
+The entry needs to be inside the existing `<application></application>` tags and should be added without removing any other entries that already exist. After recompiling and re-running the application, the error should be gone and PDF files should be properly displayed.
+
  ## Contributing
 
  Please ensure [you signed our CLA](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your contributions.
