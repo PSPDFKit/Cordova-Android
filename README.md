@@ -134,7 +134,7 @@ You are now ready to build your app!
 
 ### PdfActivity missing in AndroidManifest.xml
 
-In some cases, it might occure that Cordova fails adding the required `<activity/>` entry to your app's `AndroidManifest.xml`. If this is the case, you will see an error message like this when trying to show a PDF document:
+In some cases, it might occur that Cordova fails adding the required `<activity/>` entry to your app's `AndroidManifest.xml`. If this is the case, you will see an error message like this when trying to show a PDF document:
 
 ```
 05-23 21:55:40.214 20912-20982/com.example.app E/PluginManager: Uncaught exception from plugin 
