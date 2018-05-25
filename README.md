@@ -168,7 +168,7 @@ To fix the issue, you need to manually add following entry to your `AndroidManif
     <application ...>
         ...
 	
-	<!-- Add this entry if is is missing inside the manifest file. -->
+	<!-- Add this entry if it is missing inside the manifest file. -->
         <activity android:name="com.pspdfkit.ui.PdfActivity" android:theme="@style/PSPDFKit.Theme" android:windowSoftInputMode="adjustNothing" />
     </application>
 </manifest>
