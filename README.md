@@ -64,6 +64,7 @@ var options {
 	disableUndoRedo: true, // disable undo/redo system (default: false)      
 	hidePageLabels: true, // hide page labels (if available in PDF) in page overlay and thumbnail grid (default: false)  
 	hidePageNumberOverlay: false, // hide the overlay showing the current page (default: false)
+	hideSettingsMenu: false, // hide the settings menu (default: false)
 	thumbnailBarMode: PSPDFKit.ThumbnailBarMode.THUMBNAIL_BAR_MODE_DEFAULT, // show static thumbnail bar. Also valid: THUMBNAIL_BAR_MODE_DEFAULT, THUMBNAIL_BAR_MODE_SCROLLABLE
 	hideThumbnailGrid: false, // hide the thumbnail grid menu (default: false)
 	pageFitMode: PSPDFKit.PageFitMode.FIT_TO_WIDTH, // also valid: PSPDFKit.PageFitMode.FIT_TO_SCREEN
