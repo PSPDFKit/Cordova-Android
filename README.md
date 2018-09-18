@@ -2,26 +2,38 @@
 
 The [PSPDFKit SDK](https://pspdfkit.com/pdf-sdk/) is a framework that allows you to view, annotate, sign, and fill PDF forms on iOS, Android, Windows, macOS, and Web. [PSPDFKit Instant](https://pspdfkit.com/instant/) adds real-time collaboration features to seamlessly share, edit, and annotate PDF documents.
 
-PSPDFKit comes with open source wrappers for Cordova on both [iOS](https://pspdfkit.com/guides/ios/current/other-languages/apache-cordova-phonegap/) and [Android](https://pspdfkit.com/guides/android/current/other-languages/apache-cordova-phonegap/).
+PSPDFKit comes with open source wrappers for Cordova on both [iOS](https://pspdfkit.com/guides/ios/current/other-languages/apache-cordova-phonegap/) and [Android](https://pspdfkit.com/guides/android/current/other-languages/apache-cordova-phonegap/). These wrappers also work for being used with the [Ionic](https://ionicframework.com/).
 
 This plugin defines a global `PSPDFKit` object, which provides an API for viewing PDF documents with PSPDFKit for Android.
 
 ## Installation
 
-	cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
+#### Installation in a Cordova app
+
+```shell
+$ cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
+```
+
+#### Installation in an Ionic app
+
+
+```shell
+$ ionic cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
+```
+
 
 ## Example
 
 ```javascript
 function showMyDocument() {
-	PSPDFKit.showDocumentFromAssets('www/documents/myFile.pdf', {
-		title: 'My PDF Document',
-		page: 4,
-		scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
-		scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
-		useImmersiveMode: true,
-		password: "my-document-password"
-	});
+  PSPDFKit.showDocumentFromAssets('www/documents/myFile.pdf', {
+    title: 'My PDF Document',
+    page: 4,
+    scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+    scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
+    useImmersiveMode: true,
+    password: "my-document-password"
+  });
 }
 ```
 
