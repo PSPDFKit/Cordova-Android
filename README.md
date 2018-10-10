@@ -189,6 +189,28 @@ To fix the issue, you need to manually add following entry to your `AndroidManif
 
 The entry needs to be inside the existing `<application></application>` tags and should be added without removing any other entries that already exist. After recompiling and re-running the application, the error should be gone and PDF files should be properly displayed.
 
- ## Contributing
+### Locking the device orientation inside a PDF
 
- Please ensure [you signed our CLA](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your contributions.
+If you want to lock the device orientation to, for example, portrait mode, you can do this by specifying the `android:screenOrientation` attribute on the `PdfActivity` inside your app's `AndroidManifest.xml`. However, since Cordova will always regenerate the `AndroidManifest.xml` at build time, you can't manually change the existing activity entry in the XML.
+
+1. Specify the extra `android:screenOrientation` attribute for `PdfActivity` inside your app's `config.xml`:
+
+	```config.xml
+	<widget id="com.example.app" ...>
+	    ...
+	    <!-- Add this to the end of your configuration to set the screen orientation inside PDFs. -->
+	    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='com.pspdfkit.ui.PdfActivity']">
+		<!-- This will lock the screen orientation to portrait mode. -->
+		<activity android:screenOrientation="portrait" />
+	    </edit-config>
+	</widget>
+	```
+
+    For the complete list of screen orientations supported by Android, check out the official Android documentation: https://developer.android.com/guide/topics/manifest/activity-element#screen
+
+2. From the command line, run `cordova prepare` to update the `AndroidManifest.xml`. 
+3. Open the `platforms/android/app/src/main/AndroidManifest.xml` file and ensure that the `android:screenOrientation` attribute was properly added to the existing `PdfActivity` declaration.
+
+## Contributing
+
+Please ensure [you signed our CLA](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your contributions.
