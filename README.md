@@ -56,6 +56,7 @@ PSPDFKit.showDocumentFromAssets(assetPath, options, success, fail)
 ## Supported Platforms
 
 * Android SDK API level 19+ / Android 4.4+ (KitKat)
+* Cordova Android 7+.
 
 ## Options
 
