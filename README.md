@@ -103,7 +103,7 @@ var options {
 PSPDFKit.showDocumentFromAssets('www/documents/myFile.pdf', options);
 ```
 
-## Quickstart Guide
+## Quickstart Guide Cordova
 
 Create a new Apache Cordova project from your command line using the [Apache Cordova Command-Line Interface (CLI)](https://cordova.apache.org/docs/en/5.1.1/index.html).
 
@@ -122,7 +122,7 @@ Install the PSPDFKit plugin:
 
 Copy the PSPDFKit library file (usually `pspdfkit-<version>.aar`, demo version also works) into your project. This example uses version `4.x.x` of the PSPDFKit library. The current working directory has to be your project directory:
 
-	$ cp /path/to/pspdfkit-4.x.x.aar platforms/android/libs/
+	$ mkdir -p platforms/android/app/libs/ && cp path/to/pspdfkit-4.8.1.aar platforms/android/app/libs/
 
 Set the minimum SDK version of your Android application to 19. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
 
@@ -135,13 +135,81 @@ Configure your PSPDFKit license key inside the `platforms/android/app/src/main/A
 
 	<manifest>
 		<application>
-			<meta-data android:name="pspdfkit_license_key" android:value="..." />
+			<meta-data android:name="pspdfkit_license_key" android:value="ENTER_LICENSE_KEY_HERE" />
 		</application>
 	</manifest>
 
 You are now ready to build your app!
 
 	$ cordova build
+
+## Quickstart Guide Ionic
+
+For more information regarding the Ionic installation you can check out the [official Ionic installation guide](https://ionicframework.com/docs/v1/guide/installation.html).
+
+Create a new Ionic project from the command line using the [Ionic Command-Line Interface (CLI)](https://ionicframework.com/docs/cli/start/) .
+
+  $ ionic start todo blank --type ionic1
+
+It will then ask you if you want to integrate your new app with Cordova, answer with yes. After the process is finished change to the newly created Ionic project directory.
+
+  $ cd todo
+
+Add Android platform support:
+
+  $ ionic cordova platform add android
+
+Install the PSPDFKit plugin:
+
+  $ ionic cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
+
+Download the PSPDFKit Android SDK from the [customer portal](https:// customers.pspdfkit.com) or get a free trial version [here](https://pspdfkit.com/try/) if you're not a customer already.
+
+Afterwards rename the `.aar` file to `pspdfkit-x.x.x.aar` (x.x.x being the version of the SDK, so the end result should look like this `pspdfkit-4.8.1.aar`). Now move the PSPDFKit library `.aar` file into the `platforms/android/app/libs/` directory of your project. You can also do this in the command line:
+
+	$ mkdir -p platforms/android/app/libs/ && cp path/to/pspdfkit-4.8.1.aar platforms/android/app/libs/
+
+Set the minimum SDK version of your Android application to 19. To do so, add the `android-minSdkVersion` preference to the android platform configuration of your `config.xml`. It should now look like this:
+
+	<platform name="android">
+        <preference name="android-minSdkVersion" value="19" />
+        <!-- more Android platform settings -->
+    </platform>
+
+Configure your PSPDFKit license key inside the `platforms/android/app/src/main/AndroidManifest.xml` (demo license key also works):
+
+<manifest>
+	<application>
+		<meta-data android:name="pspdfkit_license_key" android:value="ENTER_LICENSE_KEY_HERE" />
+	</application>
+</manifest>
+
+If you're already a customer then please make sure that the package ID matches with your bundle ID that's assigned to your license (e.g. com.ionic.test). You can check this in your `AndroidManifest.xml` by searching for `package`. If you are using a trial license then you don't have to worry about that.
+
+Now open your `app.js` file located in `www/js/` and paste the below code into the `$ionicPlatform.ready(function() {}` function. For this to work you need to create a folder called `documents` in `wwww` and paste a PDF in this folder.
+
+```javascript
+PSPDFKit.showDocumentFromAssets('www/documents/Document.pdf', {
+  title: 'My PDF Document',
+  page: 0,
+  scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+  scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
+  useImmersiveMode: true,
+});
+```
+
+Now you need to build the app to see if everything works was done correctly:
+
+  $ ionic cordova build
+
+And finally to run the app on a real device simply enter:
+
+  $ ionic cordova run android
+
+Or if you want to run the app on a simulator you can use:
+
+  $ ionic cordova emulate android
+
 
 ## Troubleshooting
 
@@ -150,37 +218,37 @@ You are now ready to build your app!
 In some cases, it might occur that Cordova fails adding the required `<activity/>` entry to your app's `AndroidManifest.xml`. If this is the case, you will see an error message like this when trying to show a PDF document:
 
 ```
-05-23 21:55:40.214 20912-20982/com.example.app E/PluginManager: Uncaught exception from plugin 
-android.content.ActivityNotFoundException: Unable to find explicit activity class {com.example.app/com.pspdfkit.ui.PdfActivity}; have you declared this activity in your AndroidManifest.xml? 
-at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1854) 
-at android.app.Instrumentation.execStartActivity(Instrumentation.java:1545) 
-at android.app.Activity.startActivityForResult(Activity.java:4283) 
-at org.apache.cordova.CordovaActivity.startActivityForResult(CordovaActivity.java:342) 
-at android.app.Activity.startActivityForResult(Activity.java:4230) 
-at android.app.Activity.startActivity(Activity.java:4567) 
-at android.app.Activity.startActivity(Activity.java:4535) 
-at com.pspdfkit.ui.PdfActivity.showDocument(SourceFile:113) 
-at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.showDocumentForUri(PSPDFKitCordovaPlugin.java:253) 
-at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.showDocument(PSPDFKitCordovaPlugin.java:227) 
-at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.execute(PSPDFKitCordovaPlugin.java:85) 
-at org.apache.cordova.CordovaPlugin.execute(CordovaPlugin.java:98) 
-at org.apache.cordova.PluginManager.exec(PluginManager.java:132) 
-at org.apache.cordova.CordovaBridge.jsExec(CordovaBridge.java:57) 
-at org.apache.cordova.engine.SystemExposedJsApi.exec(SystemExposedJsApi.java:41) 
-at org.chromium.base.SystemMessageHandler.nativeDoRunLoopOnce(Native Method) 
-at org.chromium.base.SystemMessageHandler.handleMessage(SystemMessageHandler.java:9) 
-at android.os.Handler.dispatchMessage(Handler.java:102) 
-at android.os.Looper.loop(Looper.java:158) 
+05-23 21:55:40.214 20912-20982/com.example.app E/PluginManager: Uncaught exception from plugin
+android.content.ActivityNotFoundException: Unable to find explicit activity class {com.example.app/com.pspdfkit.ui.PdfActivity}; have you declared this activity in your AndroidManifest.xml?
+at android.app.Instrumentation.checkStartActivityResult(Instrumentation.java:1854)
+at android.app.Instrumentation.execStartActivity(Instrumentation.java:1545)
+at android.app.Activity.startActivityForResult(Activity.java:4283)
+at org.apache.cordova.CordovaActivity.startActivityForResult(CordovaActivity.java:342)
+at android.app.Activity.startActivityForResult(Activity.java:4230)
+at android.app.Activity.startActivity(Activity.java:4567)
+at android.app.Activity.startActivity(Activity.java:4535)
+at com.pspdfkit.ui.PdfActivity.showDocument(SourceFile:113)
+at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.showDocumentForUri(PSPDFKitCordovaPlugin.java:253)
+at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.showDocument(PSPDFKitCordovaPlugin.java:227)
+at com.pspdfkit.cordova.PSPDFKitCordovaPlugin.execute(PSPDFKitCordovaPlugin.java:85)
+at org.apache.cordova.CordovaPlugin.execute(CordovaPlugin.java:98)
+at org.apache.cordova.PluginManager.exec(PluginManager.java:132)
+at org.apache.cordova.CordovaBridge.jsExec(CordovaBridge.java:57)
+at org.apache.cordova.engine.SystemExposedJsApi.exec(SystemExposedJsApi.java:41)
+at org.chromium.base.SystemMessageHandler.nativeDoRunLoopOnce(Native Method)
+at org.chromium.base.SystemMessageHandler.handleMessage(SystemMessageHandler.java:9)
+at android.os.Handler.dispatchMessage(Handler.java:102)
+at android.os.Looper.loop(Looper.java:158)
 at android.os.HandlerThread.run(HandlerThread.java:61)
 ```
 
-To fix the issue, you need to manually add following entry to your `AndroidManifest.xml`, usually located at `<your-project>/platforms/android/app/src/main/AndroidManifest.xml`: 
+To fix the issue, you need to manually add following entry to your `AndroidManifest.xml`, usually located at `<your-project>/platforms/android/app/src/main/AndroidManifest.xml`:
 
 ```AndroidManifest.xml
 <manifest ...>
     <application ...>
         ...
-	
+
 	<!-- Add this entry if it is missing inside the manifest file. -->
         <activity android:name="com.pspdfkit.ui.PdfActivity" android:theme="@style/PSPDFKit.Theme" android:windowSoftInputMode="adjustNothing" />
     </application>
@@ -208,8 +276,25 @@ If you want to lock the device orientation to, for example, portrait mode, you c
 
     For the complete list of screen orientations supported by Android, check out the official Android documentation: https://developer.android.com/guide/topics/manifest/activity-element#screen
 
-2. From the command line, run `cordova prepare` to update the `AndroidManifest.xml`. 
+2. From the command line, run `cordova prepare` to update the `AndroidManifest.xml`.
 3. Open the `platforms/android/app/src/main/AndroidManifest.xml` file and ensure that the `android:screenOrientation` attribute was properly added to the existing `PdfActivity` declaration.
+
+## Troubleshooting Ionic
+
+### Failed Version Downgrade
+
+Sometimes when running the app on the device again an error can occur which says:
+
+```
+Error: adb: Command failed with exit code 1 Error output:
+adb: failed to install /Users/christoph/Downloads/todo/platforms/android/app/build/outputs/apk/debug/app-debug.apk: Failure [INSTALL_FAILED_VERSION_DOWNGRADE]
+```
+
+To solve this just uninstall the existing app from your device. To be 100% sure you can got the Settings -> Apps and delete the app for all users.
+
+### Build succeeds but it doesn't show the document on the device
+
+Please make sure that your license key is properly set in the `AndroidManifest.xml`! You can also open a new terminal window and type `adb logcat` to see exactly what's happening on your device. When searching for "PSPDFKit" you should be able to search for the error rather easily.
 
 ## Contributing
 
