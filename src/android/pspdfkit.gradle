@@ -20,7 +20,7 @@ repositories {
     }
 }
 
-def pspdfkitAarFiles = new FileNameFinder().getFileNames(new File(project.projectDir, 'libs').absolutePath, '*.aar')
+def pspdfkitAarFiles = new FileNameByRegexFinder().getFileNames(project.projectDir.absolutePath, /.*libs\/.*(?i)pspdfkit.*\.aar/)
 
 if(pspdfkitAarFiles.isEmpty()) {
     throw new MissingResourceException("The PSPDFKit aar file required by the PSPDFKit-Android Cordova plugin is missing. Please place this file into 'platforms/android/libs/' before building your app.");
