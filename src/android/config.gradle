@@ -1,0 +1,55 @@
+/*
+ *   Copyright (c) 2018 PSPDFKit GmbH. All rights reserved.
+ *
+ *   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
+ *   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
+ *   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
+ *   This notice may not be removed from this file.
+ */
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+ext.pspdfkitMavenUrl = localProperties.getProperty('pspdfkit.mavenUrl')
+if (pspdfkitMavenUrl == null || pspdfkitMavenUrl == '') {
+    ext.pspdfkitMavenUrl = 'https://customers.pspdfkit.com/maven/'
+}
+
+ext.pspdfkitUsername = localProperties.getProperty('pspdfkit.username')
+if (pspdfkitUsername == null || pspdfkitUsername == '') {
+    ext.pspdfkitUsername = 'pspdfkit'
+}
+
+ext.pspdfkitPassword = localProperties.getProperty('pspdfkit.password')
+if (pspdfkitPassword == null || pspdfkitPassword == '') {
+    throw new GradleException("PSPDFKit password was not specified. The password is required to download the PSPDFKit AAR file from PSPDFKit servers"
+        + " into your project. Please specify as pspdfkit.password inside the local.properties file. In case you don't own a password for PSPDFKit"
+        + " yet, you can request an evaluation copy of PSPDFKit at https://pspdfkit.com/try/. If you already own a license of PSPDFKit, you can"
+        + " access it at https://customers.pspdfkit.com/.")
+}
+
+ext.pspdfkitLicense = localProperties.getProperty('pspdfkit.license')
+if (pspdfkitLicense == null || pspdfkitLicense == '') {
+    throw new GradleException("PSPDFKit license was not specified. The license is required to initialize and run PSPDFKit."
+        + " Please specify as pspdfkit.license inside the local.properties file. In case you don't own a license for PSPDFKit"
+        + " yet, you can request an evaluation copy of PSPDFKit at https://pspdfkit.com/try/. If you already own a license of"
+        + " PSPDFKit, you can access it at https://customers.pspdfkit.com/.")
+}
+
+def pspdfkitIsDemo = localProperties.getProperty('pspdfkit.demo')
+if (pspdfkitIsDemo == null) {
+    pspdfkitIsDemo = pspdfkitPassword.startsWith('TRIAL-')
+} else {
+    pspdfkitIsDemo = Boolean.parseBoolean(pspdfkitIsDemo)
+}
+
+ext.pspdfkitMavenModuleName = pspdfkitIsDemo ? 'pspdfkit-demo' : 'pspdfkit'
+ext.pspdfkitVersion = localProperties.getProperty('pspdfkit.version')
+if (pspdfkitVersion == null || pspdfkitVersion == '') {
+    ext.pspdfkitVersion = '5.0.1'
+}
