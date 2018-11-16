@@ -140,9 +140,24 @@ Configure your PSPDFKit license key inside the `platforms/android/app/src/main/A
 		</application>
 	</manifest>
 
-You are now ready to build your app!
+If you're already a customer then please make sure that the package ID matches with your bundle ID that's assigned to your license (e.g. com.ionic.test). You can check this in your `AndroidManifest.xml` by searching for `package`. If you are using a trial license then you don't have to worry about that.
+
+Now open your `index.js` file located in `www/js/` and paste the below code into the `receivedEvent: function(id)` function. For this to work you need to create a folder called `documents` in `wwww` and paste a PDF in this folder.
+
+```javascript
+  PSPDFKit.showDocumentFromAssets('www/documents/A.pdf', {
+    title: 'My PDF Document',
+    page: 0,
+    scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+    scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
+    useImmersiveMode: true,
+  });
+```
+
+You are now ready to build and test your app!
 
 	$ cordova build
+  $ cordova run
 
 ## Quickstart Guide Ionic
 
