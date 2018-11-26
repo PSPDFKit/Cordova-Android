@@ -21,7 +21,7 @@
   ],
   "engines": {
       "cordovaDependencies": {
-        "5.0.1": { "cordova-android": ">=7.0.0" }
+        "5.0.1": { "cordova-android": "8.0.0-nightly.2018.11.23.ef243418" }
       }
   },
   "author": "PSPDFKit",
