@@ -47,8 +47,6 @@ In case there are issues, feel free to reach out to our support team at https://
         <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java"
                      target-dir="src/com/pspdfkit/cordova"/>
 
-        <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml" />
-
         <framework custom="true" src="src/android/config.gradle" type="gradleReference"/>
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
 
