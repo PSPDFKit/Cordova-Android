@@ -1,6 +1,6 @@
 {
   "name": "pspdfkit-cordova-android",
-  "version": "5.0.14.3.0",
+  "version": "5.0.1",
   "description": "Integration of the PSPDFKit for Android library.",
   "cordova": {
     "id": "pspdfkit-cordova-android",
