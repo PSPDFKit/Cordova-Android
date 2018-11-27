@@ -1,9 +1,5 @@
 /*
- * pspdfkit.gradle
- *
- *   PSPDFKit
- *
- *   Copyright (c) 2015-2017 PSPDFKit GmbH. All rights reserved.
+ *   Copyright (c) 2015-2018 PSPDFKit GmbH. All rights reserved.
  *
  *   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
  *   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
@@ -12,30 +8,27 @@
  */
 
 repositories {
-    flatDir {
-        dirs 'libs'
+    maven {
+        url pspdfkitMavenUrl
+        credentials {
+            username pspdfkitUsername
+            // The PSPDFKit password has to be specified in your app's local.properties file, for example:
+            // pspdfkit.password = MY_PSPDFKIT_PASSWORD
+            password pspdfkitPassword
+        }
     }
     maven {
         url "https://maven.google.com"
     }
 }
 
-def pspdfkitAarFiles = new FileNameByRegexFinder().getFileNames(project.projectDir.absolutePath, /.*libs\/.*(?i)pspdfkit.*\.aar/)
-
-if(pspdfkitAarFiles.isEmpty()) {
-    throw new MissingResourceException("The PSPDFKit aar file required by the PSPDFKit-Android Cordova plugin is missing. Please place this file into 'platforms/android/libs/' before building your app.");
+android {
+    defaultConfig {
+        // The license string has to be specified in your app's local.properties file, for example:
+        // pspdfkit.license = MY_LICENSE_STRING.
+        resValue "string", "PSPDFKIT_LICENSE_KEY", "\"$pspdfkitLicense\""
+    }
 }
-
 dependencies {
-    compile 'com.android.support:support-v4:26.0.2'
-    compile 'com.android.support:appcompat-v7:26.0.2'
-    compile 'com.android.support:recyclerview-v7:26.0.2'
-    compile 'com.android.support:cardview-v7:26.0.2'
-    compile 'com.android.support:design:26.0.2'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.getkeepsafe.relinker:relinker:1.2.2'
-    compile 'com.facebook.device.yearclass:yearclass:2.0.0'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.20'
-    compile 'com.pspdfkit:pspdfkit:+@aar'
+    implementation "com.pspdfkit:$pspdfkitMavenModuleName:$pspdfkitVersion"
 }

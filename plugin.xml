@@ -1,17 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!--
-  ~ plugin.xml
-  ~
-  ~   PSPDFKit
-  ~
-  ~   Copyright (c) 2015-2017 PSPDFKit GmbH. All rights reserved.
+  ~   Copyright (c) 2015-2018 PSPDFKit GmbH. All rights reserved.
   ~
   ~   THIS SOURCE CODE AND ANY ACCOMPANYING DOCUMENTATION ARE PROTECTED BY INTERNATIONAL COPYRIGHT LAW
   ~   AND MAY NOT BE RESOLD OR REDISTRIBUTED. USAGE IS BOUND TO THE PSPDFKIT LICENSE AGREEMENT.
   ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
   ~   This notice may not be removed from this file.
 -->
-<plugin id="pspdfkit-cordova-android" version="4.3.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin id="pspdfkit-cordova-android" version="5.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>PSPDFKit-Android</name>
     <description>Integration of the PSPDFKit for Android library.</description>
@@ -20,10 +16,21 @@
     <license>MIT</license>
 
     <info><![CDATA[
-You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more steps:
+Thanks for using the PSPDFKit for Cordova/Ionic wrapper. There's only on more step to get you started:
 
-  1) Place your PSPDFKit library aar file into the `platforms/android/app/src/main/` directory of your project.
-  2) Add your PSPDFKit license key to the <meta-data android:name="pspdfkit_license_key" android:value="ENTER_LICENSE_KEY_HERE" /> tag of your AndroidManifest.xml.
+    1) You need to add following lines to the `local.properties` (usually inside platforms/android/): 
+
+    pspdfkit.password = YOUR_PASSWORD
+    pspdfkit.license = YOUR_PSPDFKIT_LICENSE
+
+    2) Inside your `project.properties` you need to set the `target` to `android-28`.
+
+    Make sure to replace YOUR_PASSWORD and YOUR_PSPDFKIT_LICENSE with the actual PSPDFKit customer password
+    and license string that you received while requesting a demo at https://pspdfkit.com/try/ or via the PSPDFKit 
+    customer portal (in case you already own a license).
+
+For the complete documentation and troubleshooting, check out our documentation at https://github.com/PSPDFKit/Cordova-Android. 
+In case there are issues, feel free to reach out to our support team at https://pspdfkit.com/support/request/.
 ]]></info>
 
     <js-module name="PSPDFKit" src="www/PSPDFKit.js">
@@ -40,14 +47,19 @@ You're almost set up for using PSPDFKit-Android for Apache Cordova! Two more ste
         <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java"
                      target-dir="src/com/pspdfkit/cordova"/>
 
-        <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml" />
-
+        <framework custom="true" src="src/android/config.gradle" type="gradleReference"/>
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="PSPDFKitCordovaPlugin">
                 <param name="android-package" value="com.pspdfkit.cordova.PSPDFKitCordovaPlugin"/>
             </feature>
+        </config-file>
+
+        <config-file parent="/*/application" target="app/src/main/AndroidManifest.xml">
+            <meta-data
+                android:name="pspdfkit_license_key"
+                android:value="@string/PSPDFKIT_LICENSE_KEY" />
         </config-file>
 
         <config-file parent="/*/application" target="app/src/main/AndroidManifest.xml" after="activity">
