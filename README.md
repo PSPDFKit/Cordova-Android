@@ -230,6 +230,12 @@ Or if you want to run the app on a simulator you can use:
 ionic cordova emulate android
 ```
 
+### What your project structure should look like
+
+Below is a screenshot of how the project structure should look like if it's a working project. All folders with important files that need to be adapted are open in the screenshot. If it doesn't look like this then there is a high chance that the guide wasn't properly followed which will also lead to the project not working.
+
+<img src="project-structure.png">
+
 ## Troubleshooting
 
 ### PdfActivity missing in AndroidManifest.xml
@@ -314,6 +320,19 @@ To solve this just uninstall the existing app from your device. To be 100% sure 
 ### Build succeeds but it doesn't show the document on the device
 
 Please make sure that your license key is properly set in the `AndroidManifest.xml`! You can also open a new terminal window and type `adb logcat` to see exactly what's happening on your device. When searching for "PSPDFKit" you should be able to search for the error rather easily.
+
+### Can't find version for a specific support library
+
+Example:
+```
+* What went wrong:
+Could not resolve all files for configuration ':app:debugCompileClasspath'.
+> Could not find support-media-compat.aar (com.android.support:support-media-compat:26.0.2).
+  Searched in the following locations:
+      https://jcenter.bintray.com/com/android/support/support-media-compat/26.0.2/support-media-compat-26.0.2.aar
+```
+
+Simply open your `platforms/android/pspdfkit-cordova-android/YOURAPP-pspdfkit.gradle` file and change the version. In this case changing `26.0.2` to `26.0.1` can already fix such issues because sometimes specific support library versions are not available anymore.
 
 ## Contributing
 
