@@ -191,7 +191,7 @@ cdvBuildToolsVersion=28.0.3
 android.enableD8=true
 ```
 
-Next you need to setup your PSPDFKit license key and Maven password. If you don't have a license key or Maven password yet, you can get them by requesting an evaluation version of PSPDFKit at https://pspdfkit.com/try. Inside your Android app's `platforms/android/local.properties` file, specify the `pspdfkit.password` and `pspdfkit.license` properties:
+Next you need to setup your PSPDFKit license key and Maven password. If you don't have a license key or Maven password yet, you can get them by requesting an evaluation version of PSPDFKit at https://pspdfkit.com/try. Specify the `pspdfkit.password` and `pspdfkit.license` properties inside your Android app's `platforms/android/local.properties` file, create the file if it does not exist:
 
 ```properties
 pspdfkit.password=YOUR_PASSWORD
