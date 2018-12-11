@@ -212,7 +212,7 @@ PSPDFKit.showDocumentFromAssets("www/documents/Document.pdf", {
 });
 ```
 
-Now you need to build the app to see if everything works was done correctly:
+Now you need to build the app to see if everything works correctly:
 
 ```shell
 ionic cordova build
@@ -234,7 +234,26 @@ ionic cordova emulate android
 
 Below is a screenshot of how the project structure should look like if it's a working project. All folders with important files that need to be adapted are open in the screenshot. If it doesn't look like this then there is a high chance that the guide wasn't properly followed which will also lead to the project not working.
 
-<img src="project-structure.png">
+```
+.
+├── platforms
+│   ├── android
+│   │   ├── app
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           └── AndroidManifest.xml
+│   │   ├── pspdfkit-cordova-android
+│   │   │   └── starter-pspdfkit.gradle
+│   │   ├── gradle.properties
+│   │   └── local.properties
+└── www
+    ├── documents
+    │   └── A.pdf
+    ├── index.html
+    └── js
+        ├── app.js     (only for Ionic)
+        └── index.js   (only for Cordova)
+```
 
 ## Troubleshooting
 
