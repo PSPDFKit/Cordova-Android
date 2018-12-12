@@ -353,6 +353,24 @@ Could not resolve all files for configuration ':app:debugCompileClasspath'.
 
 Simply open your `platforms/android/pspdfkit-cordova-android/YOURAPP-pspdfkit.gradle` file and change the version. In this case changing `26.0.2` to `26.0.1` can already fix such issues because sometimes specific support library versions are not available anymore.
 
+### PSPDFKit name not found in TypeScript app
+
+If you are using newer versions of Ionic (for example Ionic 3 with Angular) together with the TypeScript language, you will probably see build errors similar to this:
+
+```text
+ERROR in src/app/app.component.ts(27,7): error TS2304: Cannot find name 'PSPDFKit'.
+src/app/app.component.ts(30,26): error TS2304: Cannot find name 'PSPDFKit'.
+src/app/app.component.ts(31,21): error TS2304: Cannot find name 'PSPDFKit'.
+```
+
+Since TypeScript is a type-safe language, and the `Cordova-Android` plugin is written for JavaScript, you need to manually define the `PSPDFKit` type inside your application. The easiest way to do this is to add following line to your `app.components.ts` file, or any other suitable TypeScript file in your app:
+
+```typescript
+// import statements should go first
+
+declare var PSPDFKit: any;
+```
+
 ## Contributing
 
 Please ensure [you signed our CLA](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your contributions.
