@@ -71,7 +71,6 @@ var options {
     disableDocumentEditor: true, // hide document editor (default: false)
     disableOutline: true, // hide the outline menu (default: false)
     disablePrinting: true, // hide option to print (default: false)
-    disableShare: true, // hide share button (default: false)
     disableUndoRedo: true, // disable undo/redo system (default: false)
     hidePageLabels: true, // hide page labels (if available in PDF) in page overlay and thumbnail grid (default: false)
     hidePageNumberOverlay: false, // hide the overlay showing the current page (default: false)
@@ -81,6 +80,23 @@ var options {
     pageFitMode: PSPDFKit.PageFitMode.FIT_TO_WIDTH, // also valid: PSPDFKit.PageFitMode.FIT_TO_SCREEN
     scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL, // also valid: PSPDFKit.PageScrollDirection.HORIZONTAL
     scrollMode: PSPDFKit.ScrollMode.CONTINUOUS, // also valid: PSPDFKit.ScrollMode.PER_PAGE
+    // Configures which share actions should be visible in the user interface. (default: all enabled)
+    shareFeatures: [
+        /** Document sharing inside the activity. */
+        PSPDFKit.ShareFeatures.DOCUMENT_SHARING,
+        /** Sharing of embedded files (on file annotations). */
+        PSPDFKit.ShareFeatures.EMBEDDED_FILE_SHARING,
+        /** Sharing of text from selected free text annotations. */
+        PSPDFKit.ShareFeatures.FREE_TEXT_ANNOTATION_SHARING,
+        /** Sharing of selected image annotations. */
+        PSPDFKit.ShareFeatures.IMAGE_SHARING,
+        /** Sharing of text from selected note annotations. */
+        PSPDFKit.ShareFeatures.NOTE_ANNOTATION_SHARING,
+        /** Sharing of text from annotation contents or comments. */
+        PSPDFKit.ShareFeatures.NOTE_EDITOR_CONTENT_SHARING,
+        /** Sharing of selected text. */
+        PSPDFKit.ShareFeatures.TEXT_SELECTION_SHARING
+    ],
     invertColors: false, // invert rendered colors (default: false)
     toGrayscale: true, // render document in grayscale only (default: false)
     title: "My PSPDFKit app", // title displayed in the viewer action bar
@@ -111,7 +127,7 @@ Create a new Apache Cordova project from your command line using the [Apache Cor
 
 > Important: Your app's package name (in the above example `com.example.pdfapp`) has to match your PSPDFKit license name or PSPDFKit will throw an exception. If you don't have a license yet, you can request an evaluation license of PSPDFKit at https://pspdfkit.com/try.
 
-Add Android platform support to your project. Right now, PSPDFKit 5.0.1 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
+Add Android platform support to your project. Right now, PSPDFKit 5.1.1 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
 
     cordova platform add android@8.0.0-nightly.2018.11.23.ef243418
 
@@ -171,7 +187,7 @@ It will then ask you if you want to integrate your new app with Cordova, answer 
 cd todo
 ```
 
-Add Android platform support. Right now, PSPDFKit 5.0.1 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
+Add Android platform support. Right now, PSPDFKit 5.1.1 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
 
 ```shell
 ionic cordova platform add android@8.0.0-nightly.2018.11.23.ef243418

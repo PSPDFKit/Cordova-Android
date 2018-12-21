@@ -6,102 +6,128 @@
  UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
  This notice may not be removed from this file.
  */
-exports.defineAutoTests = function () {
-    describe('PSPSDFKit (window.PSPDFKit)', function () {
-        it("should exist", function () {
-            expect(window.PSPDFKit).toBeDefined();
-        });
-
-        describe('showDocument', function() {
-            it('should exist', function () {
-                expect(window.PSPDFKit.showDocument).toBeDefined();
-            });
-        });
-
-        describe('showDocumentFromAssets', function() {
-            it('should exist', function () {
-                expect(window.PSPDFKit.showDocumentFromAssets).toBeDefined();
-            });
-        });
-
-        describe('ScrollMode', function() {
-          it('should exist', function () {
-              expect(window.PSPDFKit.ScrollMode).toBeDefined();
-          });
-        });
-
-        describe('PageFitMode', function() {
-          it('should exist', function () {
-              expect(window.PSPDFKit.PageFitMode).toBeDefined();
-          });
-        });
-
-        describe('PageScrollDirection', function() {
-          it('should exist', function () {
-              expect(window.PSPDFKit.PageScrollDirection).toBeDefined();
-          });
-        });
-
-        describe('SearchType', function() {
-          it('should exist', function () {
-              expect(window.PSPDFKit.SearchType).toBeDefined();
-          });
-        });
-
-        describe('ThumbnailBarMode', function() {
-          it('should exist', function () {
-              expect(window.PSPDFKit.ThumbnailBarMode).toBeDefined();
-          });
-        })
+exports.defineAutoTests = function() {
+  describe("PSPSDFKit (window.PSPDFKit)", function() {
+    it("should exist", function() {
+      expect(window.PSPDFKit).toBeDefined();
     });
+
+    describe("showDocument", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.showDocument).toBeDefined();
+      });
+    });
+
+    describe("showDocumentFromAssets", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.showDocumentFromAssets).toBeDefined();
+      });
+    });
+
+    describe("ScrollMode", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.ScrollMode).toBeDefined();
+      });
+    });
+
+    describe("PageFitMode", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.PageFitMode).toBeDefined();
+      });
+    });
+
+    describe("PageScrollDirection", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.PageScrollDirection).toBeDefined();
+      });
+    });
+
+    describe("SearchType", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.SearchType).toBeDefined();
+      });
+    });
+
+    describe("ThumbnailBarMode", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.ThumbnailBarMode).toBeDefined();
+      });
+    });
+
+    describe("ShareFeatures", function() {
+      it("should exist", function() {
+        expect(window.PSPDFKit.ShareFeatures).toBeDefined();
+      });
+    });
+  });
 };
 
 exports.defineManualTests = function(contentEl, createActionButton) {
+  createActionButton("Open Document", function() {
+    var asset = "www/Guide.pdf";
+    var options = {};
+    console.log("Opening document " + asset);
+    window.PSPDFKit.showDocumentFromAssets(
+      asset,
+      options,
+      function() {
+        console.log("Document was successfully loaded.");
+      },
+      function(error) {
+        console.log("Error while loading the document:" + error);
+      }
+    );
+  });
 
-    createActionButton('Open Document', function() {
-        var asset = 'www/Guide.pdf';
+  createActionButton("Vertical continuous scrolling", function() {
+    var asset = "www/Guide.pdf";
+    var options = {
+      scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
+      scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
+      title: "Custom Title",
+      page: 2,
+      useImmersiveMode: true,
+      thumbnailBarMode: PSPDFKit.ThumbnailBarMode.THUMBNAIL_BAR_MODE_SCROLLABLE,
+      shareFeatures: [],
+      disablePrinting: true
+    };
 
-        console.log('Opening document ' + asset);
-        window.PSPDFKit.showDocumentFromAssets(asset, {}, function() {
-            console.log("Document was successfully loaded.");
-        }, function(error) {
-            console.log('Error while loading the document:' + error)
-        });
-    });
+    console.log("Opening document " + asset);
 
-    createActionButton('Vertical continuous scrolling', function() {
-        var asset = 'www/Guide.pdf';
-        var options = {
-          scrollDirection: PSPDFKit.PageScrollDirection.VERTICAL,
-          scrollMode: PSPDFKit.ScrollMode.CONTINUOUS,
-          title: "Custom Title",
-          page: 2,
-          useImmersiveMode: true,
-          thumbnailBarMode: PSPDFKit.ThumbnailBarMode.THUMBNAIL_BAR_MODE_SCROLLABLE
-        };
+    window.PSPDFKit.showDocumentFromAssets(
+      asset,
+      options,
+      function() {
+        console.log("Document was successfully loaded.");
+      },
+      function(error) {
+        console.log("Error while loading the document:" + error);
+      }
+    );
+  });
 
-        console.log('Opening document ' + asset);
+  createActionButton("Password protected document", function() {
+    var asset = "www/password.pdf";
+    var options = {
+      title: "Password protected document",
+      password: "test123",
+      shareFeatures: [
+        PSPDFKit.ShareFeatures.TEXT_SELECTION_SHARING,
+        PSPDFKit.ShareFeatures.NOTE_ANNOTATION_SHARING
+      ]
+    };
 
-        window.PSPDFKit.showDocumentFromAssets(asset, options, function() {
-            console.log("Document was successfully loaded.");
-        }, function(error) {
-            console.log('Error while loading the document:' + error)
-        });
-    });
+    console.log("Opening encrypted document " + asset);
 
-    createActionButton('Password protected document', function() {
-        var asset = 'www/password.pdf';
-        var options = {
-          title: "Password protected document",
-          password: "test123"
-        };
-
-        console.log('Opening encrypted document ' + asset);
-
-        window.PSPDFKit.showDocumentFromAssets(asset, options, function() {
-            console.log("Document was successfully loaded.");
-        }, function(error) {
-            console.log('Error while loading the document:' + error)
-        });
-    });
+    window.PSPDFKit.showDocumentFromAssets(
+      asset,
+      options,
+      function() {
+        console.log("Document was successfully loaded.");
+      },
+      function(error) {
+        console.log("Error while loading the document:" + error);
+      }
+    );
+  });
 };
