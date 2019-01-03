@@ -15,8 +15,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 
@@ -27,6 +25,7 @@ import com.pspdfkit.configuration.activity.ThumbnailBarMode;
 import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
 import com.pspdfkit.configuration.page.PageScrollMode;
+import com.pspdfkit.configuration.sharing.ShareFeatures;
 import com.pspdfkit.preferences.PSPDFKitPreferences;
 import com.pspdfkit.ui.PdfActivity;
 
@@ -38,8 +37,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
+import java.util.EnumSet;
 import java.util.Iterator;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
@@ -132,8 +134,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
                     builder.disablePrinting();
                 } else if ("disableSearch".equals(option) && ((Boolean) value)) {
                     builder.disableSearch();
-                } else if ("disableShare".equals(option) && ((Boolean) value)) {
-                    builder.disableShare();
+                } else if ("shareFeatures".equals(option)) {
+                    builder.setEnabledShareFeatures(parseShareFeatures((JSONArray) value));
                 } else if ("disableUndoRedo".equals(option)) {
                     builder.undoEnabled(!(Boolean) value);
                 } else if ("hidePageLabels".equals(option) && ((Boolean) value)) {
@@ -203,6 +205,18 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         return builder.build();
     }
 
+    /** Converts the given string array to an {@link EnumSet} of {@link ShareFeatures}. */
+    private EnumSet<ShareFeatures> parseShareFeatures(@Nullable JSONArray shareFeatures) throws JSONException {
+        EnumSet<ShareFeatures> features = ShareFeatures.none();
+        if (shareFeatures != null) {
+            for (int i = 0; i < shareFeatures.length(); i++) {
+                final ShareFeatures feature = ShareFeatures.valueOf(shareFeatures.getString(i));
+                features.add(feature);
+            }
+        }
+        return features;
+    }
+
     /**
      * Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>.
      */
@@ -232,15 +246,12 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
      * @param callbackContext Cordova callback.
      */
     private void showDocumentFromAssets(@NonNull final String assetPath, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration, @NonNull final CallbackContext callbackContext) {
-        ExtractAssetTask.extract(assetPath, cordova.getActivity(), new ExtractAssetTask.OnDocumentExtractedCallback() {
-            @Override
-            public void onDocumentExtracted(File documentFile) {
-                if (documentFile != null) {
-                    showDocumentForUri(Uri.fromFile(documentFile), password, configuration);
-                    callbackContext.success();
-                } else {
-                    callbackContext.error("Could not load '" + assetPath + "' from the assets.");
-                }
+        ExtractAssetTask.extract(assetPath, cordova.getActivity(), documentFile -> {
+            if (documentFile != null) {
+                showDocumentForUri(Uri.fromFile(documentFile), password, configuration);
+                callbackContext.success();
+            } else {
+                callbackContext.error("Could not load '" + assetPath + "' from the assets.");
             }
         });
     }

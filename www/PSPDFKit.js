@@ -125,3 +125,25 @@ exports.ThumbnailBarMode = {
    */
   THUMBNAIL_BAR_MODE_NONE: "THUMBNAIL_BAR_MODE_NONE"
 };
+
+/**
+ * Constant values used for setting the 'shareFeatures' option. These 
+ * settings control the visibility of share actions inside the user
+ * interface.
+ */
+exports.ShareFeatures = {
+  /** Document sharing inside the activity. */
+  DOCUMENT_SHARING: "DOCUMENT_SHARING",
+  /** Sharing of embedded files (on file annotations). */
+  EMBEDDED_FILE_SHARING: "EMBEDDED_FILE_SHARING",
+  /** Sharing of text from selected free text annotations. */
+  FREE_TEXT_ANNOTATION_SHARING: "FREE_TEXT_ANNOTATION_SHARING",
+  /** Sharing of selected image annotations. */
+  IMAGE_SHARING: "IMAGE_SHARING",
+  /** Sharing of text from selected note annotations. */
+  NOTE_ANNOTATION_SHARING: "NOTE_ANNOTATION_SHARING",
+  /** Sharing of text from annotation contents or comments. */
+  NOTE_EDITOR_CONTENT_SHARING: "NOTE_EDITOR_CONTENT_SHARING",
+  /** Sharing of selected text. */
+  TEXT_SELECTION_SHARING: "TEXT_SELECTION_SHARING"
+};
