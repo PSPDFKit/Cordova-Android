@@ -208,8 +208,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
     /** Converts the given string array to an {@link EnumSet} of {@link ShareFeatures}. */
     private EnumSet<ShareFeatures> parseShareFeatures(@Nullable JSONArray shareFeatures) throws JSONException {
         EnumSet<ShareFeatures> features = ShareFeatures.none();
-        if(shareFeatures != null) {
-            for(int i = 0; i < shareFeatures.length(); i++) {
+        if (shareFeatures != null) {
+            for (int i = 0; i < shareFeatures.length(); i++) {
                 final ShareFeatures feature = ShareFeatures.valueOf(shareFeatures.getString(i));
                 features.add(feature);
             }
