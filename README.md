@@ -54,7 +54,7 @@ PSPDFKit.showDocumentFromAssets(assetPath, options, success, fail);
 ## Supported Platforms
 
 - Android SDK API level 19+ / Android 4.4+ (KitKat)
-- Cordova Android 7+.
+- Cordova Android 8+.
 
 ## Options
 
@@ -127,21 +127,13 @@ Create a new Apache Cordova project from your command line using the [Apache Cor
 
 > Important: Your app's package name (in the above example `com.example.pdfapp`) has to match your PSPDFKit license name or PSPDFKit will throw an exception. If you don't have a license yet, you can request an evaluation license of PSPDFKit at https://pspdfkit.com/try.
 
-Add Android platform support to your project. Right now, PSPDFKit 5.3.0 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
+Add Android platform support to your project. This plugin requires the latest `cordova-android` plugin 8+.
 
-    cordova platform add android@8.0.0-nightly.2018.11.23.ef243418
+    cordova platform add android@8.0.0
 
 Install the PSPDFKit plugin:
 
     cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
-
-Setup the minimum and target SDK versions of the Android SDK inside your Android app's `platforms/android/gradle.properties` file. Also, since PSPDFKit 5 for Android uses Java 8, you need to enable D8 for your builds:
-
-```properties
-cdvCompileSdkVersion=android-28
-cdvBuildToolsVersion=28.0.3
-android.enableD8=true
-```
 
 Next you need to setup your PSPDFKit license key and Maven password. If you don't have a license key or Maven password yet, you can get them by requesting an evaluation version of PSPDFKit at https://pspdfkit.com/try. Inside your Android app's `platforms/android/local.properties` file, specify the `pspdfkit.password` and `pspdfkit.license` properties:
 
@@ -187,24 +179,16 @@ It will then ask you if you want to integrate your new app with Cordova, answer 
 cd todo
 ```
 
-Add Android platform support. Right now, PSPDFKit 5.3.0 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
+Add Android platform support to your project. This plugin requires the latest `cordova-android` plugin 8+.
 
 ```shell
-ionic cordova platform add android@8.0.0-nightly.2018.11.23.ef243418
+ionic cordova platform add android@8.0.0
 ```
 
 Install the PSPDFKit plugin:
 
 ```shell
 ionic cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
-```
-
-Setup the minimum and target SDK versions of the Android SDK inside your Android app's `platforms/android/gradle.properties` file. Also, since PSPDFKit 5 for Android uses Java 8, you need to enable D8 for your builds:
-
-```properties
-cdvCompileSdkVersion=android-28
-cdvBuildToolsVersion=28.0.3
-android.enableD8=true
 ```
 
 Next you need to setup your PSPDFKit license key and Maven password. If you don't have a license key or Maven password yet, you can get them by requesting an evaluation version of PSPDFKit at https://pspdfkit.com/try. Specify the `pspdfkit.password` and `pspdfkit.license` properties inside your Android app's `platforms/android/local.properties` file, create the file if it does not exist:
