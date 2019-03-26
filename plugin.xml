@@ -69,5 +69,5 @@ In case there are issues, feel free to reach out to our support team at https://
         </config-file>
     </platform>
 
-    <dependency id="cordova-plugin-enable-multidex"/>
+    <dependency id="cordova-plugin-enable-multidex" url="https://github.com/PSPDFKit-labs/cordova-plugin-enable-multidex.git"/>
 </plugin>
