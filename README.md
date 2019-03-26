@@ -127,7 +127,7 @@ Create a new Apache Cordova project from your command line using the [Apache Cor
 
 > Important: Your app's package name (in the above example `com.example.pdfapp`) has to match your PSPDFKit license name or PSPDFKit will throw an exception. If you don't have a license yet, you can request an evaluation license of PSPDFKit at https://pspdfkit.com/try.
 
-Add Android platform support to your project. Right now, PSPDFKit 5.1.1 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
+Add Android platform support to your project. Right now, PSPDFKit 5.3.0 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
 
     cordova platform add android@8.0.0-nightly.2018.11.23.ef243418
 
@@ -187,7 +187,7 @@ It will then ask you if you want to integrate your new app with Cordova, answer 
 cd todo
 ```
 
-Add Android platform support. Right now, PSPDFKit 5.1.1 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
+Add Android platform support. Right now, PSPDFKit 5.3.0 for Cordova is only compatible with the nightly build of `cordova-android` (until https://github.com/apache/cordova-android/pull/507 is available on the stable npm channel):
 
 ```shell
 ionic cordova platform add android@8.0.0-nightly.2018.11.23.ef243418
