@@ -7,8 +7,9 @@
   ~   UNAUTHORIZED REPRODUCTION OR DISTRIBUTION IS SUBJECT TO CIVIL AND CRIMINAL PENALTIES.
   ~   This notice may not be removed from this file.
 -->
-<plugin id="pspdfkit-cordova-android" version="5.3.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="pspdfkit-cordova-android" version="5.3.0" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <name>PSPDFKit-Android</name>
     <description>Integration of the PSPDFKit for Android library.</description>
     <author>PSPDFKit</author>
@@ -31,7 +32,7 @@ Thanks for using the PSPDFKit for Cordova/Ionic wrapper. There's only on more st
 
 For the complete documentation and troubleshooting, check out our documentation at https://github.com/PSPDFKit/Cordova-Android. 
 In case there are issues, feel free to reach out to our support team at https://pspdfkit.com/support/request/.
-]]></info>
+]]>    </info>
 
     <js-module name="PSPDFKit" src="www/PSPDFKit.js">
         <clobbers target="PSPDFKit"/>
@@ -53,9 +54,7 @@ In case there are issues, feel free to reach out to our support team at https://
         </config-file>
 
         <config-file parent="/*/application" target="app/src/main/AndroidManifest.xml">
-            <meta-data
-                android:name="pspdfkit_license_key"
-                android:value="@string/PSPDFKIT_LICENSE_KEY" />
+            <meta-data android:name="pspdfkit_license_key" android:value="@string/PSPDFKIT_LICENSE_KEY" />
         </config-file>
 
         <config-file parent="/*/application" target="app/src/main/AndroidManifest.xml" after="activity">
