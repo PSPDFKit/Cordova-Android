@@ -15,7 +15,7 @@ import com.pspdfkit.configuration.page.PageFitMode;
 import com.pspdfkit.configuration.page.PageScrollDirection;
 import com.pspdfkit.configuration.page.PageScrollMode;
 import com.pspdfkit.configuration.sharing.ShareFeatures;
-import com.pspdfkit.cordova.CordovaPdfActivityImpl;
+import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.PSPDFKitCordovaPluginException;
 import com.pspdfkit.preferences.PSPDFKitPreferences;
@@ -205,7 +205,7 @@ public class ShowDocumentAction extends BasicAction {
     final PSPDFKitCordovaPlugin plugin = getPlugin();
     final Intent launchIntent =
         PdfActivityIntentBuilder.fromUri(plugin.cordova.getContext(), uri)
-            .activityClass(CordovaPdfActivityImpl.class)
+            .activityClass(CordovaPdfActivity.class)
             .passwords(password)
             .configuration(configuration)
             .build();

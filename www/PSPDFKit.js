@@ -67,6 +67,25 @@ exports.dismiss = function(callback) {
 };
 
 /**
+ * Saves the currently open PDF document. `success` is a callback function taking one
+ * parameter `wasModified` which is a boolean indicating whether the document had changes
+ * that were saved or whether the document did not contain changes and didn't require saving.
+ *
+ * Example usage:
+ * 
+ * ```
+ * PSPDFKit.saveDocument(function(wasModified) {
+ *     console.log("Saving was successful. Document had changes: " + wasModified);
+ * });
+ * ```
+ * @param success Success callback function.
+ * @param error Error callback function.
+ */
+exports.saveDocument = function(success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "saveDocument");
+};
+
+/**
  * Constant values used for setting the `scrollMode` option.
  */
 exports.ScrollMode = {

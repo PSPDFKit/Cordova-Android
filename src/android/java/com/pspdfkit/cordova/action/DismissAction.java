@@ -30,7 +30,7 @@ public final class DismissAction extends BasicAction implements PSPDFKitCordovaP
   @Override
   public void execAction(JSONArray args, CallbackContext callbackContext) {
     pendingOnDismissCallback = callbackContext;
-    EventDispatcher.getInstance().notifyDismissActivities();
+    EventDispatcher.getInstance().notifyDismiss();
   }
 
   @Override

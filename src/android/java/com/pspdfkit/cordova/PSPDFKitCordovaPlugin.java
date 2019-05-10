@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.cordova.action.ActionManager;
 import com.pspdfkit.cordova.action.DismissAction;
+import com.pspdfkit.cordova.action.SaveDocumentAction;
 import com.pspdfkit.cordova.action.ShowDocumentAction;
 import com.pspdfkit.cordova.action.ShowDocumentFromAssetsAction;
 
@@ -55,7 +56,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         new ActionManager(
             new ShowDocumentAction("showDocument", this),
             new ShowDocumentFromAssetsAction("showDocumentFromAssets", this),
-            new DismissAction("dismiss", this));
+            new DismissAction("dismiss", this),
+            new SaveDocumentAction("saveDocument", this));
   }
 
   private void initializePSPDFKit(CordovaInterface cordova) {
