@@ -7,16 +7,16 @@
  *   This notice may not be removed from this file.
  */
 
-var exec = require('cordova/exec');
+var exec = require("cordova/exec");
 
 /**
  * Retrieves a named property from the given target object while removing the property from the object.
  */
 function getPropertyAndUnset(target, name) {
-    var value = target.hasOwnProperty(name) ? target[name] : null;
-    delete target[name];
-    return value;
-};
+  var value = target.hasOwnProperty(name) ? target[name] : null;
+  delete target[name];
+  return value;
+}
 
 /**
  * Opens the PSPDFActivity to show a document from the local device file system.
@@ -26,10 +26,14 @@ function getPropertyAndUnset(target, name) {
  * @param success Success callback function.
  * @param error   Error callback function.
  */
-exports.showDocument = function (uri, options, success, error) {
-    options = options || {};
-    var password = getPropertyAndUnset(options, "password");
-    exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [uri, options, password]);
+exports.showDocument = function(uri, options, success, error) {
+  options = options || {};
+  var password = getPropertyAndUnset(options, "password");
+  exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [
+    uri,
+    options,
+    password
+  ]);
 };
 
 /**
@@ -42,10 +46,24 @@ exports.showDocument = function (uri, options, success, error) {
  * @param success   Success callback function.
  * @param error     Error callback function.
  */
-exports.showDocumentFromAssets = function (assetFile, options, success, error) {
-    options = options || {};
-    var password = getPropertyAndUnset(options, "password");
-    exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [assetFile, options, password]);
+exports.showDocumentFromAssets = function(assetFile, options, success, error) {
+  options = options || {};
+  var password = getPropertyAndUnset(options, "password");
+  exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [
+    assetFile,
+    options,
+    password
+  ]);
+};
+
+/**
+ * Dismisses any previously launched PDF activity. Calls the optional callback function
+ * after all activities have been dismissed.
+ *
+ * @param callback Success callback function.
+ */
+exports.dismiss = function(callback) {
+  exec(callback, null, "PSPDFKitCordovaPlugin", "showDocumentFromAssets");
 };
 
 /**
@@ -127,7 +145,7 @@ exports.ThumbnailBarMode = {
 };
 
 /**
- * Constant values used for setting the 'shareFeatures' option. These 
+ * Constant values used for setting the 'shareFeatures' option. These
  * settings control the visibility of share actions inside the user
  * interface.
  */
