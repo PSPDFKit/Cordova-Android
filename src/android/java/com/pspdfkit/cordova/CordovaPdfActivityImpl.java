@@ -16,8 +16,13 @@ public class CordovaPdfActivity extends PdfActivity {
 
   @Override
   protected void onDestroy() {
-    super.onDestroy();
     EventDispatcher.getInstance().releaseActivity();
+    super.onDestroy();
+  }
+
+  @Override public void finish() {
+    super.finish();
+    EventDispatcher.getInstance().notifyActivityDismissed();
   }
 
   public void dismiss() {

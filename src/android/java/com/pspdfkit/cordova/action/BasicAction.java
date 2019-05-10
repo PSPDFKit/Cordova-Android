@@ -15,7 +15,7 @@ public abstract class BasicAction implements Action {
   @NonNull private final String name;
   @NonNull private final PSPDFKitCordovaPlugin plugin;
 
-  BasicAction(@NonNull final String name, @NonNull PSPDFKitCordovaPlugin plugin) {
+  public BasicAction(@NonNull final String name, @NonNull PSPDFKitCordovaPlugin plugin) {
     checkArgumentNotNull(name, "name");
     this.name = name;
     this.plugin = plugin;

@@ -46,14 +46,19 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
   private ActionManager actionManager;
 
+  @NonNull private final EventDispatcher eventDispatcher = EventDispatcher.getInstance();
+
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
 
     initializePSPDFKit(cordova);
 
+
     actionManager =
         new ActionManager(
+            eventDispatcher.getStartEventDispatchingAction(this),
+            eventDispatcher.getStopEventDispatchingAction(this),
             new ShowDocumentAction("showDocument", this),
             new ShowDocumentFromAssetsAction("showDocumentFromAssets", this),
             new DismissAction("dismiss", this),
