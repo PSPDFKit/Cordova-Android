@@ -11,6 +11,7 @@ package com.pspdfkit.cordova;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -28,6 +29,7 @@ import com.pspdfkit.configuration.page.PageScrollMode;
 import com.pspdfkit.configuration.sharing.ShareFeatures;
 import com.pspdfkit.preferences.PSPDFKitPreferences;
 import com.pspdfkit.ui.PdfActivity;
+import com.pspdfkit.ui.PdfActivityIntentBuilder;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -256,7 +258,18 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
         });
     }
 
-    private void showDocumentForUri(@NonNull Uri uri, @Nullable final String password, @NonNull final PdfActivityConfiguration configuration) {
-        PdfActivity.showDocument(cordova.getActivity(), uri, password, configuration);
-    }
+  private void showDocumentForUri(
+      @NonNull Uri uri,
+      @Nullable final String password,
+      @NonNull final PdfActivityConfiguration configuration) {
+    final Intent launchIntent =
+        PdfActivityIntentBuilder.fromUri(cordova.getContext(), uri)
+            .activityClass(CordovaPdfActivity.class)
+            .passwords(password)
+            .configuration(configuration)
+            .build();
+
+    // TODO We might need to register a fragment to be able to use startActivityForResult and handle the results properly.
+    cordova.getActivity().startActivity(launchIntent);
+  }
 }

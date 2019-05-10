@@ -38,14 +38,10 @@ In case there are issues, feel free to reach out to our support team at https://
     </js-module>
 
     <platform name="android">
-        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPlugin.java"
-                     target-dir="src/com/pspdfkit/cordova"/>
-
-        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPluginException.java"
-                     target-dir="src/com/pspdfkit/cordova"/>
-
-        <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java"
-                     target-dir="src/com/pspdfkit/cordova"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/CordovaPdfActivity.java" target-dir="src/com/pspdfkit/cordova"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java" target-dir="src/com/pspdfkit/cordova"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPlugin.java" target-dir="src/com/pspdfkit/cordova"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPluginException.java" target-dir="src/com/pspdfkit/cordova"/>
 
         <framework custom="true" src="src/android/config.gradle" type="gradleReference"/>
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
@@ -63,9 +59,7 @@ In case there are issues, feel free to reach out to our support team at https://
         </config-file>
 
         <config-file parent="/*/application" target="app/src/main/AndroidManifest.xml" after="activity">
-            <activity android:name="com.pspdfkit.ui.PdfActivity"
-                      android:theme="@style/PSPDFKit.Theme"
-                      android:windowSoftInputMode="adjustNothing"/>
+            <activity android:name="com.pspdfkit.cordova.CordovaPdfActivity" android:theme="@style/PSPDFKit.Theme" android:windowSoftInputMode="adjustNothing"/>
         </config-file>
 
         <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
