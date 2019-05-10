@@ -67,6 +67,10 @@ In case there are issues, feel free to reach out to our support team at https://
                       android:theme="@style/PSPDFKit.Theme"
                       android:windowSoftInputMode="adjustNothing"/>
         </config-file>
+
+        <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+            <application android:largeHeap="true"/>
+        </edit-config>
     </platform>
 
     <dependency id="cordova-plugin-enable-multidex" url="https://github.com/PSPDFKit-labs/cordova-plugin-enable-multidex.git"/>
