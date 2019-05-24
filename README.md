@@ -135,10 +135,12 @@ Install the PSPDFKit plugin:
 
     cordova plugin add https://github.com/PSPDFKit/Cordova-Android.git
 
-Next you need to setup your PSPDFKit license key and Maven password. If you don't have a license key or Maven password yet, you can get them by requesting an evaluation version of PSPDFKit at https://pspdfkit.com/try. Inside your Android app's `platforms/android/local.properties` file, specify the `pspdfkit.password` and `pspdfkit.license` properties:
+Next you need to setup your PSPDFKit license key and Maven password. If you don't have a license key or Maven password yet, you can get them by requesting an evaluation version of PSPDFKit at https://pspdfkit.com/try. Inside your Android app's `platforms/android/local.properties` file, specify the `pspdfkit.password` and `pspdfkit.license` properties.:
 
 ```properties
+# This is the MAVEN_KEY you received when requesting a demo or from the customer portal.
 pspdfkit.password=YOUR_PASSWORD
+# This is the LICENSE_KEY you received when requesting a demo or from the customer portal.
 pspdfkit.license=LICENSE_STRING
 ```
 
