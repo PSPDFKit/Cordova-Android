@@ -77,8 +77,51 @@ cordova.define("pspdfkit-cordova-android.PSPDFKit", function(
       channels[eventType].unsubscribe(f);
     }
   };
+/**
+ * Adds a new annotation to the current document.
+ *
+ * @param annotation InstantJson of the annotation to add.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.addAnnotation = function (annotation, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "addAnnotation", [annotation]);
+};
 
-  /**
+/**
+ * Applies the passed in document instant json.
+ *
+ * @param annotations The document instant json to apply.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.addAnnotations = function (annotations, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "addAnnotations", [annotations]);
+};
+
+/**
+ * Gets all annotations of the given type from the page.
+ *
+ * @param pageIndex The page to get the annotations for.
+ * @param type The type of annotations to get (See here for types https://pspdfkit.com/guides/server/current/api/json-format/) or null to get all annotations.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.getAnnotations = function (pageIndex, type, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "getAnnotations", [pageIndex, type]);
+};
+
+/**
+ * Gets all unsaved changes to annotations.
+ *
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.getAllUnsavedAnnotations = function (success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "getAllUnsavedAnnotations", []);
+};
+
+/**
    * Opens the PSPDFActivity to show a document from the local device file system.
    *
    * @param uri     The local filesystem URI of the document to show.
@@ -141,6 +184,8 @@ cordova.define("pspdfkit-cordova-android.PSPDFKit", function(
   exports.saveDocument = function(success, error) {
     exec(success, error, "PSPDFKitCordovaPlugin", "saveDocument");
   };
+
+  
 
   /**
    * Constant values used for setting the `scrollMode` option.
