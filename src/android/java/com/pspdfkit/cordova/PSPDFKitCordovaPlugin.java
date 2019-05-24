@@ -19,6 +19,7 @@ import com.pspdfkit.cordova.action.DismissAction;
 import com.pspdfkit.cordova.action.SaveDocumentAction;
 import com.pspdfkit.cordova.action.ShowDocumentAction;
 import com.pspdfkit.cordova.action.ShowDocumentFromAssetsAction;
+import com.pspdfkit.cordova.event.EventDispatcher;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -44,9 +45,8 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
   @NonNull
   private final List<OnActivityResultListener> onActivityResultListeners = new ArrayList<>();
 
-  private ActionManager actionManager;
-
   @NonNull private final EventDispatcher eventDispatcher = EventDispatcher.getInstance();
+  private ActionManager actionManager;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -54,11 +54,12 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
 
     initializePSPDFKit(cordova);
 
-
+    final EventDispatcher.EventDispatchingActions connectionActions =
+        eventDispatcher.getConnectionActions(this);
     actionManager =
         new ActionManager(
-            eventDispatcher.getStartEventDispatchingAction(this),
-            eventDispatcher.getStopEventDispatchingAction(this),
+            connectionActions.startEventDispatching,
+            connectionActions.stopEventDispatching,
             new ShowDocumentAction("showDocument", this),
             new ShowDocumentFromAssetsAction("showDocumentFromAssets", this),
             new DismissAction("dismiss", this),

@@ -46,12 +46,13 @@ In case there are issues, feel free to reach out to our support team at https://
         <source-file src="src/android/java/com/pspdfkit/cordova/action/SaveDocumentAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/ShowDocumentAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/ShowDocumentFromAssetsAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/event/EventDispatcher.java" target-dir="src/com/pspdfkit/cordova/event"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/CordovaPdfActivity.java" target-dir="src/com/pspdfkit/cordova"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/EventDispatcher.java" target-dir="src/com/pspdfkit/cordova"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/ExtractAssetTask.java" target-dir="src/com/pspdfkit/cordova"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPlugin.java" target-dir="src/com/pspdfkit/cordova"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/PSPDFKitCordovaPluginException.java" target-dir="src/com/pspdfkit/cordova"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/Utilities.java" target-dir="src/com/pspdfkit/cordova"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/tetse" target-dir="src/com/pspdfkit/cordova"/>
 
         <framework custom="true" src="src/android/config.gradle" type="gradleReference"/>
         <framework custom="true" src="src/android/pspdfkit.gradle" type="gradleReference"/>
