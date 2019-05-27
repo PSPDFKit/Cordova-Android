@@ -2,7 +2,7 @@ package com.pspdfkit.cordova.action;
 
 import android.content.Intent;
 
-import com.pspdfkit.cordova.EventDispatcher;
+import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 
 import org.apache.cordova.CallbackContext;
@@ -30,7 +30,7 @@ public final class DismissAction extends BasicAction implements PSPDFKitCordovaP
   @Override
   public void execAction(JSONArray args, CallbackContext callbackContext) {
     pendingOnDismissCallback = callbackContext;
-    EventDispatcher.getInstance().notifyDismiss();
+    CordovaPdfActivity.getCurrentActivity().dismiss();
   }
 
   @Override

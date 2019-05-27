@@ -10,6 +10,12 @@ public final class Utilities {
     }
   }
 
+  public static void checkAtLeast(final int min, final int value, @NonNull final String message) {
+    if (value < min) {
+      throw new IllegalArgumentException(message);
+    }
+  }
+
   public static RuntimeException propagate(Exception ex) {
     if (ex instanceof RuntimeException) return ((RuntimeException) ex);
     return new RuntimeException(ex);
