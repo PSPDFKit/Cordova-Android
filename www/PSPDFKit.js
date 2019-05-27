@@ -77,6 +77,7 @@ cordova.define("pspdfkit-cordova-android.PSPDFKit", function(
       channels[eventType].unsubscribe(f);
     }
   };
+  
 /**
  * Adds a new annotation to the current document.
  *
