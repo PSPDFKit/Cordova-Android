@@ -15,7 +15,11 @@ import android.text.TextUtils;
 
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.cordova.action.ActionManager;
+import com.pspdfkit.cordova.action.AddAnnotationAction;
+import com.pspdfkit.cordova.action.AddAnnotationsAction;
 import com.pspdfkit.cordova.action.DismissAction;
+import com.pspdfkit.cordova.action.GetAllUnsavedAnnotationsAction;
+import com.pspdfkit.cordova.action.GetAnnotationsAction;
 import com.pspdfkit.cordova.action.SaveDocumentAction;
 import com.pspdfkit.cordova.action.ShowDocumentAction;
 import com.pspdfkit.cordova.action.ShowDocumentFromAssetsAction;
@@ -63,7 +67,11 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
             new ShowDocumentAction("showDocument", this),
             new ShowDocumentFromAssetsAction("showDocumentFromAssets", this),
             new DismissAction("dismiss", this),
-            new SaveDocumentAction("saveDocument", this));
+            new SaveDocumentAction("saveDocument", this),
+                new AddAnnotationAction("addAnnotation", this),
+                new AddAnnotationsAction("addAnnotations", this),
+                new GetAnnotationsAction("getAnnotations", this),
+                new GetAllUnsavedAnnotationsAction("getAllUnsavedAnnotations", this));
   }
 
   private void initializePSPDFKit(CordovaInterface cordova) {
