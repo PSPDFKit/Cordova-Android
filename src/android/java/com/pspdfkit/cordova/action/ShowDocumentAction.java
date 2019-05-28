@@ -9,6 +9,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.view.ContextThemeWrapper;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.pspdfkit.configuration.activity.PdfActivityConfiguration;
 import com.pspdfkit.configuration.activity.ThumbnailBarMode;
 import com.pspdfkit.configuration.page.PageFitMode;
@@ -30,9 +33,6 @@ import org.json.JSONObject;
 import java.util.EnumSet;
 import java.util.Iterator;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 public class ShowDocumentAction extends BasicAction {
   private static final int ARG_DOCUMENT_URI = 0;
   private static final int ARG_OPTIONS = 1;
@@ -42,7 +42,9 @@ public class ShowDocumentAction extends BasicAction {
     super(name, plugin);
   }
 
-  /** Converts the given string array to an {@link EnumSet} of {@link ShareFeatures}. */
+  /**
+   * Converts the given string array to an {@link EnumSet} of {@link ShareFeatures}.
+   */
   private static EnumSet<ShareFeatures> parseShareFeatures(@Nullable JSONArray shareFeatures)
       throws JSONException {
     EnumSet<ShareFeatures> features = ShareFeatures.none();
@@ -55,7 +57,9 @@ public class ShowDocumentAction extends BasicAction {
     return features;
   }
 
-  /** Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>. */
+  /**
+   * Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>.
+   */
   @Nullable
   private static String convertJsonNullToJavaNull(@Nullable String value) {
     if (value == null || value.equals("null")) return null;
