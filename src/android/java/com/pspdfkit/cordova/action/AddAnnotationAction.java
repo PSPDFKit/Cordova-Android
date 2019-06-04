@@ -15,13 +15,15 @@ import org.json.JSONObject;
 
 public class AddAnnotationAction extends BasicAction {
 
+  private static final int ARG_ANNOTATION_JSON = 0;
+
   public AddAnnotationAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
     super(name, plugin);
   }
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
-    String annotationJson = ((JSONObject) args.get(0)).getString("annotation");
+    String annotationJson = args.getJSONObject(ARG_ANNOTATION_JSON).toString();
     PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
     if (document != null) {
       AnnotationProvider annotationProvider = document.getAnnotationProvider();
