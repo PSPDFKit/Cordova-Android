@@ -11,11 +11,15 @@ import com.pspdfkit.document.formatters.DocumentJsonFormatter;
 import com.pspdfkit.document.providers.DataProvider;
 
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ApplyInstantJsonAction extends BasicAction {
 
@@ -26,13 +30,24 @@ public class ApplyInstantJsonAction extends BasicAction {
   }
 
   @Override
-  protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException, IOException {
+  protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
     PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+
+    // Capture the given callback and make sure it is retained in JavaScript too.
+    final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
+    result.setKeepCallback(true);
+    callbackContext.sendPluginResult(result);
+
     if (document != null) {
       final DataProvider dataProvider = new DocumentJsonDataProvider(annotationsJson);
-      DocumentJsonFormatter.importDocumentJson(document, dataProvider);
-      callbackContext.success();
+      DocumentJsonFormatter.importDocumentJsonAsync(document, dataProvider)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnError(e -> callbackContext.error(e.getMessage()))
+          .subscribe(() -> callbackContext.success());
+    } else {
+      callbackContext.error("No document is set");
     }
   }
 }
