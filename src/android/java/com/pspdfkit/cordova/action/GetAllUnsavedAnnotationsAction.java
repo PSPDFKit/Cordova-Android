@@ -11,13 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.concurrent.Callable;
 
 import androidx.annotation.NonNull;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class GetAllUnsavedAnnotationsAction extends BasicAction {
 
@@ -26,10 +21,6 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
     }
 
     @Override protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
-//        final boolean wasModified = CordovaPdfActivity.getCurrentActivity().saveDocument();
-//        final JSONObject response = new JSONObject();
-//        response.put("wasModified", wasModified);
-//        callbackContext.success(response);
         PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
         if (document != null) {
             final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

@@ -29,11 +29,6 @@ public class AddAnnotationsAction extends BasicAction {
     JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
     PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
     if (document != null) {
-//      AnnotationProvider annotationProvider = document.getAnnotationProvider();
-//      annotationProvider.addAnnotationToPage(
-//          annotationProvider.createAnnotationFromInstantJson(annotationJson)
-//      );
-
       final DataProvider dataProvider = new DocumentJsonDataProvider(annotationsJson);
       DocumentJsonFormatter.importDocumentJson(document, dataProvider);
       callbackContext.success();
