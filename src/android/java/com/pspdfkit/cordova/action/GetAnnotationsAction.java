@@ -27,6 +27,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
+
 public class GetAnnotationsAction extends BasicAction {
 
   private static final int ARG_PAGE_INDEX = 0;
@@ -41,7 +43,7 @@ public class GetAnnotationsAction extends BasicAction {
     PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
     if (document != null) {
       List<String> instantJsonAnnotations = document.getAnnotationProvider().getAllAnnotationsOfType(
-          getTypeFromString(args.getString(ARG_ANNOTATION_TYPE)),
+          getTypeFromString(convertJsonNullToJavaNull(args.getString(ARG_ANNOTATION_TYPE))),
           args.getInt(ARG_PAGE_INDEX),
           1
       ).map(Annotation::toInstantJson).toList().blockingGet();
