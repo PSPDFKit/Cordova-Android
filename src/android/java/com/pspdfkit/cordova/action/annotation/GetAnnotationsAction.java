@@ -23,8 +23,7 @@ public class GetAnnotationsAction extends BasicAction {
 
   private static final int ARG_PAGE_INDEX = 0;
   private static final int ARG_ANNOTATION_TYPE = 1;
-
-
+  
   public GetAnnotationsAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
     super(name, plugin);
   }

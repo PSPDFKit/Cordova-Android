@@ -27,8 +27,7 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
     if (document != null) {
       final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       DocumentJsonFormatter.exportDocumentJson(document, outputStream);
-      final String jsonString = outputStream.toString();
-      JSONObject response = new JSONObject(jsonString);
+      JSONObject response = new JSONObject(outputStream.toString());
       callbackContext.success(response);
     }
   }
