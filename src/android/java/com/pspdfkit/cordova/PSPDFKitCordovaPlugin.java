@@ -16,7 +16,7 @@ import android.text.TextUtils;
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.cordova.action.ActionManager;
 import com.pspdfkit.cordova.action.AddAnnotationAction;
-import com.pspdfkit.cordova.action.AddAnnotationsAction;
+import com.pspdfkit.cordova.action.ApplyInstantJsonAction;
 import com.pspdfkit.cordova.action.DismissAction;
 import com.pspdfkit.cordova.action.GetAllUnsavedAnnotationsAction;
 import com.pspdfkit.cordova.action.GetAnnotationsAction;
@@ -69,7 +69,7 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
             new DismissAction("dismiss", this),
             new SaveDocumentAction("saveDocument", this),
             new AddAnnotationAction("addAnnotation", this),
-            new AddAnnotationsAction("addAnnotations", this),
+            new ApplyInstantJsonAction("applyInstantJson", this),
             new GetAnnotationsAction("getAnnotations", this),
             new GetAllUnsavedAnnotationsAction("getAllUnsavedAnnotations", this));
   }

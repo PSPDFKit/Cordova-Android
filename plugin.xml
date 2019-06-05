@@ -40,7 +40,7 @@ In case there are issues, feel free to reach out to our support team at https://
 
     <platform name="android">
         <source-file src="src/android/java/com/pspdfkit/cordova/action/AddAnnotationAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/AddAnnotationsAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/ApplyInstantJsonAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/Action.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/ActionManager.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/BasicAction.java" target-dir="src/com/pspdfkit/cordova/action"/>

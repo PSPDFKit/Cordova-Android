@@ -16,11 +16,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class AddAnnotationsAction extends BasicAction {
+public class ApplyInstantJsonAction extends BasicAction {
 
   private static final int ARG_ANNOTATIONS_JSON = 0;
 
-  public AddAnnotationsAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
+  public ApplyInstantJsonAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
     super(name, plugin);
   }
 

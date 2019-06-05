@@ -91,8 +91,8 @@ exports.addAnnotation = function(annotation, success, error) {
  * @param success   Success callback function.
  * @param error     Error callback function.
  */
-exports.addAnnotations = function(annotations, success, error) {
-  exec(success, error, "PSPDFKitCordovaPlugin", "addAnnotations", [
+exports.applyInstantJson = function(annotations, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "applyInstantJson", [
     annotations
   ]);
 };
