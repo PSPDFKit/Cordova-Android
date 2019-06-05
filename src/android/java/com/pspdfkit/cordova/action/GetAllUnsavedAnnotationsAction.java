@@ -25,7 +25,7 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
         super(name, plugin);
     }
 
-    @Override protected void execAction(JSONArray args, CallbackContext callbackContext) {
+    @Override protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
 //        final boolean wasModified = CordovaPdfActivity.getCurrentActivity().saveDocument();
 //        final JSONObject response = new JSONObject();
 //        response.put("wasModified", wasModified);
@@ -33,13 +33,9 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
         PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
         if (document != null) {
             final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            JSONObject response = DocumentJsonFormatter.exportDocumentJsonAsync(document, outputStream)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .toSingle(() -> {
-                    final String jsonString = outputStream.toString();
-                    return new JSONObject(jsonString);
-                }).blockingGet();
+            DocumentJsonFormatter.exportDocumentJson(document, outputStream);
+            final String jsonString = outputStream.toString();
+            JSONObject response = new JSONObject(jsonString);
             callbackContext.success(response);
         }
     }
