@@ -28,7 +28,7 @@ public abstract class BasicAction implements Action {
   }
 
   @NonNull
-  protected PSPDFKitCordovaPlugin getPlugin() {
+  public PSPDFKitCordovaPlugin getPlugin() {
     return plugin;
   }
 

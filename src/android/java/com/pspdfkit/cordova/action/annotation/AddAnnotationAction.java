@@ -1,10 +1,11 @@
-package com.pspdfkit.cordova.action;
+package com.pspdfkit.cordova.action.annotation;
 
 import androidx.annotation.NonNull;
 
 import com.pspdfkit.annotations.AnnotationProvider;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
+import com.pspdfkit.cordova.action.BasicAction;
 import com.pspdfkit.document.PdfDocument;
 
 import org.apache.cordova.CallbackContext;

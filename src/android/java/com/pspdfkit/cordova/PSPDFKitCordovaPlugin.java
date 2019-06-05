@@ -15,14 +15,14 @@ import android.text.TextUtils;
 
 import com.pspdfkit.PSPDFKit;
 import com.pspdfkit.cordova.action.ActionManager;
-import com.pspdfkit.cordova.action.AddAnnotationAction;
-import com.pspdfkit.cordova.action.ApplyInstantJsonAction;
 import com.pspdfkit.cordova.action.DismissAction;
-import com.pspdfkit.cordova.action.GetAllUnsavedAnnotationsAction;
-import com.pspdfkit.cordova.action.GetAnnotationsAction;
-import com.pspdfkit.cordova.action.SaveDocumentAction;
-import com.pspdfkit.cordova.action.ShowDocumentAction;
-import com.pspdfkit.cordova.action.ShowDocumentFromAssetsAction;
+import com.pspdfkit.cordova.action.annotation.AddAnnotationAction;
+import com.pspdfkit.cordova.action.annotation.ApplyInstantJsonAction;
+import com.pspdfkit.cordova.action.annotation.GetAllUnsavedAnnotationsAction;
+import com.pspdfkit.cordova.action.annotation.GetAnnotationsAction;
+import com.pspdfkit.cordova.action.document.SaveDocumentAction;
+import com.pspdfkit.cordova.action.document.ShowDocumentFromAssetsAction;
+import com.pspdfkit.cordova.action.document.ShowDocumentAction;
 import com.pspdfkit.cordova.event.EventDispatcher;
 
 import org.apache.cordova.CallbackContext;

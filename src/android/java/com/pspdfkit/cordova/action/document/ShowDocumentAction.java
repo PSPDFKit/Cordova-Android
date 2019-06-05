@@ -1,4 +1,4 @@
-package com.pspdfkit.cordova.action;
+package com.pspdfkit.cordova.action.document;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -21,6 +21,7 @@ import com.pspdfkit.configuration.sharing.ShareFeatures;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.PSPDFKitCordovaPluginException;
+import com.pspdfkit.cordova.action.BasicAction;
 import com.pspdfkit.preferences.PSPDFKitPreferences;
 import com.pspdfkit.ui.PdfActivity;
 import com.pspdfkit.ui.PdfActivityIntentBuilder;

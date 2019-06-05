@@ -39,17 +39,17 @@ In case there are issues, feel free to reach out to our support team at https://
     </js-module>
 
     <platform name="android">
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/AddAnnotationAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/ApplyInstantJsonAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/annotation/AddAnnotationAction.java" target-dir="src/com/pspdfkit/cordova/action/annotation"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/annotation/ApplyInstantJsonAction.java" target-dir="src/com/pspdfkit/cordova/action/annotation"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/annotation/GetAnnotationsAction.java" target-dir="src/com/pspdfkit/cordova/action/annotation"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/annotation/GetAllUnsavedAnnotationsAction.java" target-dir="src/com/pspdfkit/cordova/action/annotation"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/document/SaveDocumentAction.java" target-dir="src/com/pspdfkit/cordova/action/document"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/document/ShowDocumentAction.java" target-dir="src/com/pspdfkit/cordova/action/document"/>
+        <source-file src="src/android/java/com/pspdfkit/cordova/action/document/ShowDocumentFromAssetsAction.java" target-dir="src/com/pspdfkit/cordova/action/document"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/Action.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/ActionManager.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/BasicAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/action/DismissAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/GetAnnotationsAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/GetAllUnsavedAnnotationsAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/SaveDocumentAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/ShowDocumentAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
-        <source-file src="src/android/java/com/pspdfkit/cordova/action/ShowDocumentFromAssetsAction.java" target-dir="src/com/pspdfkit/cordova/action"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/event/EventDispatcher.java" target-dir="src/com/pspdfkit/cordova/event"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/provider/DocumentJsonDataProvider.java" target-dir="src/com/pspdfkit/cordova/provider"/>
         <source-file src="src/android/java/com/pspdfkit/cordova/CordovaPdfActivity.java" target-dir="src/com/pspdfkit/cordova"/>

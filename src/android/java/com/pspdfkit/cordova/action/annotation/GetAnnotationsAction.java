@@ -1,31 +1,21 @@
-package com.pspdfkit.cordova.action;
+package com.pspdfkit.cordova.action.annotation;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.pspdfkit.annotations.Annotation;
 import com.pspdfkit.annotations.AnnotationType;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
+import com.pspdfkit.cordova.action.BasicAction;
 import com.pspdfkit.document.PdfDocument;
-import com.pspdfkit.document.formatters.DocumentJsonFormatter;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
 
@@ -39,7 +29,8 @@ public class GetAnnotationsAction extends BasicAction {
     super(name, plugin);
   }
 
-  @Override protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
+  @Override
+  protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
     if (document != null) {
       List<String> instantJsonAnnotations = document.getAnnotationProvider().getAllAnnotationsOfType(

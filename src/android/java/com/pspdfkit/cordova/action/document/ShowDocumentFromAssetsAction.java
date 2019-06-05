@@ -1,6 +1,9 @@
-package com.pspdfkit.cordova.action;
+package com.pspdfkit.cordova.action.document;
 
 import android.net.Uri;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.pspdfkit.configuration.activity.PdfActivityConfiguration;
 import com.pspdfkit.cordova.ExtractAssetTask;
@@ -8,9 +11,6 @@ import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 
 import org.apache.cordova.CallbackContext;
 import org.jetbrains.annotations.NotNull;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class ShowDocumentFromAssetsAction extends ShowDocumentAction {
   public ShowDocumentFromAssetsAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {

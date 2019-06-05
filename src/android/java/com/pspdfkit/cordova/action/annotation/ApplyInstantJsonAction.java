@@ -1,9 +1,10 @@
-package com.pspdfkit.cordova.action;
+package com.pspdfkit.cordova.action.annotation;
 
 import androidx.annotation.NonNull;
 
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
+import com.pspdfkit.cordova.action.BasicAction;
 import com.pspdfkit.cordova.provider.DocumentJsonDataProvider;
 import com.pspdfkit.document.PdfDocument;
 import com.pspdfkit.document.formatters.DocumentJsonFormatter;
