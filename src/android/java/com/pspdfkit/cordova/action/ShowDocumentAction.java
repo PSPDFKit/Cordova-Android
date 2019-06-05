@@ -33,6 +33,8 @@ import org.json.JSONObject;
 import java.util.EnumSet;
 import java.util.Iterator;
 
+import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
+
 public class ShowDocumentAction extends BasicAction {
   private static final int ARG_DOCUMENT_URI = 0;
   private static final int ARG_OPTIONS = 1;
@@ -55,15 +57,6 @@ public class ShowDocumentAction extends BasicAction {
       }
     }
     return features;
-  }
-
-  /**
-   * Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>.
-   */
-  @Nullable
-  private static String convertJsonNullToJavaNull(@Nullable String value) {
-    if (value == null || value.equals("null")) return null;
-    return value;
   }
 
   @NonNull

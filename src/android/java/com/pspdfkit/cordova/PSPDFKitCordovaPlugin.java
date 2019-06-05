@@ -68,10 +68,10 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
             new ShowDocumentFromAssetsAction("showDocumentFromAssets", this),
             new DismissAction("dismiss", this),
             new SaveDocumentAction("saveDocument", this),
-                new AddAnnotationAction("addAnnotation", this),
-                new AddAnnotationsAction("addAnnotations", this),
-                new GetAnnotationsAction("getAnnotations", this),
-                new GetAllUnsavedAnnotationsAction("getAllUnsavedAnnotations", this));
+            new AddAnnotationAction("addAnnotation", this),
+            new AddAnnotationsAction("addAnnotations", this),
+            new GetAnnotationsAction("getAnnotations", this),
+            new GetAllUnsavedAnnotationsAction("getAllUnsavedAnnotations", this));
   }
 
   private void initializePSPDFKit(CordovaInterface cordova) {
