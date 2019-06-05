@@ -1,8 +1,10 @@
 package com.pspdfkit.cordova.action;
 
-import com.pspdfkit.annotations.AnnotationProvider;
+import androidx.annotation.NonNull;
+
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
+import com.pspdfkit.cordova.provider.DocumentJsonDataProvider;
 import com.pspdfkit.document.PdfDocument;
 import com.pspdfkit.document.formatters.DocumentJsonFormatter;
 import com.pspdfkit.document.providers.DataProvider;
@@ -14,8 +16,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import androidx.annotation.NonNull;
-
 public class AddAnnotationsAction extends BasicAction {
 
   private static final int ARG_ANNOTATIONS_JSON = 0;
@@ -24,8 +24,9 @@ public class AddAnnotationsAction extends BasicAction {
     super(name, plugin);
   }
 
-  @Override protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException, IOException {
-    String annotationJson = args.getJSONObject(ARG_ANNOTATIONS_JSON).toString();
+  @Override
+  protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException, IOException {
+    JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
     PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
     if (document != null) {
 //      AnnotationProvider annotationProvider = document.getAnnotationProvider();
@@ -33,8 +34,8 @@ public class AddAnnotationsAction extends BasicAction {
 //          annotationProvider.createAnnotationFromInstantJson(annotationJson)
 //      );
 
-//      final DataProvider dataProvider = new (json);
-//      DocumentJsonFormatter.importDocumentJson(fragment.getDocument(), dataProvider);
+      final DataProvider dataProvider = new DocumentJsonDataProvider(annotationsJson);
+      DocumentJsonFormatter.importDocumentJson(document, dataProvider);
       callbackContext.success();
     }
   }
