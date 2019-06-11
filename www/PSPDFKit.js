@@ -74,9 +74,9 @@ exports.removeEventListener = function(eventType, f) {
 };
 
 /**
- * Adds a new annotation to the current document.
+ * Adds a new annotation to the current document using the Instant JSON Annotation payload - https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
  *
- * @param annotation InstantJson of the annotation to add.
+ * @param annotation Instant JSON of the annotation to add.
  * @param success   Success callback function.
  * @param error     Error callback function.
  */
