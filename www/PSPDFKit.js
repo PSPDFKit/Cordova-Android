@@ -85,7 +85,7 @@ exports.addAnnotation = function(annotation, success, error) {
 };
 
 /**
- * Applies the passed in document instant json.
+ * Applies the passed in document Instant JSON.
  *
  * @param annotations The document instant json to apply.
  * @param success   Success callback function.
