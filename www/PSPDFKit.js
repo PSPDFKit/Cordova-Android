@@ -87,7 +87,7 @@ exports.addAnnotation = function(annotation, success, error) {
 /**
  * Applies the passed in document Instant JSON.
  *
- * @param annotations The document instant json to apply.
+ * @param annotations The document Instant JSON to apply.
  * @param success   Success callback function.
  * @param error     Error callback function.
  */
@@ -101,7 +101,7 @@ exports.applyInstantJson = function(annotations, success, error) {
  * Gets all annotations of the given type from the page.
  *
  * @param pageIndex The page to get the annotations for.
- * @param type The type of annotations to get (See here for types https://pspdfkit.com/guides/server/current/api/json-format/) or null to get all annotations.
+ * @param type The type of annotations to get (See here for types https://pspdfkit.com/guides/server/current/api/json-format/) or `null` to get all annotations.
  * @param success   Success callback function.
  * @param error     Error callback function.
  */

@@ -23,7 +23,7 @@ public final class Utilities {
   }
 
   /**
-   * Ensures that Javascript "null" strings are correctly converted to javas <code>null</code>.
+   * Ensures that JavaScript "null" strings are correctly converted to Java's {@code null}.
    */
   @Nullable
   public static String convertJsonNullToJavaNull(@Nullable String value) {
