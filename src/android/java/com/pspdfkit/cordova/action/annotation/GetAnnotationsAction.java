@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
 
 /**
- * Retrieves all annotations of the given type from the given page.
+ * Asynchronously retrieves all annotations of the given type from the given page.
  */
 public class GetAnnotationsAction extends BasicAction {
 
