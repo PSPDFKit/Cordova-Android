@@ -257,6 +257,9 @@ Below is a screenshot of how the project structure should look like if it's a wo
         └── index.js   (only for Cordova)
 ```
 
+## Usage
+Documentation on currently available API is provided in [PSPDFKit.js](https://github.com/PSPDFKit/Cordova-Android/blob/master/www/PSPDFKit.js).
+
 ## Troubleshooting
 
 ### PdfActivity missing in AndroidManifest.xml
