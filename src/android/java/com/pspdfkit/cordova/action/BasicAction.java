@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import static com.pspdfkit.cordova.Utilities.checkArgumentNotNull;
 import static com.pspdfkit.cordova.Utilities.propagate;
 
+/**
+ * Represents a simple abstract action which can be executed by {@link PSPDFKitCordovaPlugin}.
+ */
 public abstract class BasicAction implements Action {
   @NonNull private final String name;
   @NonNull private final PSPDFKitCordovaPlugin plugin;

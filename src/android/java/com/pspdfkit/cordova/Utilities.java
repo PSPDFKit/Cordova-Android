@@ -3,7 +3,17 @@ package com.pspdfkit.cordova;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * Contains commonly used utility/helper methods.
+ */
 public final class Utilities {
+  /**
+   * Checks that given value isn't null. Will produce `IllegalArgumentException` in case if value is null.
+   *
+   * @param value         to check for null
+   * @param parameterName the name of parameter for which value is checked for. Will be used to
+   *                      construct `IllegalArgumentException` message.
+   */
   public static void checkArgumentNotNull(Object value, @NonNull String parameterName) {
     if (value == null) {
       throw new IllegalArgumentException(
@@ -11,15 +21,15 @@ public final class Utilities {
     }
   }
 
-  public static void checkAtLeast(final int min, final int value, @NonNull final String message) {
-    if (value < min) {
-      throw new IllegalArgumentException(message);
-    }
-  }
-
-  public static RuntimeException propagate(Exception ex) {
-    if (ex instanceof RuntimeException) return ((RuntimeException) ex);
-    return new RuntimeException(ex);
+  /**
+   * Wraps given exception into an instance of `RuntimeException` for it to be properly propagated.
+   *
+   * @param exception exception which supposed to be propagated.
+   * @return given exception wrapped into `RuntimeException`.
+   */
+  public static RuntimeException propagate(Exception exception) {
+    if (exception instanceof RuntimeException) return ((RuntimeException) exception);
+    return new RuntimeException(exception);
   }
 
   /**
