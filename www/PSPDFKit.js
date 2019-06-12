@@ -7,15 +7,126 @@
  *   This notice may not be removed from this file.
  */
 
-var exec = require('cordova/exec');
+var exec = require("cordova/exec");
+var channel = require("cordova/channel");
+
+var channels = {
+  onDocumentSaved: channel.create("onDocumentSaved"),
+  onDocumentSaveFailed: channel.create("onDocumentSaveFailed"),
+  onDocumentDismissed: channel.create("onDocumentDismissed")
+};
+
+function numberOfHandlers() {
+  return (
+    channels.onDocumentSaved.numHandlers +
+    channels.onDocumentSaveFailed.numHandlers +
+    channels.onDocumentDismissed.numHandlers
+  );
+}
+
+function onEventSubscribersChanged() {
+  console.log("event subscribers changed");
+  // If we just registered the first handler, make sure native listener is started.
+  if (this.numHandlers === 1 && numberOfHandlers() === 1) {
+    console.log("connecting event channel");
+    exec(
+      function(info) {
+        console.log("Received event", info);
+        channels[info.eventType].fire(info.data);
+      },
+      function() {
+        console.log("Error while receiving event.");
+      },
+      "PSPDFKitCordovaPlugin",
+      "startEventDispatching",
+      []
+    );
+  } else if (numberOfHandlers() === 0) {
+    console.log("disconnecting event channel");
+    exec(null, null, "PSPDFKitCordovaPlugin", "stopEventDispatching", []);
+  }
+}
+
+for (var key in channels) {
+  console.log("subscriber listener for " + key);
+  channels[key].onHasSubscribersChange = onEventSubscribersChanged;
+}
 
 /**
  * Retrieves a named property from the given target object while removing the property from the object.
  */
 function getPropertyAndUnset(target, name) {
-    var value = target.hasOwnProperty(name) ? target[name] : null;
-    delete target[name];
-    return value;
+  var value = target.hasOwnProperty(name) ? target[name] : null;
+  delete target[name];
+  return value;
+}
+
+/**
+ * Subscribes listener for given event type.
+ */
+exports.addEventListener = function(eventType, f) {
+  if (eventType in channels) {
+    channels[eventType].subscribe(f);
+  }
+};
+
+/**
+ * Unsubscribes listener for given event type.
+ */
+exports.removeEventListener = function(eventType, f) {
+  if (eventType in channels) {
+    channels[eventType].unsubscribe(f);
+  }
+};
+
+/**
+ * Adds a new annotation to the current document using the Instant JSON Annotation 
+ * payload - https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
+ *
+ * @param annotation Instant JSON of the annotation to add.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.addAnnotation = function(annotation, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "addAnnotation", [annotation]);
+};
+
+/**
+ * Applies the passed in document Instant JSON.
+ *
+ * @param annotations The document Instant JSON to apply.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.applyInstantJson = function(annotations, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "applyInstantJson", [
+    annotations
+  ]);
+};
+
+/**
+ * Gets all annotations of the given type from the page.
+ *
+ * @param pageIndex The page to get the annotations for.
+ * @param type The type of annotations to get (See here for types https://pspdfkit.com/guides/server/current/api/json-format/) or `null` to get all annotations.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.getAnnotations = function(pageIndex, type, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "getAnnotations", [
+    pageIndex,
+    type
+  ]);
+};
+
+/**
+ * Gets all unsaved changes to annotations.
+ *
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.getAllUnsavedAnnotations = function(success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "getAllUnsavedAnnotations", []);
 };
 
 /**
@@ -26,26 +137,56 @@ function getPropertyAndUnset(target, name) {
  * @param success Success callback function.
  * @param error   Error callback function.
  */
-exports.showDocument = function (uri, options, success, error) {
-    options = options || {};
-    var password = getPropertyAndUnset(options, "password");
-    exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [uri, options, password]);
+exports.showDocument = function(uri, options, success, error) {
+  options = options || {};
+  var password = getPropertyAndUnset(options, "password");
+  exec(success, error, "PSPDFKitCordovaPlugin", "showDocument", [
+    uri,
+    options,
+    password
+  ]);
 };
 
 /**
- * Opens the PSPDFActivity to show a document from the app's assets folder. This
- * method copies the file to the internal app directory on the device before showing
- * it.
+ * Opens the PSPDFActivity to show a document from the app's assets folder. This method copies the 
+ * file to the internal app directory on the device before showing it.
  *
  * @param assetFile Relative path within the app's assets folder.
  * @param options   PSPDFKit configuration options.
  * @param success   Success callback function.
  * @param error     Error callback function.
  */
-exports.showDocumentFromAssets = function (assetFile, options, success, error) {
-    options = options || {};
-    var password = getPropertyAndUnset(options, "password");
-    exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [assetFile, options, password]);
+exports.showDocumentFromAssets = function(assetFile, options, success, error) {
+  options = options || {};
+  var password = getPropertyAndUnset(options, "password");
+  exec(success, error, "PSPDFKitCordovaPlugin", "showDocumentFromAssets", [
+    assetFile,
+    options,
+    password
+  ]);
+};
+
+/**
+ * Dismisses any previously launched PDF activity. Calls the optional callback function after all 
+ * activities have been dismissed.
+ *
+ * @param callback Success callback function.
+ */
+exports.dismiss = function(callback) {
+  exec(callback, null, "PSPDFKitCordovaPlugin", "dismiss");
+};
+
+/**
+ * Saves the document to original location if it has been changed. If there were no changes to the
+ * document, the document file will not be modified.
+ * Provides "wasModified" as a part of a successful response which will be equal to {@code true} if
+ * the file was modified and changes were saved. {@code false} if there was nothing to save.
+ *
+ * @param success Success callback function.
+ * @param error Error callback function
+ */
+exports.saveDocument = function(success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "saveDocument");
 };
 
 /**
@@ -127,9 +268,8 @@ exports.ThumbnailBarMode = {
 };
 
 /**
- * Constant values used for setting the 'shareFeatures' option. These 
- * settings control the visibility of share actions inside the user
- * interface.
+ * Constant values used for setting the 'shareFeatures' option. These settings control the visibility 
+ * of share actions inside the user interface.
  */
 exports.ShareFeatures = {
   /** Document sharing inside the activity. */
