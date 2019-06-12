@@ -61,12 +61,18 @@ function getPropertyAndUnset(target, name) {
   return value;
 }
 
+/**
+ * Subscribes listener for given event type.
+ */
 exports.addEventListener = function(eventType, f) {
   if (eventType in channels) {
     channels[eventType].subscribe(f);
   }
 };
 
+/**
+ * Unsubscribes listener for given event type.
+ */
 exports.removeEventListener = function(eventType, f) {
   if (eventType in channels) {
     channels[eventType].unsubscribe(f);
@@ -74,7 +80,8 @@ exports.removeEventListener = function(eventType, f) {
 };
 
 /**
- * Adds a new annotation to the current document using the Instant JSON Annotation payload - https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
+ * Adds a new annotation to the current document using the Instant JSON Annotation 
+ * payload - https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
  *
  * @param annotation Instant JSON of the annotation to add.
  * @param success   Success callback function.
@@ -141,9 +148,8 @@ exports.showDocument = function(uri, options, success, error) {
 };
 
 /**
- * Opens the PSPDFActivity to show a document from the app's assets folder. This
- * method copies the file to the internal app directory on the device before showing
- * it.
+ * Opens the PSPDFActivity to show a document from the app's assets folder. This method copies the 
+ * file to the internal app directory on the device before showing it.
  *
  * @param assetFile Relative path within the app's assets folder.
  * @param options   PSPDFKit configuration options.
@@ -161,8 +167,8 @@ exports.showDocumentFromAssets = function(assetFile, options, success, error) {
 };
 
 /**
- * Dismisses any previously launched PDF activity. Calls the optional callback function
- * after all activities have been dismissed.
+ * Dismisses any previously launched PDF activity. Calls the optional callback function after all 
+ * activities have been dismissed.
  *
  * @param callback Success callback function.
  */
@@ -171,11 +177,13 @@ exports.dismiss = function(callback) {
 };
 
 /**
- * Saves the currently open PDF document. `success` is a callback function taking one parameter `wasModified` which is a boolean indicating
- * after all activities have been dismissed.
+ * Saves the document to original location if it has been changed. If there were no changes to the
+ * document, the document file will not be modified.
+ * Provides "wasModified" as a part of a successful response which will be equal to {@code true} if
+ * the file was modified and changes were saved. {@code false} if there was nothing to save.
  *
- * @param callback Success callback function.
- * @param callback Success callback function.
+ * @param success Success callback function.
+ * @param error Error callback function
  */
 exports.saveDocument = function(success, error) {
   exec(success, error, "PSPDFKitCordovaPlugin", "saveDocument");
@@ -260,9 +268,8 @@ exports.ThumbnailBarMode = {
 };
 
 /**
- * Constant values used for setting the 'shareFeatures' option. These
- * settings control the visibility of share actions inside the user
- * interface.
+ * Constant values used for setting the 'shareFeatures' option. These settings control the visibility 
+ * of share actions inside the user interface.
  */
 exports.ShareFeatures = {
   /** Document sharing inside the activity. */
