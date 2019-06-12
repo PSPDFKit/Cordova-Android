@@ -27,7 +27,7 @@ public class AddAnnotationAction extends BasicAction {
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     String annotationJson = args.getJSONObject(ARG_ANNOTATION_JSON).toString();
-    PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+    final PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
     if (document != null) {
       AnnotationProvider annotationProvider = document.getAnnotationProvider();
       annotationProvider.addAnnotationToPage(

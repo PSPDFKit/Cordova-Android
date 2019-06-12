@@ -35,7 +35,7 @@ public class ApplyInstantJsonAction extends BasicAction {
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
-    PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+    final PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
 
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
