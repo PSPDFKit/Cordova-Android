@@ -1,7 +1,5 @@
 package com.pspdfkit.cordova.action.annotation;
 
-import android.annotation.SuppressLint;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -24,6 +22,9 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
 
+/**
+ * Retrieves all annotations of the given type from the given page.
+ */
 public class GetAnnotationsAction extends BasicAction {
 
   private static final int ARG_PAGE_INDEX = 0;

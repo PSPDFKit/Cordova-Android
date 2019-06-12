@@ -19,6 +19,9 @@ import java.io.ByteArrayOutputStream;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Retrieves all unsaved changes to annotations.
+ */
 public class GetAllUnsavedAnnotationsAction extends BasicAction {
 
   public GetAllUnsavedAnnotationsAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {

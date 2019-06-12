@@ -36,6 +36,9 @@ import java.util.Iterator;
 
 import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
 
+/**
+ * Opens the PSPDFActivity to show a document from the local device file system.
+ */
 public class ShowDocumentAction extends BasicAction {
   private static final int ARG_DOCUMENT_URI = 0;
   private static final int ARG_OPTIONS = 1;

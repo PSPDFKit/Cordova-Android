@@ -13,6 +13,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * Saves the document to original location if it has been changed. If there were no changes to the
+ * document, the document file will not be modified.
+ * Provides "wasModified" as a part of a successful response which will be equal to {@code true} if
+ * the file was modified and changes were saved. {@code false} if there was nothing to save.
+ */
 public class SaveDocumentAction extends BasicAction {
   public SaveDocumentAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
     super(name, plugin);

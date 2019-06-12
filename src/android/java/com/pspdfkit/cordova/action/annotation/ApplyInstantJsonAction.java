@@ -21,6 +21,9 @@ import java.io.IOException;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Asynchronously imports a document JSON and applies its changes to the document.
+ */
 public class ApplyInstantJsonAction extends BasicAction {
 
   private static final int ARG_ANNOTATIONS_JSON = 0;

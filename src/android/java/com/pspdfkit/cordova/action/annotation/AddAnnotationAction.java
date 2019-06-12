@@ -12,6 +12,10 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+/**
+ * Adds a new annotation to the current document using the Instant JSON Annotation payload:
+ * https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
+ */
 public class AddAnnotationAction extends BasicAction {
 
   private static final int ARG_ANNOTATION_JSON = 0;
