@@ -15,8 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Adds a new annotation to the current document using the Instant JSON Annotation payload:
- * https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
+ * Removes a given annotation from the current document. The annotation should be in the Instant
+ * JSON format: https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
  */
 public class RemoveAnnotationAction extends BasicAction {
 
