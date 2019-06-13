@@ -2,7 +2,6 @@ package com.pspdfkit.cordova.action.annotation;
 
 import androidx.annotation.NonNull;
 
-import com.pspdfkit.annotations.Annotation;
 import com.pspdfkit.annotations.AnnotationProvider;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
@@ -11,8 +10,15 @@ import com.pspdfkit.document.PdfDocument;
 import com.pspdfkit.ui.PdfFragment;
 
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.pspdfkit.cordova.Utilities.getTypeFromString;
 
 /**
  * Removes a given annotation from the current document. The annotation should be in the Instant
@@ -28,21 +34,38 @@ public class RemoveAnnotationAction extends BasicAction {
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
-    String annotationJson = args.getJSONObject(ARG_ANNOTATION_JSON).toString();
+    JSONObject jsonObject = args.getJSONObject(ARG_ANNOTATION_JSON);
+    // We can't create an annotation from the Instant JSON since that will attach it to the document,
+    // so we manually grab the necessary values.
+    int pageIndex = jsonObject.getInt("pageIndex");
+    String name = jsonObject.getString("name");
+    String type = jsonObject.getString("type");
+
     CordovaPdfActivity pdfActivity = CordovaPdfActivity.getCurrentActivity();
+
+    // Capture the given callback and make sure it is retained in JavaScript too.
+    final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
+    result.setKeepCallback(true);
+    callbackContext.sendPluginResult(result);
 
     final PdfDocument document = pdfActivity.getDocument();
     if (document != null) {
       AnnotationProvider annotationProvider = document.getAnnotationProvider();
-      Annotation annotationFromInstantJson = annotationProvider.createAnnotationFromInstantJson(annotationJson);
-      annotationProvider.removeAnnotationFromPage(annotationFromInstantJson);
+      annotationProvider.getAllAnnotationsOfType(getTypeFromString(type), pageIndex, 1)
+          .filter(annotationToFilter -> name.equals(annotationToFilter.getName()))
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnError(e -> callbackContext.error(e.getMessage()))
+          .subscribe(annotation -> {
+            annotationProvider.removeAnnotationFromPage(annotation);
 
-      PdfFragment pdfFragment = pdfActivity.getPdfFragment();
-      if(pdfFragment != null){
-        pdfFragment.notifyAnnotationHasChanged(annotationFromInstantJson);
-      }
+            PdfFragment pdfFragment = pdfActivity.getPdfFragment();
+            if (pdfFragment != null) {
+              pdfFragment.notifyAnnotationHasChanged(annotation);
+            }
 
-      callbackContext.success();
+            callbackContext.success();
+          });
     } else {
       callbackContext.error("No document is set");
     }
