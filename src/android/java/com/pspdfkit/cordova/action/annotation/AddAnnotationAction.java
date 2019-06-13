@@ -33,8 +33,8 @@ public class AddAnnotationAction extends BasicAction {
 
     final PdfDocument document = pdfActivity.getDocument();
     if (document != null) {
-      AnnotationProvider annotationProvider = document.getAnnotationProvider();
-      Annotation annotationFromInstantJson = annotationProvider.createAnnotationFromInstantJson(annotationJson);
+      Annotation annotationFromInstantJson = document.getAnnotationProvider()
+          .createAnnotationFromInstantJson(annotationJson);
 
       PdfFragment pdfFragment = pdfActivity.getPdfFragment();
       if(pdfFragment != null){

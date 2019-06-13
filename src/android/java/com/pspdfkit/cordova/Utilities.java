@@ -45,6 +45,11 @@ public final class Utilities {
     return value;
   }
 
+  /**
+   * Converts given string for annotation type into a corresponding {@link EnumSet<AnnotationType>}
+   * @param type string for annotation type to convert
+   * @return corresponding {@link EnumSet<AnnotationType>}
+   */
   public static EnumSet<AnnotationType> getTypeFromString(@Nullable String type) {
     if (type == null) {
       return EnumSet.allOf(AnnotationType.class);
