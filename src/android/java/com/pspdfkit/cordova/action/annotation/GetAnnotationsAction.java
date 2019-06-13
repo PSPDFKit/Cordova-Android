@@ -1,10 +1,8 @@
 package com.pspdfkit.cordova.action.annotation;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.pspdfkit.annotations.Annotation;
-import com.pspdfkit.annotations.AnnotationType;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.action.BasicAction;
@@ -15,13 +13,11 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.EnumSet;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.pspdfkit.cordova.Utilities.convertJsonNullToJavaNull;
-import static com.pspdfkit.cordova.Utilities.getTypeFromString;
+import static com.pspdfkit.cordova.Utilities.getAnnotationTypeFromString;
 
 /**
  * Asynchronously retrieves all annotations of the given type from the given page.
@@ -46,7 +42,7 @@ public class GetAnnotationsAction extends BasicAction {
 
     if (document != null) {
       document.getAnnotationProvider().getAllAnnotationsOfType(
-          getTypeFromString(convertJsonNullToJavaNull(args.getString(ARG_ANNOTATION_TYPE))),
+          getAnnotationTypeFromString(convertJsonNullToJavaNull(args.getString(ARG_ANNOTATION_TYPE))),
           args.getInt(ARG_PAGE_INDEX),
           1)
           .map(Annotation::toInstantJson)
