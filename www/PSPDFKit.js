@@ -190,6 +190,26 @@ exports.saveDocument = function(success, error) {
 };
 
 /**
+ * Imports all annotations from the specified XFDF file to the current document.
+ *
+ * @param success Success callback function.
+ * @param error Error callback function
+ */
+exports.importXfdf = function(xfdfFile, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "importXfdf");
+};
+
+/**
+ * Exports all annotations from the current document to the specified XFDF file path.
+ *
+ * @param success Success callback function.
+ * @param error Error callback function
+ */
+exports.exportXfdf = function(xfdfFile, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "exportXfdf");
+};
+
+/**
  * Constant values used for setting the `scrollMode` option.
  */
 exports.ScrollMode = {
