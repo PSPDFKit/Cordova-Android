@@ -197,7 +197,7 @@ exports.saveDocument = function(success, error) {
  * @param error Error callback function
  */
 exports.importXfdf = function(xfdfFile, success, error) {
-  exec(success, error, "PSPDFKitCordovaPlugin", "importXfdf");
+  exec(success, error, "PSPDFKitCordovaPlugin", "importXfdf", [xfdfFile]);
 };
 
 /**
@@ -208,7 +208,7 @@ exports.importXfdf = function(xfdfFile, success, error) {
  * @param error Error callback function
  */
 exports.exportXfdf = function(xfdfFile, success, error) {
-  exec(success, error, "PSPDFKitCordovaPlugin", "exportXfdf");
+  exec(success, error, "PSPDFKitCordovaPlugin", "exportXfdf", [xfdfFile]);
 };
 
 /**
