@@ -84,7 +84,6 @@ public class CordovaPdfActivity extends PdfActivity {
     }
 
     public void disposeSubscriptions(){
-        Log.d("WTF", "subscription is disposed");
         compositeDisposable.dispose();
     }
 
