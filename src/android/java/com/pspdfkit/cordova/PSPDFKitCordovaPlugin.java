@@ -23,6 +23,8 @@ import com.pspdfkit.cordova.action.annotation.GetAnnotationsAction;
 import com.pspdfkit.cordova.action.document.SaveDocumentAction;
 import com.pspdfkit.cordova.action.document.ShowDocumentFromAssetsAction;
 import com.pspdfkit.cordova.action.document.ShowDocumentAction;
+import com.pspdfkit.cordova.action.xfdf.ExportXfdfAction;
+import com.pspdfkit.cordova.action.xfdf.ImportXfdfAction;
 import com.pspdfkit.cordova.event.EventDispatcher;
 
 import org.apache.cordova.CallbackContext;
@@ -71,7 +73,10 @@ public class PSPDFKitCordovaPlugin extends CordovaPlugin {
             new AddAnnotationAction("addAnnotation", this),
             new ApplyInstantJsonAction("applyInstantJson", this),
             new GetAnnotationsAction("getAnnotations", this),
-            new GetAllUnsavedAnnotationsAction("getAllUnsavedAnnotations", this));
+            new GetAllUnsavedAnnotationsAction("getAllUnsavedAnnotations", this),
+            new ImportXfdfAction("importXfdf", this),
+            new ExportXfdfAction("exportXfdf", this)
+        );
   }
 
   private void initializePSPDFKit(CordovaInterface cordova) {

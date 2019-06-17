@@ -16,8 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -35,7 +33,8 @@ public class ApplyInstantJsonAction extends BasicAction {
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
-    final PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+    CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
+    final PdfDocument document = cordovaPdfActivity.getDocument();
 
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -44,11 +43,13 @@ public class ApplyInstantJsonAction extends BasicAction {
 
     if (document != null) {
       final DataProvider dataProvider = new DocumentJsonDataProvider(annotationsJson);
-      DocumentJsonFormatter.importDocumentJsonAsync(document, dataProvider)
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnError(e -> callbackContext.error(e.getMessage()))
-          .subscribe(() -> callbackContext.success());
+      cordovaPdfActivity.addSubscription(
+          DocumentJsonFormatter.importDocumentJsonAsync(document, dataProvider)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnError(e -> callbackContext.error(e.getMessage()))
+              .subscribe(() -> callbackContext.success())
+      );
     } else {
       callbackContext.error("No document is set");
     }

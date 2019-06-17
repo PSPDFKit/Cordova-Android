@@ -1,6 +1,7 @@
 package com.pspdfkit.cordova;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.pspdfkit.cordova.event.EventDispatcher;
 import com.pspdfkit.document.PdfDocument;
@@ -16,6 +17,9 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 import static com.pspdfkit.cordova.Utilities.checkArgumentNotNull;
 
 public class CordovaPdfActivity extends PdfActivity {
@@ -25,6 +29,7 @@ public class CordovaPdfActivity extends PdfActivity {
      * activity.
      */
     private static CordovaPdfActivity currentActivity;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @NonNull
     private final DocumentListener listener =
@@ -74,10 +79,25 @@ public class CordovaPdfActivity extends PdfActivity {
         currentActivity = null;
     }
 
+    public void addSubscription(Disposable disposable){
+        compositeDisposable.add(disposable);
+    }
+
+    public void disposeSubscriptions(){
+        Log.d("WTF", "subscription is disposed");
+        compositeDisposable.dispose();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindActivity(this);
+    }
+
+    @Override
+    protected void onStop() {
+        disposeSubscriptions();
+        super.onStop();
     }
 
     @Override

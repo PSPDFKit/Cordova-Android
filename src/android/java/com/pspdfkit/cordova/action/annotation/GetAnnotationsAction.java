@@ -36,7 +36,8 @@ public class GetAnnotationsAction extends BasicAction {
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
-    final PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+    CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
+    final PdfDocument document = cordovaPdfActivity.getDocument();
 
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -44,19 +45,21 @@ public class GetAnnotationsAction extends BasicAction {
     callbackContext.sendPluginResult(result);
 
     if (document != null) {
-      document.getAnnotationProvider().getAllAnnotationsOfType(
-          getTypeFromString(convertJsonNullToJavaNull(args.getString(ARG_ANNOTATION_TYPE))),
-          args.getInt(ARG_PAGE_INDEX),
-          1)
-          .map(Annotation::toInstantJson)
-          .toList()
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnError(e -> callbackContext.error(e.getMessage()))
-          .subscribe(strings -> {
-            JSONArray response = new JSONArray(strings);
-            callbackContext.success(response);
-          });
+      cordovaPdfActivity.addSubscription(
+          document.getAnnotationProvider().getAllAnnotationsOfType(
+              getTypeFromString(convertJsonNullToJavaNull(args.getString(ARG_ANNOTATION_TYPE))),
+              args.getInt(ARG_PAGE_INDEX),
+              1)
+              .map(Annotation::toInstantJson)
+              .toList()
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnError(e -> callbackContext.error(e.getMessage()))
+              .subscribe(strings -> {
+                JSONArray response = new JSONArray(strings);
+                callbackContext.success(response);
+              })
+      );
     } else {
       callbackContext.error("No document is set");
     }
