@@ -191,7 +191,8 @@ exports.saveDocument = function(success, error) {
 
 /**
  * Imports all annotations from the specified XFDF file to the current document.
- *
+ * 
+ * @param xfdfFile XFDF file URI to import annotations to
  * @param success Success callback function.
  * @param error Error callback function
  */
@@ -201,7 +202,8 @@ exports.importXfdf = function(xfdfFile, success, error) {
 
 /**
  * Exports all annotations from the current document to the specified XFDF file path.
- *
+ * 
+ * @param xfdfFile XFDF file URI to export annotations from
  * @param success Success callback function.
  * @param error Error callback function
  */
