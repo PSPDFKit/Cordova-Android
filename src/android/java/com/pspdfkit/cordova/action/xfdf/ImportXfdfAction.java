@@ -48,6 +48,7 @@ public class ImportXfdfAction extends BasicAction {
     if (document != null) {
       cordovaPdfActivity.addSubscription(
           XfdfFormatter.parseXfdfAsync(document, new ContentResolverDataProvider(xfdfFileUri))
+              .subscribeOn(Schedulers.io())
               .map(annotations -> {
                 if (pdfFragment != null) {
                   // Annotations parsed from XFDF are not added to document automatically. We need to add them manually.
@@ -60,7 +61,6 @@ public class ImportXfdfAction extends BasicAction {
                   return false;
                 }
               })
-              .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .doOnError(e -> callbackContext.error(e.getMessage()))
               .subscribe(success -> {
