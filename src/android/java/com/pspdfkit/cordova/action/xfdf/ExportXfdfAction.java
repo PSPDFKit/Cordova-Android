@@ -26,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Asynchronously imports a document JSON and applies its changes to the document.
+ * Asynchronously exports annotations to XFDF-file from the current document.
  */
 public class ExportXfdfAction extends BasicAction {
 
@@ -58,13 +58,13 @@ public class ExportXfdfAction extends BasicAction {
 
         cordovaPdfActivity.addSubscription(document.getAnnotationProvider().getAllAnnotationsOfType(EnumSet.allOf(AnnotationType.class))
             .toList()
+            .observeOn(Schedulers.io())
             .flatMapCompletable(annotations -> XfdfFormatter.writeXfdfAsync(
                 document,
                 annotations,
                 Collections.<FormField>emptyList(),
                 outputStream
             )).doFinally(outputStream::close)
-            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(e -> callbackContext.error(e.getMessage()))
             .subscribe(callbackContext::success)

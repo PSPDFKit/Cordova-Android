@@ -50,9 +50,9 @@ public class GetAnnotationsAction extends BasicAction {
               getTypeFromString(convertJsonNullToJavaNull(args.getString(ARG_ANNOTATION_TYPE))),
               args.getInt(ARG_PAGE_INDEX),
               1)
+              .observeOn(Schedulers.io())
               .map(Annotation::toInstantJson)
               .toList()
-              .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .doOnError(e -> callbackContext.error(e.getMessage()))
               .subscribe(strings -> {

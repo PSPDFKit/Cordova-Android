@@ -1,7 +1,6 @@
 package com.pspdfkit.cordova.action.xfdf;
 
 import android.net.Uri;
-import android.os.Environment;
 
 import androidx.annotation.NonNull;
 
@@ -19,14 +18,11 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.File;
-import java.net.URI;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Asynchronously imports a document JSON and applies its changes to the document.
+ * Asynchronously imports annotations from XFDF-file to the current document.
  */
 public class ImportXfdfAction extends BasicAction {
 
@@ -52,21 +48,27 @@ public class ImportXfdfAction extends BasicAction {
     if (document != null) {
       cordovaPdfActivity.addSubscription(
           XfdfFormatter.parseXfdfAsync(document, new ContentResolverDataProvider(xfdfFileUri))
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .doOnError(e -> callbackContext.error(e.getMessage()))
-              .subscribe(annotations -> {
+              .map(annotations -> {
                 if (pdfFragment != null) {
                   // Annotations parsed from XFDF are not added to document automatically. We need to add them manually.
                   for (Annotation annotation : annotations) {
                     pdfFragment.addAnnotationToPage(annotation, false);
                   }
 
+                  return true;
+                } else {
+                  return false;
+                }
+              })
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnError(e -> callbackContext.error(e.getMessage()))
+              .subscribe(success -> {
+                if (success) {
                   callbackContext.success();
                 } else {
-                  callbackContext.error("PdfFragment is null");
+                  callbackContext.error("Failed to add annotations. No PdfFragment is set");
                 }
-
               })
       );
     } else {

@@ -48,7 +48,7 @@ public class ApplyInstantJsonAction extends BasicAction {
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .doOnError(e -> callbackContext.error(e.getMessage()))
-              .subscribe(() -> callbackContext.success())
+              .subscribe(callbackContext::success)
       );
     } else {
       callbackContext.error("No document is set");
