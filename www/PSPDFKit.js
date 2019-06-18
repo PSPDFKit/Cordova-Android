@@ -92,6 +92,18 @@ exports.addAnnotation = function(annotation, success, error) {
 };
 
 /**
+ * Removes a given annotation from the current document.  The annotaion is expected to be in Instant
+ * JSON format - https://pspdfkit.com/guides/ios/current/importing-exporting/instant-json/#instant-annotation-json-api
+ *
+ * @param annotation Instant JSON of the annotation to remove.
+ * @param success   Success callback function.
+ * @param error     Error callback function.
+ */
+exports.removeAnnotation = function(annotation, success, error) {
+  exec(success, error, "PSPDFKitCordovaPlugin", "removeAnnotation", [annotation]);
+};
+
+/**
  * Applies the passed in document Instant JSON.
  *
  * @param annotations The document Instant JSON to apply.

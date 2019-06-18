@@ -2,11 +2,13 @@ package com.pspdfkit.cordova.action.annotation;
 
 import androidx.annotation.NonNull;
 
+import com.pspdfkit.annotations.Annotation;
 import com.pspdfkit.annotations.AnnotationProvider;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.action.BasicAction;
 import com.pspdfkit.document.PdfDocument;
+import com.pspdfkit.ui.PdfFragment;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -27,13 +29,21 @@ public class AddAnnotationAction extends BasicAction {
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     String annotationJson = args.getJSONObject(ARG_ANNOTATION_JSON).toString();
-    final PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+    CordovaPdfActivity pdfActivity = CordovaPdfActivity.getCurrentActivity();
+
+    final PdfDocument document = pdfActivity.getDocument();
     if (document != null) {
-      AnnotationProvider annotationProvider = document.getAnnotationProvider();
-      annotationProvider.addAnnotationToPage(
-          annotationProvider.createAnnotationFromInstantJson(annotationJson)
-      );
+      Annotation annotationFromInstantJson = document.getAnnotationProvider()
+          .createAnnotationFromInstantJson(annotationJson);
+
+      PdfFragment pdfFragment = pdfActivity.getPdfFragment();
+      if(pdfFragment != null){
+        pdfFragment.notifyAnnotationHasChanged(annotationFromInstantJson);
+      }
+
       callbackContext.success();
+    } else {
+      callbackContext.error("No document is set");
     }
   }
 }
