@@ -1,19 +1,16 @@
 package com.pspdfkit.cordova.action.xfdf;
 
 import android.net.Uri;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.pspdfkit.annotations.Annotation;
+import com.pspdfkit.annotations.AnnotationType;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.action.BasicAction;
 import com.pspdfkit.document.PdfDocument;
 import com.pspdfkit.document.formatters.XfdfFormatter;
-import com.pspdfkit.document.providers.ContentResolverDataProvider;
 import com.pspdfkit.forms.FormField;
-import com.pspdfkit.ui.PdfFragment;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
@@ -23,9 +20,8 @@ import org.json.JSONException;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.util.Collections;
-import java.util.List;
+import java.util.EnumSet;
 
-import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -46,7 +42,6 @@ public class ExportXfdfAction extends BasicAction {
 
     final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
     final PdfDocument document = cordovaPdfActivity.getDocument();
-    final PdfFragment pdfFragment = cordovaPdfActivity.getPdfFragment();
 
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -54,53 +49,31 @@ public class ExportXfdfAction extends BasicAction {
     callbackContext.sendPluginResult(result);
 
     if (document != null) {
-      cordovaPdfActivity.addSubscription(
-          XfdfFormatter.parseXfdfAsync(document, new ContentResolverDataProvider(xfdfFileUri))
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .doOnError(e -> callbackContext.error(e.getMessage()))
-              .subscribe(annotations -> {
-                if (pdfFragment != null) {
-                  // Annotations parsed from XFDF are not added to document automatically. We need to add them manually.
-                  for (Annotation annotation : annotations) {
-                    pdfFragment.addAnnotationToPage(annotation, false);
-                  }
+      try {
+        final OutputStream outputStream = cordovaPdfActivity.getContentResolver().openOutputStream(xfdfFileUri);
+        if (outputStream == null) {
+          callbackContext.error("Failed to open output stream during XFDF export");
+          return;
+        }
 
-                  callbackContext.success();
-                } else {
-                  callbackContext.error("PdfFragment is null");
-                }
-
-              })
-      );
+        cordovaPdfActivity.addSubscription(document.getAnnotationProvider().getAllAnnotationsOfType(EnumSet.allOf(AnnotationType.class))
+            .toList()
+            .flatMapCompletable(annotations -> XfdfFormatter.writeXfdfAsync(
+                document,
+                annotations,
+                Collections.<FormField>emptyList(),
+                outputStream
+            )).doFinally(outputStream::close)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError(e -> callbackContext.error(e.getMessage()))
+            .subscribe(callbackContext::success)
+        );
+      } catch (FileNotFoundException exception) {
+        callbackContext.error(exception.getMessage());
+      }
     } else {
       callbackContext.error("No document is set");
-    }
-
-    //////////////////////
-    try {
-      final OutputStream outputStream = cordovaPdfActivity.getContentResolver().openOutputStream(xfdfFileUri);
-      if (outputStream == null) return;
-
-      List<Annotation> documentAnnotations = Collections.emptyList();
-      for (int i = 0, n = document.getPageCount(); i < n; i++) {
-        final List<Annotation> pageAnnotations = document.getAnnotationProvider().getAnnotations(i);
-        if (!pageAnnotations.isEmpty()) {
-          documentAnnotations.addAll(pageAnnotations);
-        }
-      }
-
-      Completable writeXfdfCompletable = XfdfFormatter.writeXfdfAsync(
-          document,
-          documentAnnotations,
-          Collections.<FormField>emptyList(),
-          outputStream
-      );
-      writeXfdfCompletable
-          .observeOn(AndroidSchedulers.mainThread())
-          .doFinally(outputStream::close)
-          .subscribe();
-    } catch (FileNotFoundException ignored) {
     }
   }
 }
