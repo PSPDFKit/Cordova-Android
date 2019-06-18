@@ -38,7 +38,7 @@ public class RemoveAnnotationAction extends BasicAction {
     // We can't create an annotation from the Instant JSON since that will attach it to the document,
     // so we manually grab the necessary values.
     int pageIndex = jsonObject.getInt("pageIndex");
-    String name = jsonObject.getString("name");
+    String name = jsonObject.optString("name");
     String type = jsonObject.getString("type");
 
     CordovaPdfActivity pdfActivity = CordovaPdfActivity.getCurrentActivity();
@@ -52,7 +52,7 @@ public class RemoveAnnotationAction extends BasicAction {
     if (document != null) {
       AnnotationProvider annotationProvider = document.getAnnotationProvider();
       annotationProvider.getAllAnnotationsOfType(getAnnotationTypeFromString(type), pageIndex, 1)
-          .filter(annotationToFilter -> name.equals(annotationToFilter.getName()))
+          .filter(annotationToFilter -> !name.isEmpty() && name.equals(annotationToFilter.getName()))
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .doOnError(e -> callbackContext.error(e.getMessage()))
