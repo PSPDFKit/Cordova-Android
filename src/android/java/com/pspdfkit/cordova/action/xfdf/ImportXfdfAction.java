@@ -1,38 +1,42 @@
-package com.pspdfkit.cordova.action.annotation;
+package com.pspdfkit.cordova.action.xfdf;
+
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import com.pspdfkit.annotations.Annotation;
+import com.pspdfkit.annotations.AnnotationProvider;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.action.BasicAction;
-import com.pspdfkit.cordova.provider.DocumentJsonDataProvider;
 import com.pspdfkit.document.PdfDocument;
-import com.pspdfkit.document.formatters.DocumentJsonFormatter;
-import com.pspdfkit.document.providers.DataProvider;
+import com.pspdfkit.document.formatters.XfdfFormatter;
+import com.pspdfkit.document.providers.ContentResolverDataProvider;
+import com.pspdfkit.ui.PdfFragment;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Asynchronously imports a document JSON and applies its changes to the document.
+ * Asynchronously imports annotations from XFDF-file to the current document.
  */
-public class ApplyInstantJsonAction extends BasicAction {
+public class ImportXfdfAction extends BasicAction {
 
-  private static final int ARG_ANNOTATIONS_JSON = 0;
+  private static final int ARG_XFDF_FILE_URI = 0;
 
-  public ApplyInstantJsonAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
+  public ImportXfdfAction(@NonNull String name, @NonNull PSPDFKitCordovaPlugin plugin) {
     super(name, plugin);
   }
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
-    JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
+    final Uri xfdfFileUri = Uri.parse(args.getString(ARG_XFDF_FILE_URI));
+
     final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
     final PdfDocument document = cordovaPdfActivity.getDocument();
 
@@ -42,13 +46,21 @@ public class ApplyInstantJsonAction extends BasicAction {
     callbackContext.sendPluginResult(result);
 
     if (document != null) {
-      final DataProvider dataProvider = new DocumentJsonDataProvider(annotationsJson);
       cordovaPdfActivity.addSubscription(
-          DocumentJsonFormatter.importDocumentJsonAsync(document, dataProvider)
+          XfdfFormatter.parseXfdfAsync(document, new ContentResolverDataProvider(xfdfFileUri))
               .subscribeOn(Schedulers.io())
+              .map(annotations -> {
+                // Annotations parsed from XFDF are not added to document automatically. We need to add them manually.
+                AnnotationProvider annotationProvider = document.getAnnotationProvider();
+                for (Annotation annotation : annotations) {
+                  annotationProvider.addAnnotationToPage(annotation);
+                }
+
+                return true;
+              })
               .observeOn(AndroidSchedulers.mainThread())
               .doOnError(e -> callbackContext.error(e.getMessage()))
-              .subscribe(callbackContext::success)
+              .subscribe(b -> callbackContext.success())
       );
     } else {
       callbackContext.error("No document is set");

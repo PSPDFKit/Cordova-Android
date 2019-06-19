@@ -51,9 +51,12 @@ public class RemoveAnnotationAction extends BasicAction {
     final PdfDocument document = pdfActivity.getDocument();
     if (document != null) {
       AnnotationProvider annotationProvider = document.getAnnotationProvider();
-      annotationProvider.getAllAnnotationsOfType(getAnnotationTypeFromString(type), pageIndex, 1)
+      pdfActivity.addSubscription(annotationProvider.getAllAnnotationsOfType(
+          getAnnotationTypeFromString(type),
+          pageIndex,
+          1)
+          .observeOn(Schedulers.io())
           .filter(annotationToFilter -> !name.isEmpty() && name.equals(annotationToFilter.getName()))
-          .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .doOnError(e -> callbackContext.error(e.getMessage()))
           .subscribe(annotation -> {
@@ -65,7 +68,8 @@ public class RemoveAnnotationAction extends BasicAction {
             }
 
             callbackContext.success();
-          });
+          })
+      );
     } else {
       callbackContext.error("No document is set");
     }

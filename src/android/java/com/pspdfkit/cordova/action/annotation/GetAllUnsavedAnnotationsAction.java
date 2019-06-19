@@ -30,7 +30,8 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) {
-    final PdfDocument document = CordovaPdfActivity.getCurrentActivity().getDocument();
+    final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
+    final PdfDocument document = cordovaPdfActivity.getDocument();
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
     result.setKeepCallback(true);
@@ -38,14 +39,15 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
 
     if (document != null) {
       final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-      DocumentJsonFormatter.exportDocumentJsonAsync(document, outputStream)
+      cordovaPdfActivity.addSubscription(DocumentJsonFormatter.exportDocumentJsonAsync(document, outputStream)
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .doOnError(e -> callbackContext.error(e.getMessage()))
           .subscribe(() -> {
             JSONObject response = new JSONObject(outputStream.toString());
             callbackContext.success(response);
-          });
+          })
+      );
     } else {
       callbackContext.error("No document is set");
     }
