@@ -5,6 +5,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import com.pspdfkit.annotations.Annotation;
+import com.pspdfkit.annotations.AnnotationProvider;
 import com.pspdfkit.cordova.CordovaPdfActivity;
 import com.pspdfkit.cordova.PSPDFKitCordovaPlugin;
 import com.pspdfkit.cordova.action.BasicAction;
@@ -38,7 +39,6 @@ public class ImportXfdfAction extends BasicAction {
 
     final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
     final PdfDocument document = cordovaPdfActivity.getDocument();
-    final PdfFragment pdfFragment = cordovaPdfActivity.getPdfFragment();
 
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -50,26 +50,17 @@ public class ImportXfdfAction extends BasicAction {
           XfdfFormatter.parseXfdfAsync(document, new ContentResolverDataProvider(xfdfFileUri))
               .subscribeOn(Schedulers.io())
               .map(annotations -> {
-                if (pdfFragment != null) {
-                  // Annotations parsed from XFDF are not added to document automatically. We need to add them manually.
-                  for (Annotation annotation : annotations) {
-                    pdfFragment.addAnnotationToPage(annotation, false);
-                  }
-
-                  return true;
-                } else {
-                  return false;
+                // Annotations parsed from XFDF are not added to document automatically. We need to add them manually.
+                AnnotationProvider annotationProvider = document.getAnnotationProvider();
+                for (Annotation annotation : annotations) {
+                  annotationProvider.addAnnotationToPage(annotation);
                 }
+
+                return true;
               })
               .observeOn(AndroidSchedulers.mainThread())
               .doOnError(e -> callbackContext.error(e.getMessage()))
-              .subscribe(success -> {
-                if (success) {
-                  callbackContext.success();
-                } else {
-                  callbackContext.error("Failed to add annotations. No PdfFragment is set");
-                }
-              })
+              .subscribe(b -> callbackContext.success())
       );
     } else {
       callbackContext.error("No document is set");

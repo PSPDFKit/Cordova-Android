@@ -30,7 +30,7 @@ public class GetAllUnsavedAnnotationsAction extends BasicAction {
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) {
-    CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
+    final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
     final PdfDocument document = cordovaPdfActivity.getDocument();
     // Capture the given callback and make sure it is retained in JavaScript too.
     final PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);

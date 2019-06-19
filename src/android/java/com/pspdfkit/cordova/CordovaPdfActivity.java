@@ -80,7 +80,7 @@ public class CordovaPdfActivity extends PdfActivity {
 
   /**
    * Adds given {@link Disposable} to disposable collection which will be automatically disposed as
-   * a part of activity lifecycle.
+   * a part of onStop except when it was called as a part of configuration change.
    *
    * @param disposable to add to the disposable collection.
    */
@@ -100,7 +100,9 @@ public class CordovaPdfActivity extends PdfActivity {
 
   @Override
   protected void onStop() {
-    disposeSubscriptions();
+    if(!isChangingConfigurations()){
+      disposeSubscriptions();
+    }
     super.onStop();
   }
 

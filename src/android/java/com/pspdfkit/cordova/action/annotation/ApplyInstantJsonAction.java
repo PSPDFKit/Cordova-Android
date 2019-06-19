@@ -33,7 +33,7 @@ public class ApplyInstantJsonAction extends BasicAction {
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
     JSONObject annotationsJson = args.getJSONObject(ARG_ANNOTATIONS_JSON);
-    CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
+    final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
     final PdfDocument document = cordovaPdfActivity.getDocument();
 
     // Capture the given callback and make sure it is retained in JavaScript too.

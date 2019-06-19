@@ -33,7 +33,7 @@ public class GetAnnotationsAction extends BasicAction {
 
   @Override
   protected void execAction(JSONArray args, CallbackContext callbackContext) throws JSONException {
-    CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
+    final CordovaPdfActivity cordovaPdfActivity = CordovaPdfActivity.getCurrentActivity();
     final PdfDocument document = cordovaPdfActivity.getDocument();
 
     // Capture the given callback and make sure it is retained in JavaScript too.
