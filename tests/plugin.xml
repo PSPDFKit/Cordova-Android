@@ -9,7 +9,7 @@
 -->
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="pspdfkit-cordova-android-tests"
-        version="5.3.0">
+        version="5.4.1">
     <name>PSPDFKit-Android Tests</name>
     <license>MIT</license>
 
