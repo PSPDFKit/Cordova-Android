@@ -262,6 +262,32 @@ Documentation on currently available API is provided in [PSPDFKit.js](https://gi
 
 ## Troubleshooting
 
+### Conflicts with Android Support Library/AndroidX 
+
+When running `cordova build` for a project with multiple plugins installed, it can happen that you see a build error like this:
+
+```
+* What went wrong:
+Execution failed for task ':app:transformClassesWithMultidexlistForDebug'.
+> com.android.build.api.transform.TransformException: Error while generating the main dex list.
+```
+
+The most common cause for this error is that your Cordova/Ionic project uses plugins that haven't yet migrated to AndroidX, but still use the old Android Support Library. Here's how to work around this issue:
+
+1. Install the [`cordova-plugin-androidx`](https://github.com/dpa99c/cordova-plugin-androidx) plugin, which will configure your project to use AndroidX.
+
+    ```
+    cordova plugin add cordova-plugin-androidx
+    ```
+    
+2. Install the [`cordova-plugin-androidx-adapter`](https://github.com/dpa99c/cordova-plugin-androidx-adapter) plugin, which will enable auto-migration of all outdated Cordova plugins, so that they also use AndroidX instead of the Support Library.
+
+    ```
+    cordova plugin add cordova-plugin-androidx-adapter
+    ```
+
+3. Run `cordova build`. This will process and update all third-party plugins to use AndroidX, and will then build your project.
+
 ### PdfActivity missing in AndroidManifest.xml
 
 In some cases, it might occur that Cordova fails adding the required `<activity/>` entry to your app's `AndroidManifest.xml`. If this is the case, you will see an error message like this when trying to show a PDF document:
