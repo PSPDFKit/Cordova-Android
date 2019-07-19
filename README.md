@@ -263,7 +263,7 @@ Documentation on currently available API is provided in [PSPDFKit.js](https://gi
 ## Troubleshooting
 
 ### Error Reporting
-To get a proper error reporting you need to register a global error listener which will print most of runtime errors into Logcat.
+To get proper error reporting for JavaScript exceptions, you need to register a global error listener which will print most runtime errors to Logcat.
 
 Put the following code snippet into `[your-project]/platforms⁩/android⁩/app⁩/src⁩/main⁩/assets⁩/⁨www⁩/js⁩/index.js`:
 
