@@ -6,6 +6,10 @@ PSPDFKit comes with open source wrappers for Cordova on both [iOS](https://pspdf
 
 This plugin defines a global `PSPDFKit` object, which provides an API for viewing PDF documents with PSPDFKit for Android.
 
+## Announcements
+
+- [How to Manipulate Annotations Programmatically in Cordova](https://pspdfkit.com/blog/2019/how-to-manipulate-annotations-programmatically-in-cordova/)
+
 ## Installation
 
 ### Installation in a Cordova app
