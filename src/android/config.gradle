@@ -41,14 +41,7 @@ if (pspdfkitLicense == null || pspdfkitLicense == '') {
         + " PSPDFKit, you can access it at https://customers.pspdfkit.com/.")
 }
 
-def pspdfkitIsDemo = localProperties.getProperty('pspdfkit.demo')
-if (pspdfkitIsDemo == null) {
-    pspdfkitIsDemo = pspdfkitPassword.startsWith('TRIAL-')
-} else {
-    pspdfkitIsDemo = Boolean.parseBoolean(pspdfkitIsDemo)
-}
-
-ext.pspdfkitMavenModuleName = pspdfkitIsDemo ? 'pspdfkit-demo' : 'pspdfkit'
+ext.pspdfkitMavenModuleName = 'pspdfkit'
 ext.pspdfkitVersion = localProperties.getProperty('pspdfkit.version')
 if (pspdfkitVersion == null || pspdfkitVersion == '') {
     ext.pspdfkitVersion = '5.5.1'
