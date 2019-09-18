@@ -1,6 +1,7 @@
 package com.pspdfkit.cordova;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.pspdfkit.cordova.event.EventDispatcher;
 import com.pspdfkit.document.PdfDocument;
@@ -21,6 +22,8 @@ import io.reactivex.disposables.Disposable;
 import static com.pspdfkit.cordova.Utilities.checkArgumentNotNull;
 
 public class CordovaPdfActivity extends PdfActivity {
+
+  public static final String LOG_TAG = "CordovaPdfActivity";
 
   /**
    * For communication with the JavaScript context, we keep a static reference to the current
@@ -45,7 +48,7 @@ public class CordovaPdfActivity extends PdfActivity {
         data.put("message", exception.getMessage());
         EventDispatcher.getInstance().sendEvent("onDocumentSaveFailed", data);
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.e(LOG_TAG, "Error while creating JSON payload for 'onDocumentSaveFailed' event.", e);
       }
     }
   };
